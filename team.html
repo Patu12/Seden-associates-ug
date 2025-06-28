@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - SEDEN ASSOCIATES</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Light gray background */
+            color: #334155; /* Dark slate gray text */
+        }
+        .container {
+            max-width: 1280px; /* Slightly wider container for more breathing room */
+            margin: 0 auto;
+            padding: 0 1.5rem; /* Increased padding */
+        }
+        .text-gradient {
+            background-image: linear-gradient(to right, #1d4ed8, #2563eb); /* Blue gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Keyframe for hero section text fade in and scale */
+        @keyframes heroFadeInScale {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .animate-hero-entrance {
+            animation: heroFadeInScale 1s ease-out forwards;
+        }
+        .animate-hero-entrance-delay-1 {
+            animation: heroFadeInScale 1s ease-out 0.3s forwards;
+        }
+
+        /* Styles for individual team member cards */
+        .team-member-card {
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition for animations */
+            opacity: 0; /* Initially hidden for scroll animation */
+            transform: translateY(40px); /* Initially moved down for scroll animation */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Subtle initial shadow */
+        }
+        .team-member-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .team-member-card:hover {
+            transform: translateY(-8px) scale(1.02); /* Slight lift and scale on hover */
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+        }
+
+        /* Keyframe for button pulse */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+        .animate-pulse-once {
+            animation: pulse 1.5s ease-out 0.5s 1; /* One time pulse after a delay */
+        }
+
+        /* Sticky header shadow on scroll */
+        .header-scrolled {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+         /* Adjusted logo styling */
+        .logo {
+            display: flex;
+            align-items: center; /* Vertically align image and text */
+            gap: 10px; /* Space between logo and text */
+        }
+        .logo img {
+            width: 80px; /* Adjust as needed, e.g., 50px */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="main-header" class="bg-white shadow-sm py-4 sticky top-0 z-50 transition-shadow duration-300">
+        <div class="container flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-extrabold text-gray-900" aria-label="SEDEN ASSOCIATES Home">
+               <div class="logo">
+                    <img src="images/logo 1.jpg" alt="SEDEN ASSOCIATES Logo">
+                    <div>
+                        <span class="text-blue-700">SEDEN</span> <span class="text-yellow-500">ASSOCIATES</span>
+                    </div>
+                </div>
+            </a>
+            <nav class="hidden md:flex space-x-8" aria-label="Main Navigation">
+                <a href="index.html" class="text-gray-700 hover:text-blue-600 transition duration-300 font-medium">Home</a>
+                <a href="services.html" class="text-gray-700 hover:text-blue-600 transition duration-300 font-medium">Services</a>
+                <a href="about.html" class="text-gray-700 hover:text-blue-600 transition duration-300 font-medium">About Us</a>
+                <a href="classes.html" class="text-gray-700 hover:text-blue-600 transition duration-300 font-medium">CPA Classes</a>
+                <a href="team.html" class="text-blue-600 font-semibold transition duration-300" aria-current="page">Our Team</a>
+                <a href="contact.html" class="text-gray-700 hover:text-blue-600 transition duration-300 font-medium">Contact</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none" aria-label="Open mobile menu">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white bg-opacity-95 z-50 flex flex-col items-center justify-center space-y-10" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+            <button id="close-menu-button" class="absolute top-6 right-6 text-gray-700 focus:outline-none" aria-label="Close mobile menu">
+                <svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <a href="index.html" class="text-gray-800 text-4xl font-semibold hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">Home</a>
+            <a href="services.html" class="text-gray-800 text-4xl font-semibold hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">Services</a>
+            <a href="about.html" class="text-gray-800 text-4xl font-semibold hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">About Us</a>
+            <a href="classes.html" class="text-gray-800 text-4xl font-semibold hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">CPA Classes</a>
+            <a href="team.html" class="text-blue-600 text-4xl font-semibold transition duration-300" onclick="toggleMobileMenu()" aria-current="page">Our Team</a>
+            <a href="contact.html" class="text-gray-800 text-4xl font-semibold hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="bg-blue-600 text-white py-16 md:py-24 rounded-b-3xl shadow-lg">
+            <div class="container text-center">
+                <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 animate-hero-entrance">
+                    Meet Our Expert Team
+                </h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto opacity-90 animate-hero-entrance-delay-1">
+                    Dedicated professionals committed to your financial success and peace of mind.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 bg-white">
+            <div class="container">
+                <h2 class="text-4xl font-bold text-gray-800 text-center mb-16">The Faces Behind SEDEN ASSOCIATES</h2>
+
+                <div id="team-members-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 justify-items-center">
+                    </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-gradient-to-br from-blue-700 to-blue-900 text-white text-center rounded-t-3xl shadow-lg">
+            <div class="container">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Partner with Our Experts?</h2>
+                <p class="text-lg mb-8 max-w-2xl mx-auto">Reach out today to discuss your accounting, tax, or CPA training needs. We're here to help you achieve your financial goals in Uganda.</p>
+                <a href="contact.html" class="inline-block bg-yellow-300 text-blue-800 hover:bg-yellow-400 px-10 py-4 rounded-full font-bold text-lg shadow-lg transition duration-300 transform hover:scale-105 animate-pulse-once" aria-label="Contact SEDEN ASSOCIATES for services">
+                    Contact Us Today
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-8">
+        <div class="container text-center text-sm">
+            <p>&copy; 2025 SEDEN ASSOCIATES. All rights reserved.</p>
+            <p class="mt-2">Proudly serving businesses and individuals in Uganda.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="#" class="hover:text-white hover:scale-110 transition duration-300" aria-label="SEDEN ASSOCIATES on LinkedIn">
+                    <i class="fab fa-linkedin-in fa-lg"></i>
+                </a>
+                <a href="#" class="hover:text-white hover:scale-110 transition duration-300" aria-label="SEDEN ASSOCIATES on Twitter">
+                    <i class="fab fa-twitter fa-lg"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-opacity duration-300 opacity-0 invisible z-40" aria-label="Back to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+    </button>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuButton = document.getElementById('close-menu-button');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden'); // Prevent scrolling when menu is open
+            // Set aria-expanded for accessibility
+            const isMenuOpen = !mobileMenu.classList.contains('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', isMenuOpen);
+            // Manage focus for accessibility
+            if (isMenuOpen) {
+                closeMenuButton.focus(); // Focus on close button when menu opens
+            } else {
+                mobileMenuButton.focus(); // Return focus to open button when menu closes
+            }
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        closeMenuButton.addEventListener('click', toggleMobileMenu);
+
+        // Close mobile menu if window is resized past 'md' breakpoint
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768 && !mobileMenu.classList.contains('hidden')) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Sticky header shadow on scroll
+        const mainHeader = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0) {
+                mainHeader.classList.add('header-scrolled');
+            } else {
+                mainHeader.classList.remove('header-scrolled');
+            }
+        });
+
+        // Define team members data
+        const teamMembers = [
+            {
+                name: "Ssebugwawo Denis, CPA",
+                title: "Managing Partner",
+                quote: "I am passionate about empowering businesses in Uganda to thrive through sound financial practices and clear, actionable insights.",
+                image:"images/CEO.PNG", // Placeholder image
+                linkedin: "#",
+                twitter: "#"
+            },
+            {
+                name: "Oyena Derrick, EA",
+                title: "Head of Tax Services",
+                quote: "My goal is to simplify Uganda's dynamic tax landscape for our clients, ensuring compliance while identifying strategic savings opportunities.",
+                image: "images/derrick.jpg", // Placeholder image
+                linkedin: "#",
+                twitter: "#"
+            },
+            {
+                name: "Arsha",
+                title: "Senior Accountant",
+                quote: "I am committed to providing meticulous and timely financial reporting that empowers our clients to make informed business decisions.",
+                image: "images/Arsha.jpg", // Placeholder image
+                linkedin: "#",
+                twitter: "#"
+            },
+            {
+                name: "David Mwesigye, ACCA",
+                title: "Audit Manager",
+                quote: "I ensure the highest standards of financial accuracy and compliance, providing robust audits that build confidence and mitigate risk.",
+                image: "images/new.jpg", // Placeholder image
+                linkedin: "#",
+                twitter: "#"
+            },
+            {
+                name: "Esther Nalubega, CPA",
+                title: "CPA Instructor",
+                quote: "I empower aspiring accountants with the knowledge and confidence to excel in their CPA exams and build successful careers.",
+                image: "images/acc.jpg", // Placeholder image
+                linkedin: "#",
+                twitter: "#"
+            }
+            // Add more team members here
+        ];
+
+        // Function to render team members dynamically
+        function renderTeamMembers() {
+            const gridContainer = document.getElementById('team-members-grid');
+            gridContainer.innerHTML = ''; // Clear existing content
+
+            teamMembers.forEach(member => {
+                const memberCard = document.createElement('div');
+                memberCard.classList.add('team-member-card', 'bg-blue-50', 'p-8', 'rounded-xl', 'shadow-lg', 'text-center', 'flex', 'flex-col', 'items-center');
+
+                memberCard.innerHTML = `
+                    <img src="${member.image}" alt="${member.name} - ${member.title}" class="w-36 h-36 rounded-full object-cover shadow-md mb-6 border-4 border-blue-200">
+                    <h3 class="text-2xl font-semibold text-blue-700 mb-2">${member.name}</h3>
+                    <p class="text-xl font-medium text-gray-800 mb-3">${member.title}</p>
+                    <p class="text-gray-700 leading-relaxed italic mb-4 flex-grow">
+                        "${member.quote}"
+                    </p>
+                    <div class="flex space-x-4 mt-auto"> <a href="${member.linkedin}" class="text-gray-500 hover:text-blue-600 transition duration-300" aria-label="LinkedIn profile of ${member.name}">
+                            <i class="fab fa-linkedin-in fa-lg"></i>
+                        </a>
+                        <a href="${member.twitter}" class="text-gray-500 hover:text-blue-600 transition duration-300" aria-label="Twitter profile of ${member.name}">
+                            <i class="fab fa-twitter fa-lg"></i>
+                        </a>
+                    </div>
+                `;
+                gridContainer.appendChild(memberCard);
+            });
+            // After rendering, observe the new cards for animation
+            observeTeamCards();
+        }
+
+        // Intersection Observer for team cards (staggered animation)
+        const teamCardObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Stagger the animation by delaying each subsequent card
+                    setTimeout(() => {
+                        entry.target.classList.add('is-visible');
+                    }, index * 150); // Adjust delay as needed (e.g., 150ms)
+                    observer.unobserve(entry.target); // Stop observing once animated
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }); // Slightly higher threshold and bottom margin
+
+        function observeTeamCards() {
+            document.querySelectorAll('.team-member-card').forEach(card => {
+                teamCardObserver.observe(card);
+            });
+        }
+
+        // Back to Top Button functionality
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) { // Show button after scrolling 400px
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Smooth scroll to the top
+            });
+        });
+
+        // Initial rendering of team members when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTeamMembers();
+        });
+    </script>
+</body>
+</html>
