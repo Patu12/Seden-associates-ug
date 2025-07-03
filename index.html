@@ -9,8 +9,18 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* Light gray background */
+            /* Original background-color: #f8fafc; */
             color: #334155; /* Dark slate gray text */
+
+            /* --- NEW BACKGROUND IMAGE ADDITIONS --- */
+            background-image: url('images/US.jpg'); /* Replace with your image URL */
+            background-size: cover; /* Cover the entire area */
+            background-repeat: no-repeat; /* Don't repeat the image */
+            background-attachment: fixed; /* Fixes background during scroll for parallax effect */
+            background-position: center center; /* Center the image */
+            background-color: #f8fafc; /* Fallback color + blends with the image */
+            background-blend-mode: multiply; /* Blends the image with the background-color */
+            /* --- END NEW BACKGROUND IMAGE ADDITIONS --- */
         }
         .container {
             max-width: 1200px;
@@ -91,7 +101,7 @@
     </header>
 
     <section id="home" class="relative bg-gradient-to-r from-blue-700 to-blue-500 text-white py-24 md:py-40 rounded-b-3xl shadow-lg overflow-hidden">
-        <div class="absolute inset-0 z-0 opacity-10" style="background-image: url('https://images.unsplash.com/photo-1517486801912-32b00028e3b5?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center;"></div>
+        <div class="absolute inset-0 z-0 opacity-10" style="background-image: url('images/US.jpg'); background-size: cover; background-position: center;"></div>
         <div class="container text-center relative z-10">
             <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 animate-fadeInScale">
                 Unlock Your <span class="text-yellow-300">Financial Potential</span> with SEDEN ASSOCIATES
@@ -117,7 +127,7 @@
                 <div class="bg-blue-50 p-8 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
                     <div class="text-blue-600 mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
                     </div>
                     <h3 class="text-2xl font-semibold text-gray-800 mb-3">Accounting & Bookkeeping</h3>
@@ -125,14 +135,14 @@
                     <a href="services.html#accounting" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
                         Learn More
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                         </svg>
                     </a>
                 </div>
                 <div class="bg-blue-50 p-8 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
                     <div class="text-blue-600 mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0zm-4 4a2 2 0 100 4h4a2 2 0 100-4h-4z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0zm-4 4a2 2 0 100 4h4a2 2 0 100-4h-4z" />
                         </svg>
                     </div>
                     <h3 class="text-2xl font-semibold text-gray-800 mb-3">Tax Planning & Compliance</h3>
@@ -140,14 +150,14 @@
                     <a href="services.html#tax" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
                         Learn More
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                         </svg>
                     </a>
                 </div>
                 <div class="bg-blue-50 p-8 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
                     <div class="text-blue-600 mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253m9 0c1.168-.776 2.754-1.253 4.5-1.253 1.746 0 3.332.477 4.5 1.253m-4.5 0v13m-9-13v13" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253m9 0c1.168-.776 2.754-1.253 4.5-1.253 1.746 0 3.332.477 4.5 1.253m-4.5 0v13m-9-13v13" />
                         </svg>
                     </div>
                     <h3 class="text-2xl font-semibold text-gray-800 mb-3">CPA & Financial Education</h3>
@@ -155,7 +165,7 @@
                     <a href="classes.html" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
                         Learn More
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                         </svg>
                     </a>
                 </div>
@@ -177,7 +187,7 @@
                 <div class="p-6 bg-white rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center">
                     <div class="text-blue-600 text-5xl mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.944 12c0 2.872 1.15 5.498 3.04 7.425M12 21c2.872 0 5.498-1.15 7.425-3.04M12 21c-2.872 0-5.498-1.15-7.425-3.04"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.944 12c0 2.872 1.15 5.498 3.04 7.425M12 21c2.872 0 5.498-1.15 7.425-3.04M12 21c-2.872 0-5.498-1.15-7.425-3.04"></path>
                         </svg>
                     </div>
                     <h3 class="text-2xl font-semibold text-gray-800 mb-2">Local Expertise</h3>
@@ -186,8 +196,8 @@
                 <div class="p-6 bg-white rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center">
                     <div class="text-blue-600 text-5xl mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3-.895-3-2 1.343-2 3-2z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3-.895-3-2 1.343-2 3-2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2z"></path>
                         </svg>
                     </div>
                     <h3 class="text-2xl font-semibold text-gray-800 mb-2">Personalized Approach</h3>
@@ -196,7 +206,7 @@
                 <div class="p-6 bg-white rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center">
                     <div class="text-blue-600 text-5xl mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
                     </div>
                     <h3 class="text-2xl font-semibold text-gray-800 mb-2">Proven Results</h3>
