@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | SEDEN ASSOCIATES - Financial Excellence in Uganda</title>
+    <title>Our Team | SEDEN ASSOCIATES - Financial Excellence in Uganda</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -83,21 +83,17 @@
             box-shadow: 0 0 30px rgba(249, 115, 22, 0.6);
         }
         
-        /* Diagonal section */
-        .diagonal {
-            position: relative;
-            overflow: hidden;
+        /* Team card hover effect */
+        .team-card:hover .team-img {
+            transform: scale(1.05);
         }
-        .diagonal::after {
-            content: '';
-            position: absolute;
-            bottom: -50px;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: white;
-            transform: skewY(-3deg);
-            z-index: 1;
+        .team-social {
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .team-card:hover .team-social {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -128,17 +124,17 @@
                         Services
                         <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="about.html" class="text-primary-600 font-medium relative group">
+                    <a href="about.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
                         About
-                        <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600"></span>
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
                     </a>
                     <a href="classes.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
                         CPA Classes
                         <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="team.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
+                    <a href="team.html" class="text-primary-600 font-medium relative group">
                         Team
-                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600"></span>
                     </a>
                     <a href="contact.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
                         Contact
@@ -162,207 +158,250 @@
     <!-- Hero Section -->
     <section class="pt-32 pb-20 bg-gradient-to-r from-primary-700 to-secondary-600 text-white">
         <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" data-aos="fade-up">About SEDEN ASSOCIATES</h1>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" data-aos="fade-up">Meet Our Team</h1>
             <p class="text-xl md:text-2xl max-w-3xl mx-auto opacity-90" data-aos="fade-up" data-aos-delay="100">
-                Your trusted partner for comprehensive financial solutions in Uganda
+                The dedicated professionals behind SEDEN ASSOCIATES' financial excellence
             </p>
         </div>
     </section>
 
-    <!-- Our Story Section -->
+    <!-- Leadership Section -->
     <section class="py-20 bg-white">
         <div class="container mx-auto px-6">
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <div class="lg:w-1/2" data-aos="fade-right">
-                    <span class="text-primary-600 font-semibold">OUR STORY</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-6">Building Financial Excellence Since 2019</h2>
-                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
-                        Founded in Kampala, SEDEN ASSOCIATES began with a vision to revolutionize financial services in Uganda by combining global best practices with deep local market understanding. What started as a small accounting firm has grown into a comprehensive financial services provider serving businesses across multiple sectors.
-                    </p>
-                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
-                        Our journey has been marked by consistent growth, fueled by our commitment to excellence, integrity, and innovative solutions tailored to Uganda's dynamic business environment.
-                    </p>
-                    <div class="flex items-center space-x-4">
-                        <div class="text-4xl font-bold text-primary-600">15+</div>
-                        <div class="text-gray-600">Years of combined<br>experience</div>
-                    </div>
-                </div>
-                <div class="lg:w-1/2" data-aos="fade-left">
-                    <div class="relative rounded-2xl overflow-hidden shadow-xl">
-                        <img src="images/US.jpg" alt="SEDEN ASSOCIATES Office" class="w-full h-auto">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900/70 to-transparent flex items-end p-8">
-                            <div class="text-white">
-                                <h3 class="text-xl font-semibold">Our Kampala Headquarters</h3>
-                                <p>Where financial strategies come to life</p>
+            <div class="text-center mb-16">
+                <span class="text-primary-600 font-semibold">LEADERSHIP</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4">Our Executive Team</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">Experienced leaders guiding our firm's vision and strategy</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 team-card" data-aos="fade-up">
+                    <div class="relative overflow-hidden h-80">
+                        <img src="images/CEO.png" 
+                             alt="Mr.Dennis Ssebugwawo" 
+                             class="w-full h-full object-cover team-img transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900/60 via-transparent to-transparent flex items-end p-6">
+                            <div class="team-social transform translate-y-4">
+                                <div class="flex space-x-3">
+                                    <a href="#" class="bg-white text-primary-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-300">
+                                        <i class="fab fa-linkedin-in text-sm"></i>
+                                    </a>
+                                    <a href="#" class="bg-white text-primary-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-300">
+                                        <i class="fab fa-twitter text-sm"></i>
+                                    </a>
+                                    <a href="#" class="bg-white text-primary-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-300">
+                                        <i class="fas fa-envelope text-sm"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-dark-800">Mr.Dennis Ssebugwawo</h3>
+                        <p class="text-primary-600 font-medium mb-3">Managing Partner</p>
+                        <p class="text-gray-600 text-sm">CPA, ACCA, MBA with 18 years of experience in financial management and business strategy.</p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 team-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden h-80">
+                        <img src="Mr Patrick" 
+                             alt="Mr Patrick" 
+                             class="w-full h-full object-cover team-img transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900/60 via-transparent to-transparent flex items-end p-6">
+                            <div class="team-social transform translate-y-4">
+                                <div class="flex space-x-3">
+                                    <a href="#" class="bg-white text-primary-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-300">
+                                        <i class="fab fa-linkedin-in text-sm"></i>
+                                    </a>
+                                    <a href="#" class="bg-white text-primary-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-300">
+                                        <i class="fab fa-twitter text-sm"></i>
+                                    </a>
+                                    <a href="#" class="bg-white text-primary-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-300">
+                                        <i class="fas fa-envelope text-sm"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-dark-800">Mr Patrick</h3>
+                        <p class="text-primary-600 font-medium mb-3">Director of Tax Services</p>
+                        <p class="text-gray-600 text-sm">Tax expert with 15 years experience specializing in Ugandan and East African tax legislation.</p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 team-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden h-80">
+                        <img src="Kikonyogo" 
+                             alt="Kikonyogo" 
+                             class="w-full h-full object-cover team-img transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900/60 via-transparent to-transparent flex items-end p-6">
+                            <div class="team-social transform translate-y-4">
+                                <div class="flex space-x-3">
+                                    <a href="#" class="bg-white text-primary-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-300">
+                                        <i class="fab fa-linkedin-in text-sm"></i>
+                                    </a>
+                                    <a href="#" class="bg-white text-primary-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-300">
+                                        <i class="fab fa-twitter text-sm"></i>
+                                    </a>
+                                    <a href="#" class="bg-white text-primary-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-300">
+                                        <i class="fas fa-envelope text-sm"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-dark-800">Mr. Kikonyogo</h3>
+                        <p class="text-primary-600 font-medium mb-3">Head of Audit & Assurance</p>
+                        <p class="text-gray-600 text-sm">Certified auditor with extensive experience in both public and private sector audits.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Mission & Vision Section -->
+    <!-- Accounting Team Section -->
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <span class="text-primary-600 font-semibold">OUR CORE</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4">Mission & Vision</h2>
-                <p class="max-w-2xl mx-auto text-gray-600">Guiding principles that drive our operations and client relationships</p>
+                <span class="text-primary-600 font-semibold">ACCOUNTING TEAM</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4">Accounting Professionals</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">Our skilled accountants delivering precision and insight</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300" data-aos="fade-up">
-                    <div class="text-primary-600 text-4xl mb-4">
-                        <i class="fas fa-bullseye"></i>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Team Member 4 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300" data-aos="fade-up">
+                    <img src="images/acc.jpg" 
+                         alt="charity" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-dark-800">Ms Charity</h3>
+                        <p class="text-primary-600 text-sm font-medium mb-2">Senior Accountant</p>
+                        <p class="text-gray-600 text-xs">Specializes in corporate accounting and financial reporting.</p>
                     </div>
-                    <h3 class="text-2xl font-bold text-dark-800 mb-4">Our Mission</h3>
-                    <p class="text-gray-600">
-                        To empower Ugandan businesses and professionals with innovative financial solutions that drive sustainable growth, ensure compliance, and create long-term value through our expertise, integrity, and client-focused approach.
-                    </p>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-primary-600 text-4xl mb-4">
-                        <i class="fas fa-eye"></i>
+                
+                <!-- Team Member 5 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <img src="images/derrick.jpg" 
+                         alt="derrick" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-dark-800">Mr Oyena Derrick</h3>
+                        <p class="text-primary-600 text-sm font-medium mb-2">Tax Accountant</p>
+                        <p class="text-gray-600 text-xs">Expert in tax planning and compliance for SMEs.</p>
                     </div>
-                    <h3 class="text-2xl font-bold text-dark-800 mb-4">Our Vision</h3>
-                    <p class="text-gray-600">
-                        To be Uganda's premier financial services firm, recognized for transforming businesses through exceptional accounting, tax, and advisory services while developing the next generation of financial professionals through our CPA training programs.
-                    </p>
+                </div>
+                
+                <!-- Team Member 6 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <img src="images/Arsha.jpg" 
+                         alt="Arsha" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-dark-800">Arsha</h3>
+                        <p class="text-primary-600 text-sm font-medium mb-2">Management Accountant</p>
+                        <p class="text-gray-600 text-xs">Focuses on cost analysis and budgeting.</p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 7 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <img src="images/new.jpg" 
+                         alt="New" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-dark-800">New</h3>
+                        <p class="text-primary-600 text-sm font-medium mb-2">Payroll Specialist</p>
+                        <p class="text-gray-600 text-xs">Handles payroll processing and compliance.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Values Section -->
+    <!-- CPA Trainers Section -->
     <section class="py-20 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <span class="text-primary-600 font-semibold">OUR VALUES</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4">The Pillars of Our Practice</h2>
-                <p class="max-w-2xl mx-auto text-gray-600">Fundamental beliefs that shape every client interaction</p>
+                <span class="text-primary-600 font-semibold">EDUCATION TEAM</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4">CPA Course Instructors</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">Qualified professionals shaping Uganda's next generation of accountants</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Trainer 1 -->
                 <div class="bg-gray-50 p-8 rounded-xl" data-aos="fade-up">
-                    <div class="text-primary-600 text-3xl mb-4">
-                        <i class="fas fa-shield-alt"></i>
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1562788869-4ed32648eb72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+                             alt="Dr. Edward Mugisha" 
+                             class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md">
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-dark-800">Dr. Edward Mugisha</h3>
+                            <p class="text-primary-600">Financial Reporting</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-dark-800 mb-3">Integrity</h3>
-                    <p class="text-gray-600">
-                        We maintain the highest ethical standards, ensuring complete transparency and honesty in all our dealings. Client trust is our most valuable asset.
-                    </p>
+                    <p class="text-gray-600 mb-4">PhD in Accounting with 12 years of teaching experience. Former examiner for CPA Uganda.</p>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <i class="fas fa-award text-primary-600 mr-2"></i>
+                        <span>ACCA, PhD Accounting</span>
+                    </div>
                 </div>
+                
+                <!-- Trainer 2 -->
                 <div class="bg-gray-50 p-8 rounded-xl" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-primary-600 text-3xl mb-4">
-                        <i class="fas fa-lightbulb"></i>
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+                             alt="Patience Nalubega" 
+                             class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md">
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-dark-800">Patience Nalubega</h3>
+                            <p class="text-primary-600">Taxation</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-dark-800 mb-3">Innovation</h3>
-                    <p class="text-gray-600">
-                        We continuously adapt and innovate, leveraging the latest financial tools and methodologies to deliver cutting-edge solutions for our clients.
-                    </p>
+                    <p class="text-gray-600 mb-4">Former URA tax officer with practical insights into Ugandan tax administration and policy.</p>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <i class="fas fa-award text-primary-600 mr-2"></i>
+                        <span>CPA, MSc Taxation</span>
+                    </div>
                 </div>
+                
+                <!-- Trainer 3 -->
                 <div class="bg-gray-50 p-8 rounded-xl" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-primary-600 text-3xl mb-4">
-                        <i class="fas fa-graduation-cap"></i>
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" 
+                             alt="Sarah Nalwoga" 
+                             class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md">
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-dark-800">Sarah Nalwoga</h3>
+                            <p class="text-primary-600">Audit & Assurance</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-dark-800 mb-3">Expertise</h3>
-                    <p class="text-gray-600">
-                        Our team combines deep technical knowledge with practical experience to provide solutions that are both theoretically sound and pragmatically effective.
-                    </p>
-                </div>
-                <div class="bg-gray-50 p-8 rounded-xl" data-aos="fade-up">
-                    <div class="text-primary-600 text-3xl mb-4">
-                        <i class="fas fa-hands-helping"></i>
+                    <p class="text-gray-600 mb-4">Practical audit methodology combined with international standards and local requirements.</p>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <i class="fas fa-award text-primary-600 mr-2"></i>
+                        <span>CPA, CIA, CFE</span>
                     </div>
-                    <h3 class="text-xl font-bold text-dark-800 mb-3">Client Focus</h3>
-                    <p class="text-gray-600">
-                        We listen first, then act. Every solution is tailored to the unique needs and circumstances of each client, with long-term relationships as our goal.
-                    </p>
-                </div>
-                <div class="bg-gray-50 p-8 rounded-xl" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-primary-600 text-3xl mb-4">
-                        <i class="fas fa-globe-africa"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-dark-800 mb-3">Local Insight</h3>
-                    <p class="text-gray-600">
-                        Our deep understanding of Uganda's business environment, regulations, and cultural context enables us to provide relevant, actionable advice.
-                    </p>
-                </div>
-                <div class="bg-gray-50 p-8 rounded-xl" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-primary-600 text-3xl mb-4">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-dark-800 mb-3">Results-Driven</h3>
-                    <p class="text-gray-600">
-                        We measure our success by the tangible benefits our clients achieve - cost savings, improved efficiency, and sustainable financial growth.
-                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Choose Us Section -->
+    <!-- Join Our Team CTA -->
     <section class="py-20 bg-gradient-to-r from-primary-700 to-secondary-600 text-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="text-primary-200 font-semibold">DIFFERENTIATORS</span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Why Choose SEDEN ASSOCIATES?</h2>
-                <p class="max-w-2xl mx-auto text-primary-100">What sets us apart in Uganda's financial services landscape</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white/10 p-8 rounded-xl backdrop-blur-sm" data-aos="fade-up">
-                    <div class="text-4xl mb-4 text-secondary-300">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Seasoned Professionals</h3>
-                    <p>
-                        Our team comprises certified accountants, tax experts, and financial advisors with extensive experience in both local and international markets.
-                    </p>
-                </div>
-                <div class="bg-white/10 p-8 rounded-xl backdrop-blur-sm" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-4xl mb-4 text-secondary-300">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Comprehensive Solutions</h3>
-                    <p>
-                        From accounting to tax planning, audit to training - we offer end-to-end financial services under one roof, ensuring consistency and efficiency.
-                    </p>
-                </div>
-                <div class="bg-white/10 p-8 rounded-xl backdrop-blur-sm" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-4xl mb-4 text-secondary-300">
-                        <i class="fas fa-balance-scale"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Regulatory Mastery</h3>
-                    <p>
-                        We maintain up-to-the-minute knowledge of Uganda's financial regulations, ensuring full compliance while maximizing opportunities.
-                    </p>
-                </div>
-            </div>
-            
-            <div class="mt-16 text-center">
-                <a href="team.html" class="inline-block bg-white text-primary-600 hover:bg-gray-100 px-8 py-4 rounded-full text-lg font-semibold shadow-md transition duration-300 transform hover:scale-105">
-                    Meet Our Team
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-20 bg-white">
         <div class="container mx-auto px-6 text-center">
             <div class="max-w-3xl mx-auto" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mb-6">Ready to Experience the SEDEN Difference?</h2>
-                <p class="text-xl text-gray-600 mb-10">Discover how our expertise can transform your financial operations and position your business for sustainable success.</p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="contact.html" class="bg-gradient-to-r from-primary-600 to-secondary-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 glow">
-                        Contact Us Today
-                    </a>
-                    <a href="services.html" class="border-2 border-primary-600 text-primary-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-50 transition-all duration-300 transform hover:scale-105">
-                        Explore Services
-                    </a>
-                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Want to Join Our Team?</h2>
+                <p class="text-xl opacity-90 mb-10">We're always looking for talented financial professionals to join our growing team.</p>
+                <a href="contact.html" class="inline-block bg-white text-primary-600 hover:bg-gray-100 px-8 py-4 rounded-full text-lg font-semibold shadow-md transition duration-300 transform hover:scale-105">
+                    Explore Career Opportunities
+                </a>
             </div>
         </div>
     </section>
@@ -419,7 +458,7 @@
                         <li><a href="services.html#tax" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Tax Planning & Compliance</a></li>
                         <li><a href="services.html#audit" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Audit & Assurance</a></li>
                         <li><a href="services.html#advisory" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Business Advisory</a></li>
-                                                <li><a href="services.html#training" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Financial Training</a></li>
+                        <li><a href="services.html#training" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Financial Training</a></li>
                         <li><a href="services.html#payroll" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Payroll Management</a></li>
                     </ul>
                 </div>
@@ -429,7 +468,7 @@
                     <ul class="space-y-3 text-gray-400">
                         <li class="flex items-start space-x-3">
                             <i class="fas fa-map-marker-alt mt-1 text-primary-400"></i>
-                             <span>Kisakye Complex, 3rd Floor Office 305 & 307, Bugolobi Spring Road<br>Bugolobi, Kampala<br>Uganda</span>
+                              <span>Kisakye Complex, 3rd Floor Office 305 & 307, Bugolobi Spring Road<br>Bugolobi, Kampala<br>Uganda</span>
                         </li>
                         <li class="flex items-center space-x-3">
                             <i class="fas fa-phone-alt text-primary-400"></i>
@@ -483,23 +522,39 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Back to top button
-        const backToTopButton = document.getElementById('back-to-top');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.remove('hidden');
-            } else {
-                backToTopButton.classList.add('hidden');
-            }
+        <!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Initialize AOS animation library
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
+
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Back to top button
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.remove('hidden');
+        } else {
+            backToTopButton.classList.add('hidden');
+        }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
-        
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    </script>
-</body>
-</html>
+    });
+</script>
