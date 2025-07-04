@@ -3,276 +3,778 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEDEN ASSOCIATES - Your Partner for Financial Growth</title>
+    <title>SEDEN ASSOCIATES | Financial Excellence in Uganda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                            600: '#475569',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-reverse': 'float-reverse 8s ease-in-out infinite',
+                        'pulse-slow': 'pulse 6s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'float-reverse': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            /* Original background-color: #f8fafc; */
-            color: #334155; /* Dark slate gray text */
-
-            /* --- NEW BACKGROUND IMAGE ADDITIONS --- */
-            background-image: url('images/US.jpg'); /* Replace with your image URL */
-            background-size: cover; /* Cover the entire area */
-            background-repeat: no-repeat; /* Don't repeat the image */
-            background-attachment: fixed; /* Fixes background during scroll for parallax effect */
-            background-position: center center; /* Center the image */
-            background-color: #f8fafc; /* Fallback color + blends with the image */
-            background-blend-mode: multiply; /* Blends the image with the background-color */
-            /* --- END NEW BACKGROUND IMAGE ADDITIONS --- */
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
         }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #0ea5e9, #f97316);
+            border-radius: 10px;
+        }
+        
+        /* Gradient text */
         .text-gradient {
-            background-image: linear-gradient(to right, #1d4ed8, #2563eb); /* Blue gradient */
+            background: linear-gradient(90deg, #0ea5e9 0%, #f97316 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        /* Custom animation for hero text */
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        
+        /* Glow effect */
+        .glow {
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
         }
-        .animate-fadeInScale {
-            animation: fadeInScale 1s ease-out forwards;
+        .glow:hover {
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.6);
         }
-        /* Adjusted logo styling */
-        .logo {
-            display: flex;
-            align-items: center; /* Vertically align image and text */
-            gap: 10px; /* Space between logo and text */
+        
+        /* Blob shape */
+        .blob {
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
         }
-        .logo img {
-            width: 80px; /* Adjust as needed, e.g., 50px */
-            height: auto; /* Maintain aspect ratio */
+        
+        /* Diagonal section */
+        .diagonal {
+            position: relative;
+            overflow: hidden;
         }
-
+        .diagonal::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: white;
+            transform: skewY(-3deg);
+            z-index: 1;
+        }
+        
+        /* Floating animation */
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        /* Particle background */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+        }
+        
+        /* Custom shape divider */
+        .custom-shape-divider-bottom-1689338506 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+        .custom-shape-divider-bottom-1689338506 svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 150px;
+        }
+        .custom-shape-divider-bottom-1689338506 .shape-fill {
+            fill: #FFFFFF;
+        }
     </style>
 </head>
-<body class="antialiased">
-
-    <header class="bg-white shadow-sm py-4 fixed w-full z-50">
-        <div class="container flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-gray-800">
-                <div class="logo">
-                    <img src="images/logo 1.jpg" alt="SEDEN ASSOCIATES Logo">
-                    <div>
-                        <span class="text-blue-700">SEDEN</span> <span class="text-yellow-500">ASSOCIATES</span>
-                    </div>
-                </div>
-            </a>
-            <nav class="hidden md:flex space-x-6">
-                <a href="index.html" class="text-gray-600 hover:text-blue-600 transition duration-300">Home</a>
-                <a href="services.html" class="text-gray-600 hover:text-blue-600 transition duration-300">Services</a>
-                <a href="about.html" class="text-gray-600 hover:text-blue-600 transition duration-300">About Us</a>
-                <a href="classes.html" class="text-gray-600 hover:text-blue-600 transition duration-300">CPA Classes</a>
-                <a href="team.html" class="text-gray-600 hover:text-blue-600 transition duration-300">Our team</a>
-                <a href="contact.html" class="text-gray-600 hover:text-blue-600 transition duration-300">Contact</a>
-            </nav>
-            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
+<body class="font-sans antialiased text-dark-700 bg-gray-50 overflow-x-hidden">
+    <!-- Animated background particles -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Navigation -->
+    <header class="fixed w-full z-50 transition-all duration-500" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+              <!-- Logo -->
+<a href="index.html" class="flex items-center space-x-4"> <!-- Increased space-x from 2 to 4 for better spacing -->
+    <!-- Your logo image - now larger -->
+    <img src="images/logo 1.jpg" alt="Seden Associates Logo" class="w-16 h-16 object-contain"> <!-- Increased size -->
+    
+    <span class="text-2xl font-bold">
+        <span class="text-primary-600">SEDEN</span>
+        <span class="text-secondary-500">ASSOCIATES</span>
+    </span>
+</a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="index.html" class="text-primary-600 font-medium relative group">
+                        Home
+                        <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600"></span>
+                    </a>
+                    <a href="services.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
+                        Services
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="about.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
+                        About
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="classes.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
+                        CPA Classes
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="team.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
+                        Team
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="contact.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
+                        Contact
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="contact.html" class="bg-gradient-to-r from-primary-600 to-secondary-500 text-white px-6 py-2 rounded-full font-medium hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        Free Consultation
+                    </a>
+                </nav>
+                
+                <!-- Mobile menu button -->
+                <button class="lg:hidden focus:outline-none" id="mobile-menu-button">
+                    <svg class="w-8 h-8 text-dark-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white bg-opacity-95 z-50 flex flex-col items-center justify-center space-y-8">
-            <button id="close-menu-button" class="absolute top-4 right-4 text-gray-600 focus:outline-none">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        
+        <!-- Mobile Navigation -->
+        <div class="lg:hidden fixed inset-0 bg-white z-40 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-300" id="mobile-menu">
+            <button class="absolute top-6 right-6 focus:outline-none" id="close-menu-button">
+                <svg class="w-8 h-8 text-dark-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
-            <a href="index.html" class="text-gray-800 text-3xl font-medium hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">Home</a>
-            <a href="services.html" class="text-gray-800 text-3xl font-medium hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">Services</a>
-            <a href="about.html" class="text-gray-800 text-3xl font-medium hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">About Us</a>
-            <a href="classes.html" class="text-gray-800 text-3xl font-medium hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">CPA Classes</a>
-              <a href="team.html" class="text-gray-800 text-3xl font-medium hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">Our team</a>
-            <a href="contact.html" class="text-gray-800 text-3xl font-medium hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">Contact</a>
+            
+            <nav class="flex flex-col items-center space-y-8">
+                <a href="index.html" class="text-2xl font-medium text-primary-600">Home</a>
+                <a href="services.html" class="text-2xl font-medium text-dark-800 hover:text-primary-600 transition-colors duration-300">Services</a>
+                <a href="about.html" class="text-2xl font-medium text-dark-800 hover:text-primary-600 transition-colors duration-300">About</a>
+                <a href="classes.html" class="text-2xl font-medium text-dark-800 hover:text-primary-600 transition-colors duration-300">CPA Classes</a>
+                <a href="team.html" class="text-2xl font-medium text-dark-800 hover:text-primary-600 transition-colors duration-300">Team</a>
+                <a href="contact.html" class="text-2xl font-medium text-dark-800 hover:text-primary-600 transition-colors duration-300">Contact</a>
+                <a href="contact.html" class="bg-gradient-to-r from-primary-600 to-secondary-500 text-white px-8 py-3 rounded-full font-medium text-xl mt-4 hover:shadow-lg transition-all duration-300">
+                    Free Consultation
+                </a>
+            </nav>
         </div>
     </header>
 
-    <section id="home" class="relative bg-gradient-to-r from-blue-700 to-blue-500 text-white py-24 md:py-40 rounded-b-3xl shadow-lg overflow-hidden">
-        <div class="absolute inset-0 z-0 opacity-10" style="background-image: url('images/US.jpg'); background-size: cover; background-position: center;"></div>
-        <div class="container text-center relative z-10">
-            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 animate-fadeInScale">
-                Unlock Your <span class="text-yellow-300">Financial Potential</span> with SEDEN ASSOCIATES
-            </h1>
-            <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 opacity-90 animate-fadeInScale" style="animation-delay: 0.2s;">
-                Empowering businesses and individuals in Uganda with expert accounting, strategic tax solutions, and premier CPA education.
-            </p>
-            <div class="space-x-4 animate-fadeInScale" style="animation-delay: 0.4s;">
-                <a href="#services" class="bg-white text-blue-700 hover:bg-blue-100 px-8 py-4 rounded-full text-lg font-semibold shadow-xl transition transform hover:scale-105 duration-300">
-                    Explore Our Services
-                </a>
-                <a href="contact.html" class="border-2 border-white text-white hover:bg-white hover:text-blue-700 px-8 py-4 rounded-full text-lg font-semibold shadow-xl transition transform hover:scale-105 duration-300">
-                    Get a Free Consultation
-                </a>
+<!-- Hero Section -->
+<section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <!-- Video loading placeholder (optional) -->
+    <div id="video-placeholder" class="absolute inset-0 bg-gray-900 flex items-center justify-center z-0">
+        <div class="text-center text-white">
+            <div class="spinner-border animate-spin inline-block w-12 h-12 border-4 rounded-full mb-4"></div>
+            <p>Loading video...</p>
+        </div>
+    </div>
+    
+    <!-- Background video with enhanced visibility -->
+    <video id="hero-video" autoplay muted loop playsinline class="absolute z-0 w-auto min-w-full min-h-full max-w-none object-cover brightness-110 contrast-110">
+        <source src="vid.mp4" type="video/mp4">
+        <!-- Fallback image if video doesn't load -->
+        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Financial Services Background" class="absolute w-full h-full object-cover">
+    </video>
+    
+    <!-- Lighter overlay for better video visibility -->
+    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/60 to-secondary-500/60 z-10"></div>
+    
+    <!-- Subtle vignette effect to keep text readable -->
+    <div class="absolute inset-0 bg-radial-gradient z-10" style="background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);"></div>
+    
+    <!-- Content -->
+    <div class="container mx-auto px-6 relative z-20 text-center" data-aos="fade-up" data-aos-duration="1000">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+            <span class="text-gradient">Financial Excellence</span><br>
+            For Uganda's Future
+        </h1>
+        <p class="text-xl md:text-2xl text-white opacity-90 max-w-3xl mx-auto mb-10">
+            Empowering businesses and professionals with cutting-edge accounting, tax solutions, and financial education.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="services.html" class="bg-white text-primary-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg glow">
+                Explore Services
+            </a>
+            <a href="contact.html" class="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-primary-600 transition-all duration-300 transform hover:scale-105 shadow-lg glow">
+                Get Started
+            </a>
+        </div>
+    </div>
+    
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+        <a href="#about" class="text-white">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </a>
+    </div>
+    
+    <!-- Shape divider -->
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-20">
+            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="fill-white"></path>
+            <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="fill-white"></path>
+            <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="fill-white"></path>
+        </svg>
+    </div>
+</section>
+
+<script>
+    // Ensure video autoplays and is visible
+    document.addEventListener('DOMContentLoaded', function() {
+        const video = document.getElementById('hero-video');
+        const placeholder = document.getElementById('video-placeholder');
+        
+        // Force video to play (some browsers require this)
+        video.play().then(() => {
+            // Video is playing, hide placeholder
+            placeholder.style.display = 'none';
+        }).catch(error => {
+            // If autoplay fails, show play button or keep placeholder
+            console.log('Autoplay prevented:', error);
+            placeholder.innerHTML = '<button class="bg-white text-primary-600 px-6 py-3 rounded-full">Play Video</button>';
+            
+            // Add click handler to start video
+            placeholder.querySelector('button').addEventListener('click', function() {
+                video.play();
+                placeholder.style.display = 'none';
+            });
+        });
+        
+        // Additional video visibility enhancements
+        video.style.filter = 'brightness(1.1) contrast(1.1) saturate(1.1)';
+    });
+</script>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-5xl font-bold text-primary-600 mb-4">15+</div>
+                    <h3 class="text-xl font-semibold text-dark-800 mb-2">Years of Experience</h3>
+                    <p class="text-gray-600">Serving Ugandan businesses with financial expertise</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-5xl font-bold text-primary-600 mb-4">200+</div>
+                    <h3 class="text-xl font-semibold text-dark-800 mb-2">Satisfied Clients</h3>
+                    <p class="text-gray-600">Businesses and individuals trusting our services</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-5xl font-bold text-primary-600 mb-4">98%</div>
+                    <h3 class="text-xl font-semibold text-dark-800 mb-2">Success Rate</h3>
+                    <p class="text-gray-600">In achieving client financial objectives</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="services-overview" class="py-16 md:py-24 bg-white">
-        <div class="container text-center">
-            <h2 class="text-4xl font-bold text-gray-800 mb-12">Our Core Services</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="bg-blue-50 p-8 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    <div class="text-blue-600 mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </svg>
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2" data-aos="fade-right">
+                    <span class="text-primary-600 font-semibold">ABOUT US</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-6">Your Trusted Financial Partner in Uganda</h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        Founded in 2019, SEDEN ASSOCIATES has grown to become one of Uganda's leading financial services firms, combining global expertise with deep local knowledge. We provide comprehensive accounting, tax, and advisory services tailored to Uganda's dynamic business environment.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                        Our mission is to empower businesses and professionals with innovative financial solutions that drive sustainable growth and create long-term value.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="about.html" class="bg-primary-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-primary-700 transition duration-300 shadow-md">
+                            Learn More About Us
+                        </a>
+                        <a href="contact.html" class="border border-primary-600 text-primary-600 px-8 py-3 rounded-full font-semibold hover:bg-primary-50 transition duration-300">
+                            Contact Our Team
+                        </a>
                     </div>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Accounting & Bookkeeping</h3>
-                    <p class="text-gray-700 mb-4">Accurate financial records are the backbone of any successful business. We handle your bookkeeping, financial statements, and reporting, ensuring clarity and compliance.</p>
-                    <a href="services.html#accounting" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
-                        Learn More
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
                 </div>
-                <div class="bg-blue-50 p-8 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    <div class="text-blue-600 mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0zm-4 4a2 2 0 100 4h4a2 2 0 100-4h-4z" />
-                        </svg>
+                <div class="lg:w-1/2" data-aos="fade-left">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="SEDEN ASSOCIATES Team" class="rounded-2xl shadow-xl w-full">
+                        <div class="absolute -bottom-6 -right-6 bg-primary-600 p-6 rounded-xl shadow-lg text-white" data-aos="fade-up" data-aos-delay="300">
+                            <div class="text-3xl font-bold">15+</div>
+                            <div>Years Experience</div>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Tax Planning & Compliance</h3>
-                    <p class="text-gray-700 mb-4">Navigate the complexities of Ugandan tax laws with ease. We offer expert tax preparation, planning, and advisory services to minimize your liabilities and ensure compliance.</p>
-                    <a href="services.html#tax" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
-                        Learn More
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                </div>
-                <div class="bg-blue-50 p-8 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    <div class="text-blue-600 mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253m9 0c1.168-.776 2.754-1.253 4.5-1.253 1.746 0 3.332.477 4.5 1.253m-4.5 0v13m-9-13v13" />
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">CPA & Financial Education</h3>
-                    <p class="text-gray-700 mb-4">Invest in your career with our specialized CPA classes and financial training programs, designed to equip you with the knowledge and skills for professional success.</p>
-                    <a href="classes.html" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
-                        Learn More
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
                 </div>
             </div>
-            <div class="mt-12">
-                <a href="services.html" class="inline-block bg-blue-600 text-white hover:bg-blue-700 px-8 py-4 rounded-full text-lg font-semibold shadow-md transition duration-300">
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-primary-600 font-semibold">OUR SERVICES</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4">Comprehensive Financial Solutions</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">Tailored services to meet all your accounting, tax, and financial education needs</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-48 bg-gradient-to-r from-primary-500 to-primary-700 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm5 5a.5.5 0 11-1 0 .5.5 0 011 0z" />
+                        </svg>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-dark-800 mb-3">Accounting & Bookkeeping</h3>
+                        <p class="text-gray-600 mb-6">Accurate financial records are the backbone of any successful business. We handle your bookkeeping, financial statements, and reporting.</p>
+                        <a href="services.html#accounting" class="text-primary-600 font-medium hover:text-primary-800 transition-colors duration-300 inline-flex items-center">
+                            Learn More
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-48 bg-gradient-to-r from-secondary-500 to-secondary-700 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm5 5a.5.5 0 11-1 0 .5.5 0 011 0z" />
+                        </svg>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-dark-800 mb-3">Tax Planning & Compliance</h3>
+                        <p class="text-gray-600 mb-6">Navigate the complexities of Ugandan tax laws with ease. We offer expert tax preparation, planning, and advisory services.</p>
+                        <a href="services.html#tax" class="text-secondary-600 font-medium hover:text-secondary-800 transition-colors duration-300 inline-flex items-center">
+                            Learn More
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-48 bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253m9 0c1.168-.776 2.754-1.253 4.5-1.253 1.746 0 3.332.477 4.5 1.253m-4.5 0v13m-9-13v13" />
+                        </svg>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-dark-800 mb-3">CPA Education & Training</h3>
+                        <p class="text-gray-600 mb-6">Invest in your career with our specialized CPA classes and financial training programs designed for professional success.</p>
+                        <a href="classes.html" class="text-primary-600 font-medium hover:text-primary-800 transition-colors duration-300 inline-flex items-center">
+                            Learn More
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="services.html" class="inline-block bg-primary-600 text-white hover:bg-primary-700 px-8 py-4 rounded-full text-lg font-semibold shadow-md transition duration-300 transform hover:scale-105">
                     View All Services
                 </a>
             </div>
         </div>
     </section>
 
-    ---
-
-    <section class="py-16 md:py-24 bg-blue-50">
-        <div class="container text-center">
-            <h2 class="text-4xl font-bold text-gray-800 mb-12">Why Clients Choose SEDEN ASSOCIATES</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-6 bg-white rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center">
-                    <div class="text-blue-600 text-5xl mb-4">
+    <!-- Why Choose Us Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-primary-600 font-semibold">WHY CHOOSE US</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4">What Sets SEDEN ASSOCIATES Apart</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">We go beyond traditional accounting to deliver exceptional value</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-primary-600 text-5xl mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.944 12c0 2.872 1.15 5.498 3.04 7.425M12 21c2.872 0 5.498-1.15 7.425-3.04M12 21c-2.872 0-5.498-1.15-7.425-3.04"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.944 12c0 2.872 1.15 5.498 3.04 7.425M12 21c2.872 0 5.498-1.15 7.425-3.04M12 21c-2.872 0-5.498-1.15-7.425-3.04"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Local Expertise</h3>
+                    <h3 class="text-xl font-semibold text-dark-800 mb-2">Local Expertise</h3>
                     <p class="text-gray-600">Deep understanding of Ugandan regulations and market dynamics for tailored, effective solutions.</p>
                 </div>
-                <div class="p-6 bg-white rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center">
-                    <div class="text-blue-600 text-5xl mb-4">
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-primary-600 text-5xl mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3-.895-3-2 1.343-2 3-2z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3-.895-3-2 1.343-2 3-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Personalized Approach</h3>
+                    <h3 class="text-xl font-semibold text-dark-800 mb-2">Personalized Approach</h3>
                     <p class="text-gray-600">We take the time to understand your unique needs and goals, offering customized strategies for success.</p>
                 </div>
-                <div class="p-6 bg-white rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center">
-                    <div class="text-blue-600 text-5xl mb-4">
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-primary-600 text-5xl mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Proven Results</h3>
+                    <h3 class="text-xl font-semibold text-dark-800 mb-2">Proven Results</h3>
                     <p class="text-gray-600">A track record of helping businesses and individuals achieve their financial objectives and growth.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    ---
-
-    <section class="py-16 md:py-24 bg-white">
-        <div class="container text-center max-w-3xl">
-            <h2 class="text-4xl font-bold text-gray-800 mb-12">What Our Clients Say</h2>
-            <div class="bg-blue-50 p-8 rounded-xl shadow-lg relative">
-                <p class="text-lg md:text-xl italic text-gray-700 mb-6">
-                    "SEDEN ASSOCIATES has been instrumental in streamlining our company's finances. Their expertise in Ugandan tax law saved us significant time and money. We highly recommend their services!"
-                </p>
-                <p class="font-semibold text-blue-700">- Sarah N., CEO of Innovate Technologies (Uganda)</p>
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-primary-600 font-semibold">CLIENT TESTIMONIALS</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4">What Our Clients Say</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">Don't just take our word for it - hear from our satisfied clients</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-lg relative" data-aos="fade-up" data-aos-delay="100">
+                                        <div class="absolute -top-6 -left-6 bg-primary-600 text-white w-12 h-12 rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                        </svg>
+                    </div>
+                    <p class="text-lg text-gray-600 italic mb-6">"SEDEN ASSOCIATES transformed our financial operations. Their tax planning saved us 30% in liabilities last year. Truly exceptional service!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold text-dark-800">Robert Kato</h4>
+                            <p class="text-gray-500">CEO, Kampala Enterprises</p>
+                        </div>
+                    </div>
                 </div>
+                
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-lg relative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute -top-6 -left-6 bg-primary-600 text-white w-12 h-12 rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                        </svg>
+                    </div>
+                    <p class="text-lg text-gray-600 italic mb-6">"The CPA classes were comprehensive and practical. I passed my exams on the first attempt thanks to their excellent instructors and materials."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold text-dark-800">Sarah Nalwoga</h4>
+                            <p class="text-gray-500">CPA Student</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    ---
-
-    <section class="py-16 bg-blue-600 text-white text-center rounded-t-3xl shadow-lg">
-        <div class="container">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready for Financial Growth?</h2>
-            <p class="text-lg mb-8">Partner with SEDEN ASSOCIATES today and experience the difference of expert financial guidance.</p>
-            <a href="contact.html" class="inline-block bg-white text-blue-600 hover:bg-blue-100 px-8 py-4 rounded-full font-bold shadow-lg transform hover:scale-105 transition duration-300">
-                Contact Us Now
-            </a>
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-primary-600 to-secondary-500">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-3xl mx-auto" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Transform Your Financial Future?</h2>
+                <p class="text-xl text-white opacity-90 mb-10">Whether you're a business seeking expert accounting services or a professional looking to advance your career, we're here to help you succeed.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="contact.html" class="bg-white text-primary-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        Get Started Today
+                    </a>
+                    <a href="tel:+256XXXXXXXXX" class="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-primary-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        Call Us Now
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer class="bg-gray-800 text-gray-300 py-8">
-        <div class="container text-center text-sm">
-            <p>&copy; 2025 SEDEN ASSOCIATES. All rights reserved.</p>
-            <p class="mt-2">Proudly serving businesses and individuals in Uganda.</p>
+    <!-- Footer -->
+    <footer class="bg-dark-900 text-white pt-20 pb-10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-16">
+                <div>
+                    <a href="index.html" class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold">
+                            <span class="text-primary-400">SEDEN</span>
+                            <span class="text-secondary-400">ASSOCIATES</span>
+                        </span>
+                    </a>
+                    <p class="text-gray-400 mb-6">Financial excellence for Uganda's future. Empowering businesses and professionals with cutting-edge accounting, tax solutions, and financial education.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Home</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Services</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">About Us</a></li>
+                        <li><a href="team.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Our Team</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Services</h3>
+                    <ul class="space-y-3">
+                        <li><a href="services.html#accounting" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Accounting & Bookkeeping</a></li>
+                        <li><a href="services.html#tax" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Tax Planning & Compliance</a></li>
+                        <li><a href="services.html#audit" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Audit & Assurance</a></li>
+                        <li><a href="services.html#advisory" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Business Advisory</a></li>
+                        <li><a href="classes.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">CPA Training</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Contact Us</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-primary-400"></i>
+                           <span>Kisakye Complex, 3rd Floor Office 305 & 307, Bugolobi Spring Road<br>Bugolobi, Kampala<br>Uganda</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone-alt text-primary-400"></i>
+                            <span>+256 704301130</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-primary-400"></i>
+                            <span>sedenassociate@gmail.com</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-clock text-primary-400"></i>
+                            <span>Mon-Fri: 8:00 AM - 5:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 SEDEN ASSOCIATES. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-primary-400 text-sm transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-primary-400 text-sm transition-colors duration-300">Terms of Service</a>
+                    <a href="#" class="text-gray-500 hover:text-primary-400 text-sm transition-colors duration-300">Sitemap</a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-primary-700 transition-all duration-300 opacity-0 invisible">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
 
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
         });
 
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
         const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-        function toggleMobileMenu() {
-            mobileMenu.classList.toggle('hidden');
-            document.body.classList.toggle('overflow-hidden'); // Prevent scrolling when menu is open
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+            mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+        });
+
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+            mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-white', 'shadow-md');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.remove('bg-white', 'shadow-md');
+                navbar.classList.add('bg-transparent');
+            }
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Create particles for background
+        const particlesContainer = document.getElementById('particles');
+        if (particlesContainer) {
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 2px and 6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation duration and delay
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                particle.style.animation = `floating ${duration}s ease-in-out ${delay}s infinite`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                particlesContainer.appendChild(particle);
+            }
         }
 
-        mobileMenuButton.addEventListener('click', toggleMobileMenu);
-        closeMenuButton.addEventListener('click', toggleMobileMenu);
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                    mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                }
+            });
+        });
     </script>
 </body>
 </html>
