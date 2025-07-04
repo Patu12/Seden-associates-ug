@@ -3,361 +3,872 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CPA Classes - SEDEN ASSOCIATES: Elevate Your Accounting Career</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>CPA Classes | SEDEN ASSOCIATES - Financial Excellence in Uganda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                            600: '#475569',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* Light gray background */
-            color: #334155; /* Dark slate gray text */
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
         }
-        /* Custom text gradient for broader browser support */
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #0ea5e9, #f97316);
+            border-radius: 10px;
+        }
+        
+        /* Gradient text */
         .text-gradient {
-            background-image: linear-gradient(to right, #1d4ed8, #2563eb); /* Blue gradient */
-            background-clip: text;
+            background: linear-gradient(90deg, #0ea5e9 0%, #f97316 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            color: #1d4ed8; /* Fallback for browsers that don't support text-fill-color */
+            background-clip: text;
         }
-           @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        
+        /* Glow effect */
+        .glow {
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
+            transition: box-shadow 0.3s ease;
         }
-        .animate-fadeInScale {
-            animation: fadeInScale 1s ease-out forwards;
+        .glow:hover {
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.6);
         }
-        /* New animation for sections */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        
+        /* Course card hover effect */
+        .course-card {
+            transition: all 0.3s ease;
         }
-        .fade-in-up.animate {
-            opacity: 1;
-            transform: translateY(0);
+        .course-card:hover {
+            transform: translateY(-5px);
         }
-
-        /* FAQ specific styles */
-        .faq-question {
-            cursor: pointer;
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            color: #1f2937;
-            transition: background-color 0.3s ease;
+        .course-card:hover .course-title {
+            color: #0ea5e9;
         }
-        .faq-question:hover {
-            background-color: #f0f4f8;
-        }
-        .faq-answer {
-            padding: 1rem 1.5rem;
-            background-color: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
-            color: #4a5568;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-        }
-        .faq-answer.open {
-            max-height: 200px; /* Adjust based on content */
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
-        .faq-icon {
-            transition: transform 0.3s ease;
-        }
-        .faq-icon.rotate {
-            transform: rotate(180deg);
-        }
-         /* Adjusted logo styling */
-        .logo {
-            display: flex;
-            align-items: center; /* Vertically align image and text */
-            gap: 10px; /* Space between logo and text */
-        }
-        .logo img {
-            width: 80px; /* Adjust as needed, e.g., 50px */
-            height: auto; /* Maintain aspect ratio */
+        
+        /* Tab styling */
+        .tab-active {
+            background: linear-gradient(90deg, #0ea5e9 0%, #f97316 100%);
+            color: white;
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="font-sans antialiased text-dark-700 bg-gray-50 overflow-x-hidden">
 
-    <header class="bg-white shadow-sm py-4 sticky top-0 z-50">
-        <div class="container flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-gray-800" aria-label="SEDEN ASSOCIATES Home">
-               <div class="logo">
-                    <img src="images/logo 1.jpg" alt="SEDEN ASSOCIATES Logo">
-                    <div>
-                        <span class="text-blue-700">SEDEN</span> <span class="text-yellow-500">ASSOCIATES</span>
-                    </div>
-                </div>
-            </a>
-            <nav class="hidden md:flex space-x-6" aria-label="Main Navigation">
-                <a href="index.html" class="text-gray-600 hover:text-blue-600 transition duration-300">Home</a>
-                <a href="services.html" class="text-gray-600 hover:text-blue-600 transition duration-300">Services</a>
-                <a href="about.html" class="text-gray-600 hover:text-blue-600 transition duration-300">About Us</a>
-                <a href="classes.html" class="text-blue-600 font-semibold transition duration-300" aria-current="page">CPA Classes</a>
-                <a href="team.html" class="text-gray-600 hover:text-blue-600 transition duration-300">Our team</a>
-                <a href="contact.html" class="text-gray-600 hover:text-blue-600 transition duration-300">Contact</a>
-            </nav>
-            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none" aria-label="Open mobile menu">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white bg-opacity-95 z-50 flex flex-col items-center justify-center space-y-8" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
-            <button id="close-menu-button" class="absolute top-4 right-4 text-gray-600 focus:outline-none" aria-label="Close mobile menu">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            <a href="index.html" class="text-gray-800 text-3xl font-medium hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">Home</a>
-            <a href="services.html" class="text-gray-800 text-3xl font-medium hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">Services</a>
-            <a href="about.html" class="text-gray-800 text-3xl font-medium hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">About Us</a>
-            <a href="classes.html" class="text-blue-600 text-3xl font-semibold transition duration-300" onclick="toggleMobileMenu()" aria-current="page">CPA Classes</a>
-            <a href="team.html" class="text-gray-800 text-3xl font-medium hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">Our team</a>
-            <a href="contact.html" class="text-gray-800 text-3xl font-medium hover:text-blue-600 transition duration-300" onclick="toggleMobileMenu()">Contact</a>
+    <!-- Navigation -->
+    <header class="fixed w-full z-40 bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+<a href="index.html" class="flex items-center space-x-4"> <!-- Increased space-x from 2 to 4 for better spacing -->
+    <!-- Your logo image - now larger -->
+    <img src="images/logo 1.jpg" alt="Seden Associates Logo" class="w-16 h-16 object-contain"> <!-- Increased size -->
+    
+    <span class="text-2xl font-bold">
+        <span class="text-primary-600">SEDEN</span>
+        <span class="text-secondary-500">ASSOCIATES</span>
+    </span>
+</a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="index.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
+                        Home
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="services.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
+                        Services
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="about.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
+                        About
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="classes.html" class="text-primary-600 font-medium relative group">
+                        CPA Classes
+                        <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600"></span>
+                    </a>
+                    <a href="team.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
+                        Team
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="contact.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
+                        Contact
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="contact.html" class="bg-gradient-to-r from-primary-600 to-secondary-500 text-white px-6 py-2 rounded-full font-medium hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 glow">
+                        Free Consultation
+                    </a>
+                </nav>
+                
+                <!-- Mobile menu button -->
+                <button class="lg:hidden focus:outline-none" id="mobile-menu-button" aria-label="Toggle menu">
+                    <svg class="w-8 h-8 text-dark-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </header>
 
-    <main>
-        <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 md:py-24 text-center">
-            <div class="container animate-fadeInScale">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">Master Your Future with Our <span class="text-yellow-300">CPA Classes</span></h1>
-                <p class="text-lg md:text-xl opacity-90 max-w-3xl mx-auto">
-                    Comprehensive and flexible learning options designed to help you excel and become a Certified Public Accountant.
-                </p>
-            </div>
-        </section>
-
-        <section id="classes-details" class="py-16 md:py-24 bg-white fade-in-up">
-            <div class="container text-center">
-                <h2 class="text-4xl font-bold text-gray-800 mb-12">Flexible Learning Paths to CPA Success</h2>
-                <div class="max-w-4xl mx-auto">
-                    <p class="text-lg text-gray-700 mb-10 leading-relaxed">
-                        Elevate your accounting career with our comprehensive **CPA (Certified Public Accountant) classes**. Whether you prefer the flexibility of **online learning** or the interactive environment of **physical classes**, SEDEN ASSOCIATES offers high-quality instruction tailored to help you succeed in your CPA exams and beyond.
-                    </p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10">
-                        <div class="bg-blue-50 p-8 rounded-2xl shadow-lg border border-blue-100 flex flex-col justify-between items-center text-center transform hover:scale-105 transition duration-300">
-                            <div class="text-blue-600 mb-4">
-                                <i class="fas fa-laptop-code text-5xl"></i>
-                            </div>
-                            <h3 class="text-3xl font-semibold text-blue-700 mb-4">Online Classes</h3>
-                            <p class="text-gray-700 mb-6 leading-relaxed flex-grow">
-                                Study at your own pace, from anywhere in the world. Our robust online platform provides instant access to meticulously recorded lectures, extensive study materials, practice questions, and interactive forums where you can engage with instructors and peers. Perfect for busy professionals.
-                            </p>
-                            <a href="#contact-section" class="bg-blue-600 text-white hover:bg-blue-700 px-8 py-3 rounded-full font-semibold shadow-md transition duration-300 transform hover:scale-105" aria-label="Inquire about Online CPA Classes">
-                                Learn More Online
-                            </a>
-                        </div>
-                        <div class="bg-blue-50 p-8 rounded-2xl shadow-lg border border-blue-100 flex flex-col justify-between items-center text-center transform hover:scale-105 transition duration-300">
-                            <div class="text-blue-600 mb-4">
-                                <i class="fas fa-chalkboard-teacher text-5xl"></i>
-                            </div>
-                            <h3 class="text-3xl font-semibold text-blue-700 mb-4">Physical Classes</h3>
-                            <p class="text-gray-700 mb-6 leading-relaxed flex-grow">
-                                Experience immersive, hands-on learning in a vibrant classroom setting. Benefit from direct interaction with our experienced instructors, immediate feedback, and collaborative learning opportunities with fellow students. Our conveniently located classes ensure a conducive learning environment.
-                            </p>
-                            <a href="#contact-section" class="bg-blue-600 text-white hover:bg-blue-700 px-8 py-3 rounded-full font-semibold shadow-md transition duration-300 transform hover:scale-105" aria-label="Inquire about In-Person CPA Classes">
-                                Learn More In-Person
-                            </a>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 text-lg mt-8">
-                        For a detailed curriculum outline, class schedules, and enrollment procedures, please don't hesitate to <a href="#contact-section" class="text-blue-600 hover:underline font-medium">contact us</a>.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="faq-section" class="py-16 md:py-24 bg-gray-50 fade-in-up">
-            <div class="container">
-                <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Frequently Asked Questions</h2>
-                <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg border border-gray-100">
-                    <div class="faq-item">
-                        <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq-answer-1">
-                            <span>What are the prerequisites for joining the CPA classes?</span>
-                            <span class="faq-icon">▼</span>
-                        </div>
-                        <div class="faq-answer" id="faq-answer-1">
-                            <p>Typically, candidates should hold a bachelor's degree in accounting or a related field. Specific requirements may vary by state board of accountancy. We recommend checking with your state's board for the most accurate information.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq-answer-2">
-                            <span>How long does it take to complete the CPA program?</span>
-                            <span class="faq-icon">▼</span>
-                        </div>
-                        <div class="faq-answer" id="faq-answer-2">
-                            <p>The duration depends on your chosen learning path (online vs. physical) and your study pace. Most students aim to complete all four parts of the CPA exam within 12-18 months. Our flexible programs are designed to accommodate various schedules.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq-answer-3">
-                            <span>What support do you offer for exam preparation?</span>
-                            <span class="faq-icon">▼</span>
-                        </div>
-                        <div class="faq-answer" id="faq-answer-3">
-                            <p>We provide comprehensive study materials, practice exams, mock tests, one-on-one tutoring sessions (upon request), and ongoing support from our experienced instructors. Our goal is to equip you with all the tools needed to pass your exams confidently.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq-answer-4">
-                            <span>Are your instructors certified CPAs?</span>
-                            <span class="faq-icon">▼</span>
-                        </div>
-                        <div class="faq-answer" id="faq-answer-4">
-                            <p>Yes, all our instructors are highly experienced Certified Public Accountants with extensive knowledge in their respective fields and a passion for teaching. They bring real-world insights to the classroom, enriching your learning experience.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact-section" class="py-16 md:py-24 bg-blue-700 text-white text-center fade-in-up">
-            <div class="container">
-                <h2 class="text-4xl font-bold mb-6">Ready to Start Your CPA Journey?</h2>
-                <p class="text-xl max-w-2xl mx-auto mb-8">
-                    Contact us today to learn more about our CPA classes, schedules, and how we can help you achieve your professional goals.
-                </p>
-                <a href="contact.html" class="bg-yellow-300 text-blue-800 hover:bg-yellow-400 px-10 py-4 rounded-full font-bold text-xl shadow-lg transition duration-300 transform hover:scale-105" aria-label="Contact SEDEN ASSOCIATES for CPA Classes">
-                    Get in Touch
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-gradient-to-r from-primary-700 to-secondary-600 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" data-aos="fade-up">CPA Professional Classes</h1>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto opacity-90" data-aos="fade-up" data-aos-delay="100">
+                Comprehensive training for Uganda's Certified Public Accountants examinations
+            </p>
+            <div class="mt-10" data-aos="fade-up" data-aos-delay="200">
+                <a href="#courses" class="bg-white text-primary-600 hover:bg-gray-100 px-8 py-4 rounded-full text-lg font-semibold shadow-md transition duration-300 transform hover:scale-105 inline-block mr-4">
+                    Explore Courses
+                </a>
+                <a href="#enroll" class="border-2 border-white text-white hover:bg-white hover:text-primary-600 px-8 py-4 rounded-full text-lg font-semibold shadow-md transition duration-300 transform hover:scale-105 inline-block">
+                    Enroll Now
                 </a>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </main>
+    <!-- Why Choose Us Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-primary-600 font-semibold">WHY CHOOSE US</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4">Uganda's Premier CPA Training Provider</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">We combine academic excellence with practical insights to give you the best preparation for your CPA exams</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl text-center" data-aos="fade-up">
+                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-chalkboard-teacher text-primary-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark-800 mb-3">Expert Instructors</h3>
+                    <p class="text-gray-600">Learn from qualified professionals who are also CPA examiners and markers with years of teaching experience.</p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-book-open text-primary-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark-800 mb-3">Comprehensive Materials</h3>
+                    <p class="text-gray-600">Get access to our proprietary study guides, past paper solutions, and mock exams that mirror the actual CPA tests.</p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-percentage text-primary-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark-800 mb-3">Proven Results</h3>
+                    <p class="text-gray-600">Our students consistently achieve pass rates 20-30% above the national average for CPA Uganda exams.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer class="bg-gray-800 text-gray-300 py-8">
-        <div class="container text-center text-sm">
-            <p>&copy; 2025 SEDEN ASSOCIATES. All rights reserved.</p>
-            <p class="mt-2">Crafted with <span class="text-red-500" role="img" aria-label="heart emoji">&hearts;</span> for your financial success.</p>
+    <!-- Courses Tabs Section -->
+    <section class="py-20 bg-gray-50" id="courses">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-primary-600 font-semibold">OUR COURSES</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4">CPA Course Levels</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">Select your level to see the courses we offer</p>
+            </div>
+            
+            <!-- Tabs -->
+            <div class="flex flex-wrap justify-center mb-12">
+                <button class="tab-btn px-6 py-3 rounded-full font-medium mx-2 mb-4 tab-active" data-tab="foundation">Foundation Level</button>
+                <button class="tab-btn px-6 py-3 rounded-full font-medium mx-2 mb-4 bg-white text-dark-700 shadow-md" data-tab="intermediate">Intermediate Level</button>
+                <button class="tab-btn px-6 py-3 rounded-full font-medium mx-2 mb-4 bg-white text-dark-700 shadow-md" data-tab="advanced">Advanced Level</button>
+            </div>
+            
+            <!-- Foundation Level Courses -->
+            <div class="tab-content" id="foundation">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Course 1 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 course-card" data-aos="fade-up">
+                        <div class="h-48 bg-gradient-to-r from-primary-500 to-secondary-400 flex items-center justify-center text-white">
+                            <i class="fas fa-calculator text-6xl opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-sm font-medium text-primary-600">FOUNDATION LEVEL</span>
+                            <h3 class="course-title text-xl font-bold text-dark-800 mt-1 mb-3 transition-colors duration-300">Financial Accounting</h3>
+                            <p class="text-gray-600 text-sm mb-4">Master the fundamentals of financial accounting principles and practices.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500"><i class="far fa-clock mr-1"></i> 8 Weeks</span>
+                                <span class="text-gray-500"><i class="fas fa-book-open mr-1"></i> 12 Modules</span>
+                            </div>
+                            <a href="#" class="block mt-6 bg-gradient-to-r from-primary-600 to-secondary-500 text-white text-center py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 2 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 course-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="h-48 bg-gradient-to-r from-primary-500 to-secondary-400 flex items-center justify-center text-white">
+                            <i class="fas fa-chart-line text-6xl opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-sm font-medium text-primary-600">FOUNDATION LEVEL</span>
+                            <h3 class="course-title text-xl font-bold text-dark-800 mt-1 mb-3 transition-colors duration-300">Business Economics</h3>
+                            <p class="text-gray-600 text-sm mb-4">Understand economic principles and their application in business decision-making.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500"><i class="far fa-clock mr-1"></i> 6 Weeks</span>
+                                <span class="text-gray-500"><i class="fas fa-book-open mr-1"></i> 10 Modules</span>
+                            </div>
+                            <a href="#" class="block mt-6 bg-gradient-to-r from-primary-600 to-secondary-500 text-white text-center py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 3 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 course-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="h-48 bg-gradient-to-r from-primary-500 to-secondary-400 flex items-center justify-center text-white">
+                            <i class="fas fa-balance-scale text-6xl opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-sm font-medium text-primary-600">FOUNDATION LEVEL</span>
+                            <h3 class="course-title text-xl font-bold text-dark-800 mt-1 mb-3 transition-colors duration-300">Commercial Law</h3>
+                            <p class="text-gray-600 text-sm mb-4">Study the legal framework governing business operations in Uganda.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500"><i class="far fa-clock mr-1"></i> 5 Weeks</span>
+                                <span class="text-gray-500"><i class="fas fa-book-open mr-1"></i> 8 Modules</span>
+                            </div>
+                            <a href="#" class="block mt-6 bg-gradient-to-r from-primary-600 to-secondary-500 text-white text-center py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Intermediate Level Courses (Hidden by default) -->
+            <div class="tab-content hidden" id="intermediate">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Course 1 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 course-card">
+                        <div class="h-48 bg-gradient-to-r from-primary-500 to-secondary-400 flex items-center justify-center text-white">
+                            <i class="fas fa-file-invoice-dollar text-6xl opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-sm font-medium text-primary-600">INTERMEDIATE LEVEL</span>
+                            <h3 class="course-title text-xl font-bold text-dark-800 mt-1 mb-3 transition-colors duration-300">Financial Reporting</h3>
+                            <p class="text-gray-600 text-sm mb-4">Advanced financial reporting standards and their application in Uganda.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500"><i class="far fa-clock mr-1"></i> 10 Weeks</span>
+                                <span class="text-gray-500"><i class="fas fa-book-open mr-1"></i> 15 Modules</span>
+                            </div>
+                            <a href="#" class="block mt-6 bg-gradient-to-r from-primary-600 to-secondary-500 text-white text-center py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 2 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 course-card">
+                        <div class="h-48 bg-gradient-to-r from-primary-500 to-secondary-400 flex items-center justify-center text-white">
+                            <i class="fas fa-landmark text-6xl opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-sm font-medium text-primary-600">INTERMEDIATE LEVEL</span>
+                            <h3 class="course-title text-xl font-bold text-dark-800 mt-1 mb-3 transition-colors duration-300">Taxation</h3>
+                            <p class="text-gray-600 text-sm mb-4">Ugandan tax laws, planning strategies, and compliance requirements.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500"><i class="far fa-clock mr-1"></i> 8 Weeks</span>
+                                <span class="text-gray-500"><i class="fas fa-book-open mr-1"></i> 12 Modules</span>
+                            </div>
+                            <a href="#" class="block mt-6 bg-gradient-to-r from-primary-600 to-secondary-500 text-white text-center py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 3 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 course-card">
+                        <div class="h-48 bg-gradient-to-r from-primary-500 to-secondary-400 flex items-center justify-center text-white">
+                            <i class="fas fa-search-dollar text-6xl opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-sm font-medium text-primary-600">INTERMEDIATE LEVEL</span>
+                            <h3 class="course-title text-xl font-bold text-dark-800 mt-1 mb-3 transition-colors duration-300">Auditing</h3>
+                            <p class="text-gray-600 text-sm mb-4">Principles and practices of auditing in the Ugandan regulatory environment.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500"><i class="far fa-clock mr-1"></i> 9 Weeks</span>
+                                <span class="text-gray-500"><i class="fas fa-book-open mr-1"></i> 14 Modules</span>
+                            </div>
+                            <a href="#" class="block mt-6 bg-gradient-to-r from-primary-600 to-secondary-500 text-white text-center py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Advanced Level Courses (Hidden by default) -->
+            <div class="tab-content hidden" id="advanced">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Course 1 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 course-card">
+                        <div class="h-48 bg-gradient-to-r from-primary-500 to-secondary-400 flex items-center justify-center text-white">
+                            <i class="fas fa-chess text-6xl opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-sm font-medium text-primary-600">ADVANCED LEVEL</span>
+                            <h3 class="course-title text-xl font-bold text-dark-800 mt-1 mb-3 transition-colors duration-300">Strategic Management</h3>
+                            <p class="text-gray-600 text-sm mb-4">Develop strategic thinking and decision-making skills for senior financial roles.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500"><i class="far fa-clock mr-1"></i> 12 Weeks</span>
+                                <span class="text-gray-500"><i class="fas fa-book-open mr-1"></i> 18 Modules</span>
+                            </div>
+                            <a href="#" class="block mt-6 bg-gradient-to-r from-primary-600 to-secondary-500 text-white text-center py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 2 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 course-card">
+                        <div class="h-48 bg-gradient-to-r from-primary-500 to-secondary-400 flex items-center justify-center text-white">
+                            <i class="fas fa-handshake text-6xl opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-sm font-medium text-primary-600">ADVANCED LEVEL</span>
+                            <h3 class="course-title text-xl font-bold text-dark-800 mt-1 mb-3 transition-colors duration-300">Corporate Governance</h3>
+                            <p class="text-gray-600 text-sm mb-4">Best practices in corporate governance and ethical leadership.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500"><i class="far fa-clock mr-1"></i> 10 Weeks</span>
+                                <span class="text-gray-500"><i class="fas fa-book-open mr-1"></i> 15 Modules</span>
+                            </div>
+                            <a href="#" class="block mt-6 bg-gradient-to-r from-primary-600 to-secondary-500 text-white text-center py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 3 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 course-card">
+                        <div class="h-48 bg-gradient-to-r from-primary-500 to-secondary-400 flex items-center justify-center text-white">
+                            <i class="fas fa-globe-africa text-6xl opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-sm font-medium text-primary-600">ADVANCED LEVEL</span>
+                            <h3 class="course-title text-xl font-bold text-dark-800 mt-1 mb-3 transition-colors duration-300">International Finance</h3>
+                            <p class="text-gray-600 text-sm mb-4">Global financial markets, foreign exchange, and international investment.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500"><i class="far fa-clock mr-1"></i> 8 Weeks</span>
+                                <span class="text-gray-500"><i class="fas fa-book-open mr-1"></i> 12 Modules</span>
+                            </div>
+                            <a href="#" class="block mt-6 bg-gradient-to-r from-primary-600 to-secondary-500 text-white text-center py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Approach Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-12" data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" 
+                         alt="CPA Class at Seden Associates" 
+                         class="rounded-xl shadow-xl w-full">
+                </div>
+                <div class="lg:w-1/2" data-aos="fade-left">
+                    <span class="text-primary-600 font-semibold">OUR APPROACH</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-6">Effective CPA Exam Preparation</h2>
+                    <p class="text-gray-600 mb-8">We've developed a proven methodology that combines theoretical knowledge with practical application to ensure you're fully prepared for your CPA exams.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-primary-100 text-primary-600">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-dark-800 mb-2">Interactive Classes</h3>
+                                <p class="text-gray-600">Live and recorded sessions with real-time Q&A to clarify concepts.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-primary-100 text-primary-600">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-dark-800 mb-2">Practice-Oriented</h3>
+                                <p class="text-gray-600">Weekly assignments and mock exams that simulate actual CPA test conditions.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-primary-100 text-primary-600">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-dark-800 mb-2">Personalized Support</h3>
+                                <p class="text-gray-600">Dedicated tutors and discussion forums for individualized attention.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-primary-600 font-semibold">SUCCESS STORIES</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4">What Our Students Say</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">Hear from CPA candidates who've successfully passed their exams with our help</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-md" data-aos="fade-up">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"The Financial Reporting course was exceptional. The instructor broke down complex standards into understandable concepts. I passed with distinction!"</p>
+                    <div class="flex items-center">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+                             alt="Maria Nansubuga" 
+                             class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold text-dark-800">Maria Nansubuga</h4>
+                            <p class="text-sm text-gray-500">CPA Candidate, 2023</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"Seden's Taxation course gave me practical insights that weren't in the textbooks. The mock exams were identical in format to the actual CPA papers."</p>
+                    <div class="flex items-center">
+                        <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="John Mugerwa" 
+                             class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold text-dark-800">John Mugerwa</h4>
+                            <p class="text-sm text-gray-500">CPA Candidate, 2023</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"After failing Audit twice, I joined Seden's classes. The practical approach and case studies made all the difference. Finally passed!"</p>
+                    <div class="flex items-center">
+                        <img src="https://images.unsplash.com/photo-1573497019704-22b6bd0a6f2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=686&q=80" 
+                             alt="Sarah Kirabo" 
+                             class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold text-dark-800">Sarah Kirabo</h4>
+                            <p class="text-sm text-gray-500">CPA Candidate, 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enrollment CTA Section -->
+        <section class="py-20 bg-gradient-to-r from-primary-700 to-secondary-600 text-white" id="enroll">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6" data-aos="fade-up">Ready to Start Your CPA Journey?</h2>
+            <p class="text-xl max-w-3xl mx-auto opacity-90 mb-10" data-aos="fade-up" data-aos-delay="100">
+                Join our next intake and take the first step toward becoming a Certified Public Accountant in Uganda
+            </p>
+            
+            <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <div class="p-8 text-dark-800">
+                    <h3 class="text-2xl font-bold mb-6">Enrollment Information</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="text-left">
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <i class="fas fa-calendar-alt text-primary-600 mr-2"></i> Upcoming Intakes
+                            </h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-secondary-500 mt-1 mr-2"></i>
+                                    <span>January 15, 2024</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-secondary-500 mt-1 mr-2"></i>
+                                    <span>May 6, 2024</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-secondary-500 mt-1 mr-2"></i>
+                                    <span>September 9, 2024</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="text-left">
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <i class="fas fa-money-bill-wave text-primary-600 mr-2"></i> Fees Structure
+                            </h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-secondary-500 mt-1 mr-2"></i>
+                                    <span>Foundation Level: UGX 1,200,000</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-secondary-500 mt-1 mr-2"></i>
+                                    <span>Intermediate Level: UGX 1,500,000</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-secondary-500 mt-1 mr-2"></i>
+                                    <span>Advanced Level: UGX 1,800,000</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="contact.html" class="bg-gradient-to-r from-primary-600 to-secondary-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                            Enroll Now
+                        </a>
+                        <a href="#" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-primary-600 transition-all duration-300 transform hover:scale-105">
+                            Download Brochure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-primary-600 font-semibold">HAVE QUESTIONS?</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4">Frequently Asked Questions</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">Find answers to common questions about our CPA classes</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div class="border border-gray-200 rounded-xl overflow-hidden" data-aos="fade-up">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left hover:bg-gray-50 transition-colors duration-200">
+                            <span class="text-lg font-medium text-dark-800">What are the entry requirements for CPA classes?</span>
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer hidden px-6 pb-6 pt-0">
+                            <p class="text-gray-600">For Foundation Level, you need at least 5 O-Level credits including English and Mathematics. For Intermediate Level, you need either a completed Foundation Level or a relevant bachelor's degree. Advanced Level requires completion of Intermediate Level or equivalent qualifications.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 2 -->
+                    <div class="border border-gray-200 rounded-xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left hover:bg-gray-50 transition-colors duration-200">
+                            <span class="text-lg font-medium text-dark-800">Can I take classes online?</span>
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer hidden px-6 pb-6 pt-0">
+                            <p class="text-gray-600">Yes! We offer both in-person classes at our Kampala campus and live online classes through our virtual learning platform. All sessions are recorded for later review.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 3 -->
+                    <div class="border border-gray-200 rounded-xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left hover:bg-gray-50 transition-colors duration-200">
+                            <span class="text-lg font-medium text-dark-800">How long does each level take to complete?</span>
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer hidden px-6 pb-6 pt-0">
+                            <p class="text-gray-600">Each level typically takes 6-9 months of study. Foundation Level is usually completed in 6 months, Intermediate in 8 months, and Advanced Level in 9 months. We offer both full-time (weekday) and part-time (weekend) options.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 4 -->
+                    <div class="border border-gray-200 rounded-xl overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left hover:bg-gray-50 transition-colors duration-200">
+                            <span class="text-lg font-medium text-dark-800">Do you offer payment plans?</span>
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer hidden px-6 pb-6 pt-0">
+                            <p class="text-gray-600">Yes, we understand the financial commitment and offer flexible payment plans. You can pay in 2-3 installments over the duration of your course. Contact our admissions team to discuss options that work for you.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <p class="text-gray-600 mb-6">Still have questions? We're happy to help!</p>
+                    <a href="contact.html" class="bg-gradient-to-r from-primary-600 to-secondary-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300 inline-block">
+                        Contact Our Team
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 text-white pt-20 pb-10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                <div>
+                    <a href="index.html" class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold">
+                            <span class="text-primary-400">SEDEN</span>
+                            <span class="text-secondary-400">ASSOCIATES</span>
+                        </span>
+                    </a>
+                    <p class="text-gray-400 mb-6">Financial excellence and professional accounting services in Uganda since 2010.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-600 transition-colors duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-600 transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-600 transition-colors duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-600 transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Home</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Services</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">About Us</a></li>
+                        <li><a href="classes.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">CPA Classes</a></li>
+                        <li><a href="team.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Our Team</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">CPA Classes</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Foundation Level</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Intermediate Level</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Advanced Level</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Course Schedule</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Fees Structure</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Exam Preparation</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Contact Us</h3>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-primary-400 mt-1 mr-3"></i>
+                             <span>Kisakye Complex, 3rd Floor Office 305 & 307, Bugolobi Spring Road<br>Bugolobi, Kampala<br>Uganda</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone-alt text-primary-400"></i>
+                            <span>+256 704301130</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-primary-400"></i>
+                            <span>sedenassociate@gmail.com</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-clock text-primary-400"></i>
+                            <span>Mon-Fri: 8:00 AM - 5:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-dark-800 mt-16 pt-10 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 mb-4 md:mb-0">© 2023 SEDEN ASSOCIATES. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-primary-400 transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-primary-400 transition-colors duration-300">Terms of Service</a>
+                </div>
+            </div>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-primary-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 invisible hover:bg-primary-700">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        const closeMenuButton = document.getElementById('close-menu-button');
-
-        function toggleMobileMenu() {
+        
+        mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
-            document.body.classList.toggle('overflow-hidden'); // Prevent scrolling when menu is open
-            // Set aria-expanded for accessibility
-            const isMenuOpen = !mobileMenu.classList.contains('hidden');
-            mobileMenuButton.setAttribute('aria-expanded', isMenuOpen);
-            // Manage focus for accessibility
-            if (isMenuOpen) {
-                closeMenuButton.focus(); // Focus on close button when menu opens
-            } else {
-                mobileMenuButton.focus(); // Return focus to open button when menu closes
-            }
-        }
-
-        mobileMenuButton.addEventListener('click', toggleMobileMenu);
-        closeMenuButton.addEventListener('click', toggleMobileMenu);
-
-        // Close mobile menu if window is resized past 'md' breakpoint
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768 && !mobileMenu.classList.contains('hidden')) {
-                toggleMobileMenu();
-            }
         });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-
-                if (targetElement) {
-                    const headerOffset = document.querySelector('header').offsetHeight;
-                    const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-                    const offsetPosition = elementPosition - headerOffset;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
-                }
+        
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('tab-active', 'text-white', 'shadow-md');
+                    btn.classList.add('bg-white', 'text-dark-700', 'shadow-md');
+                });
+                
+                // Add active class to clicked button
+                button.classList.add('tab-active', 'text-white');
+                button.classList.remove('bg-white', 'text-dark-700', 'shadow-md');
+                
+                // Hide all tab contents
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // Show selected tab content
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.remove('hidden');
             });
         });
-
-        // FAQ accordion functionality
-        document.querySelectorAll('.faq-question').forEach(item => {
-            item.addEventListener('click', event => {
-                const answer = item.nextElementSibling;
-                const icon = item.querySelector('.faq-icon');
-                const isOpen = answer.classList.contains('open');
-
-                // Close all other open answers
-                document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
-                    if (openAnswer !== answer) {
-                        openAnswer.classList.remove('open');
-                        openAnswer.previousElementSibling.querySelector('.faq-icon').classList.remove('rotate');
-                        openAnswer.previousElementSibling.setAttribute('aria-expanded', 'false');
+        
+        // FAQ accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                // Toggle answer visibility
+                answer.classList.toggle('hidden');
+                
+                // Rotate icon
+                icon.classList.toggle('transform');
+                icon.classList.toggle('rotate-180');
+                
+                // Close other open answers
+                faqQuestions.forEach(q => {
+                    if (q !== question) {
+                        q.nextElementSibling.classList.add('hidden');
+                        q.querySelector('i').classList.remove('transform', 'rotate-180');
                     }
                 });
-
-                // Toggle the clicked answer
-                answer.classList.toggle('open');
-                icon.classList.toggle('rotate');
-                item.setAttribute('aria-expanded', !isOpen);
-            });
-
-            // Add keyboard accessibility for FAQ
-            item.addEventListener('keydown', event => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    item.click();
-                }
             });
         });
-
-
-        // Intersection Observer for fade-in-up animation
-        const fadeInSections = document.querySelectorAll('.fade-in-up');
-
-        const observerOptions = {
-            root: null, // viewport
-            rootMargin: '0px',
-            threshold: 0.1 // 10% of the section must be visible
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                    observer.unobserve(entry.target); // Stop observing once animated
-                }
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
-        }, observerOptions);
-
-        fadeInSections.forEach(section => {
-            observer.observe(section);
         });
     </script>
 </body>
