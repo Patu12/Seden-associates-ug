@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Library | SEDEN ASSOCIATES Admin</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8',
+                            500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#fff7ed', 100: '#ffedd5', 200: '#fed7aa', 300: '#fdba74', 400: '#fb923c',
+                            500: '#f97316', 600: '#ea580c', 700: '#c2410c', 800: '#9a3412', 900: '#7c2d12',
+                        },
+                        dark: {
+                            900: '#0f172a', 800: '#1e293b', 700: '#334155', 600: '#475569',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Inline critical CSS -->
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #0ea5e9, #f97316);
+            border-radius: 10px;
+        }
+        
+        /* Admin specific styles */
+        .admin-sidebar {
+            width: 280px;
+            transition: transform 0.3s ease;
+        }
+        
+        .admin-main {
+            margin-left: 280px;
+            transition: margin 0.3s ease;
+        }
+        
+        @media (max-width: 1024px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 40;
+                height: 100vh;
+            }
+            .admin-sidebar.open {
+                transform: translateX(0);
+            }
+            .admin-main {
+                margin-left: 0;
+            }
+        }
+
+        /* Custom Modal Styles (for messages and delete confirmation) */
+        .custom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .custom-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .custom-modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .custom-modal.show .custom-modal-content {
+            transform: translateY(0);
+        }
+
+        .custom-modal-content .close-button {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .custom-modal-content .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .custom-modal-content .icon.success {
+            color: #10b981; /* Green-500 */
+        }
+
+        .custom-modal-content .icon.error {
+            color: #ef4444; /* Red-500 */
+        }
+
+        .custom-modal-content .icon.warning {
+            color: #f59e0b; /* Amber-500 */
+        }
+
+        .custom-modal-content h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #1f2937; /* Gray-900 */
+        }
+
+        .custom-modal-content p {
+            color: #4b5563; /* Gray-600 */
+            margin-bottom: 1.5rem;
+        }
+
+        .custom-modal-content .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .custom-modal-content .modal-actions button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .custom-modal-content .modal-actions .confirm-button {
+            background-color: #ef4444; /* Red-500 */
+            color: white;
+        }
+
+        .custom-modal-content .modal-actions .confirm-button:hover {
+            background-color: #dc2626; /* Red-600 */
+        }
+
+        .custom-modal-content .modal-actions .cancel-button {
+            background-color: #e5e7eb; /* Gray-200 */
+            color: #374151; /* Gray-700 */
+        }
+
+        .custom-modal-content .modal-actions .cancel-button:hover {
+            background-color: #d1d5db; /* Gray-300 */
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <!-- Admin Layout -->
+    <div class="flex">
+        <!-- Admin Sidebar -->
+        <aside class="admin-sidebar bg-white shadow-md fixed lg:relative h-screen" aria-label="Admin navigation sidebar">
+            <div class="p-6 border-b border-gray-200">
+                <a href="post.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center text-white">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <span class="text-xl font-bold">
+                        <span class="text-primary-600">SEDEN</span>
+                        <span class="text-secondary-500">ADMIN</span>
+                    </span>
+                </a>
+            </div>
+            
+            <nav class="p-4">
+                <div class="mb-8">
+                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Content Management</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="post.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-upload w-5"></i>
+                                <span>Upload Content</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-newspaper w-5"></i>
+                                <span>Manage Posts</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="media.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-primary-100 text-primary-700">
+                                <i class="fas fa-photo-video w-5"></i>
+                                <span>Media Library</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="user.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-users w-5"></i>
+                                <span>User Management</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="mb-8">
+                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Settings</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="settings.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-cog w-5"></i>
+                                <span>Site Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="analytics.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-chart-line w-5"></i>
+                                <span>Analytics</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="pt-4 border-t border-gray-200">
+                    <a href="login.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                        <i class="fas fa-sign-out-alt w-5"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Mobile menu button -->
+        <button class="lg:hidden fixed bottom-6 right-6 bg-primary-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg z-30" id="mobile-menu-button" aria-label="Toggle admin sidebar" aria-expanded="false">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+
+        <!-- Main Content -->
+        <main class="admin-main flex-1 min-h-screen">
+            <!-- Admin Header -->
+            <header class="bg-white shadow-sm">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">Media Library</h1>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <button class="p-1 rounded-full text-gray-500 hover:text-gray-700 focus:outline-none" aria-label="View notifications">
+                                <i class="fas fa-bell text-xl"></i>
+                            </button>
+                            <span class="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full"></span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Admin profile" class="w-8 h-8 rounded-full">
+                            <span class="font-medium">Admin User</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="bg-white shadow rounded-lg p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">All Uploaded Media</h2>
+                    
+                    <!-- Loading and Error Messages -->
+                    <div id="loading-message" class="text-center text-gray-600 text-lg hidden">
+                        <div class="flex justify-center items-center">
+                            <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-primary-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Loading media...
+                        </div>
+                    </div>
+                    <div id="error-message" class="text-center text-red-600 text-lg hidden">
+                        <i class="fas fa-exclamation-triangle mr-2"></i> Failed to load media. Please try again later.
+                    </div>
+
+                    <!-- Media Grid -->
+                    <div id="media-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        <!-- Media items will be dynamically inserted here by JavaScript -->
+                    </div>
+
+                    <div id="no-media-message" class="text-center text-gray-600 text-lg mt-12 hidden">
+                        No media files uploaded yet. <a href="post.html" class="text-primary-600 hover:underline">Upload some content!</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Custom Message Modal HTML (from post.html for consistency) -->
+    <div id="custom-message-modal" class="custom-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description">
+        <div class="custom-modal-content">
+            <button class="close-button" id="modal-close-button" aria-label="Close message">&times;</button>
+            <div id="modal-icon" class="icon"></div>
+            <h3 id="modal-title"></h3>
+            <p id="modal-description"></p>
+            <div class="modal-actions">
+                <button id="modal-ok-button" class="bg-primary-600 text-white">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Mobile Sidebar Toggle and Dynamic Content -->
+    <script>
+        // --- Mobile Sidebar Toggle ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const adminSidebar = document.querySelector('.admin-sidebar');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            const isSidebarOpen = adminSidebar.classList.contains('open');
+            adminSidebar.classList.toggle('open');
+            document.body.classList.toggle('overflow-hidden', !isSidebarOpen);
+            mobileMenuButton.setAttribute('aria-expanded', !isSidebarOpen);
+        });
+
+        function handleResize() {
+            if (window.innerWidth >= 1024) {
+                if (adminSidebar.classList.contains('open')) {
+                    adminSidebar.classList.remove('open');
+                    document.body.classList.remove('overflow-hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                }
+            }
+        }
+        window.addEventListener('resize', handleResize);
+
+        // --- Custom Message Modal functions ---
+        const customMessageModal = document.getElementById('custom-message-modal');
+        const modalCloseButton = document.getElementById('modal-close-button');
+        const modalOkButton = document.getElementById('modal-ok-button');
+        const modalIcon = document.getElementById('modal-icon');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+
+        function showMessageModal(type, title, message) {
+            modalIcon.className = `icon ${type}`;
+            modalIcon.innerHTML = type === 'success' ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>';
+            modalTitle.textContent = title;
+            modalDescription.textContent = message;
+            customMessageModal.classList.add('show');
+            document.body.classList.add('overflow-hidden'); // Prevent scrolling behind modal
+        }
+
+        function hideMessageModal() {
+            customMessageModal.classList.remove('show');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        modalCloseButton.addEventListener('click', hideMessageModal);
+        modalOkButton.addEventListener('click', hideMessageModal);
+        customMessageModal.addEventListener('click', (e) => {
+            if (e.target === customMessageModal) {
+                hideMessageModal();
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && customMessageModal.classList.contains('show')) {
+                hideMessageModal();
+            }
+        });
+
+        // Helper function to format file size
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+
+        // Helper function to format timestamp to readable date
+        function formatTimestamp(timestamp) {
+            const date = new Date(timestamp * 1000); // Convert seconds to milliseconds
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        // --- Fetch and Display Media ---
+        async function fetchAndDisplayMedia() {
+            const mediaGrid = document.getElementById('media-grid');
+            const loadingMessage = document.getElementById('loading-message');
+            const errorMessage = document.getElementById('error-message');
+            const noMediaMessage = document.getElementById('no-media-message');
+
+            // Clear previous content
+            mediaGrid.innerHTML = '';
+            loadingMessage.classList.remove('hidden');
+            errorMessage.classList.add('hidden');
+            noMediaMessage.classList.add('hidden');
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/media');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const mediaFiles = await response.json();
+                loadingMessage.classList.add('hidden');
+
+                if (mediaFiles.length === 0) {
+                    noMediaMessage.classList.remove('hidden');
+                } else {
+                    mediaFiles.forEach(file => {
+                        let mediaContent = '';
+                        let icon = '';
+                        let bgColor = 'bg-gray-100'; // Default background for non-images
+
+                        if (file.type === 'image') {
+                            mediaContent = `<img src="${file.url}" alt="${file.name}" class="w-full h-32 object-cover rounded-t-lg">`;
+                            bgColor = 'bg-blue-50';
+                        } else if (file.type === 'video') {
+                            mediaContent = `
+                                <div class="w-full h-32 flex items-center justify-center bg-gray-200 rounded-t-lg text-gray-500 text-6xl">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                            `;
+                            bgColor = 'bg-purple-50';
+                        } else if (file.type === 'document') {
+                            mediaContent = `
+                                <div class="w-full h-32 flex items-center justify-center bg-gray-200 rounded-t-lg text-gray-500 text-6xl">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                            `;
+                            bgColor = 'bg-green-50';
+                        } else {
+                            mediaContent = `
+                                <div class="w-full h-32 flex items-center justify-center bg-gray-200 rounded-t-lg text-gray-500 text-6xl">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                            `;
+                        }
+
+                        const mediaCard = `
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden ${bgColor}">
+                                ${mediaContent}
+                                <div class="p-4">
+                                    <h3 class="text-sm font-semibold text-gray-800 truncate mb-1" title="${file.name}">${file.name}</h3>
+                                    <p class="text-xs text-gray-500">Type: ${file.type.charAt(0).toUpperCase() + file.type.slice(1)}</p>
+                                    <p class="text-xs text-gray-500">Size: ${formatBytes(file.size)}</p>
+                                    <p class="text-xs text-gray-500">Uploaded: ${formatTimestamp(file.uploaded_at)}</p>
+                                    <div class="mt-3 flex justify-end space-x-2">
+                                        <a href="${file.url}" target="_blank" class="text-primary-600 hover:text-primary-800 text-sm" title="View File">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <button onclick="copyToClipboard('${file.url}')" class="text-gray-500 hover:text-gray-700 text-sm" title="Copy URL">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                        <button onclick="deleteMedia('${file.name}')" class="text-red-600 hover:text-red-800 text-sm" title="Delete File">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        mediaGrid.insertAdjacentHTML('beforeend', mediaCard);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching media:', error);
+                loadingMessage.classList.add('hidden');
+                errorMessage.classList.remove('hidden');
+            }
+        }
+
+        // --- Action Functions for Media Items ---
+        function copyToClipboard(text) {
+            // Using a fallback for document.execCommand('copy') as navigator.clipboard.writeText() might not work in some iframe environments
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showMessageModal('success', 'Copied!', 'Media URL copied to clipboard.');
+            } catch (err) {
+                console.error('Failed to copy text:', err);
+                showMessageModal('error', 'Copy Failed', 'Could not copy URL to clipboard.');
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        // Function to delete media file
+        async function deleteMedia(filename) {
+            // Use a confirmation modal for better UX than a simple alert
+            const confirmDelete = await new Promise(resolve => {
+                // You would typically show a custom confirmation modal here
+                // For now, using browser's confirm for quick testing
+                if (confirm(`Are you sure you want to delete "${filename}"? This action cannot be undone.`)) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            });
+
+            if (!confirmDelete) {
+                return; // User cancelled deletion
+            }
+
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/api/media/${filename}`, {
+                    method: 'DELETE',
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showMessageModal('success', 'Delete Successful', result.message);
+                    fetchAndDisplayMedia(); // Refresh the list after deletion
+                } else {
+                    throw new Error(result.message || 'Failed to delete media.');
+                }
+            } catch (error) {
+                console.error('Error deleting media:', error);
+                showMessageModal('error', 'Delete Failed', error.message || 'An error occurred during deletion.');
+            }
+        }
+
+        // --- Initial Load ---
+        document.addEventListener('DOMContentLoaded', fetchAndDisplayMedia);
+    </script>
+</body>
+</html>
