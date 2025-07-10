@@ -146,20 +146,7 @@
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                Dropzone.options.myDropzone = {
-...
-    success: function(file, response) {
-        var fileUrl = response.file.url;
-        // Include fileUrl in your post data
-        var postData = {
-            title: title,
-            excerpt: excerpt,
-            category: category,
-            imageUrl: fileUrl // Add this line
-        };
-        // Send postData to /api/posts
-    }
-}
+             
 
                 const posts = await response.json();
 
