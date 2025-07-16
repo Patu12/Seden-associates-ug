@@ -1,36 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Content Management | SEDEN ASSOCIATES</title>
+    <title>Our Latest Posts | SEDEN ASSOCIATES</title>
     
-    <!-- Preload critical resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" as="style">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
-    
-    <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
-    
-    <!-- CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Dropzone CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css">
-    
-    <!-- Quill Rich Text Editor CSS -->
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -41,1161 +23,253 @@
                     },
                     colors: {
                         primary: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
+                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8',
+                            500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e',
                         },
                         secondary: {
-                            50: '#fff7ed',
-                            100: '#ffedd5',
-                            200: '#fed7aa',
-                            300: '#fdba74',
-                            400: '#fb923c',
-                            500: '#f97316',
-                            600: '#ea580c',
-                            700: '#c2410c',
-                            800: '#9a3412',
-                            900: '#7c2d12',
+                            50: '#fff7ed', 100: '#ffedd5', 200: '#fed7aa', 300: '#fdba74', 400: '#fb923c',
+                            500: '#f97316', 600: '#ea580c', 700: '#c2410c', 800: '#9a3412', 900: '#7c2d12',
                         },
                         dark: {
-                            900: '#0f172a',
-                            800: '#1e293b',
-                            700: '#334155',
-                            600: '#475569',
+                            900: '#0f172a', 800: '#1e293b', 700: '#334155', 600: '#475569',
                         }
                     }
                 }
             }
         }
     </script>
-    
-    <!-- Inline critical CSS -->
     <style>
         /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(to bottom, #0ea5e9, #f97316);
             border-radius: 10px;
         }
         
-        /* Admin specific styles */
-        .admin-sidebar {
-            width: 280px;
-            transition: transform 0.3s ease;
+        /* Media containers */
+        .post-media-container {
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f9ff;
         }
         
-        .admin-main {
-            margin-left: 280px;
-            transition: margin 0.3s ease;
-        }
-        
-        @media (max-width: 1024px) {
-            .admin-sidebar {
-                transform: translateX(-100%);
-                position: fixed;
-                z-index: 40;
-                height: 100vh;
-            }
-            .admin-sidebar.open {
-                transform: translateX(0);
-            }
-            .admin-main {
-                margin-left: 0;
-            }
-        }
-        
-        /* File upload styles */
-        .dropzone {
-            border: 2px dashed var(--primary-300);
-            background: var(--primary-50);
-            transition: all 0.3s ease;
-        }
-        
-        .dropzone:hover {
-            border-color: var(--primary-500);
-            background: var(--primary-100);
-        }
-        
-        .dropzone.dz-drag-hover {
-            border-color: var(--primary-600);
-            background: var(--primary-200);
-        }
-        
-        /* Rich text editor container */
-        .editor-container {
-            min-height: 300px;
-            border: 1px solid #e2e8f0;
-            border-radius: 0.375rem;
-        }
-        
-        /* Tab styles */
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        /* Loading spinner */
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .loading-spinner {
-            animation: spin 1s linear infinite;
-        }
-
-        /* Custom Modal Styles */
-        .custom-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* PDF specific styles */
+        .pdf-container {
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
             display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            flex-direction: column;
         }
-
-        .custom-modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .custom-modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            position: relative;
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
-        }
-
-        .custom-modal.show .custom-modal-content {
-            transform: translateY(0);
-        }
-
-        .custom-modal-content .close-button {
-            position: absolute;
-            top: 0.75rem;
-            right: 0.75rem;
-            background: none;
+        .pdf-viewer {
+            width: 100%;
+            height: 200px;
             border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #6b7280;
+            background: #f8fafc;
         }
-
-        .custom-modal-content .icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .pdf-actions {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: white;
+            border-top: 1px solid #e2e8f0;
         }
-
-        .custom-modal-content .icon.success {
-            color: #10b981; /* Green-500 */
-        }
-
-        .custom-modal-content .icon.error {
-            color: #ef4444; /* Red-500 */
-        }
-
-        .custom-modal-content h3 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #1f2937; /* Gray-900 */
-        }
-
-        .custom-modal-content p {
-            color: #4b5563; /* Gray-600 */
-            margin-bottom: 1.5rem;
-        }
-
-        .custom-modal-content button {
-            background-color: var(--primary-600);
-            color: white;
-            padding: 0.75rem 1.5rem;
+        .btn-pdf {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
             border-radius: 0.375rem;
             font-weight: 600;
-            transition: background-color 0.2s ease;
+            font-size: 0.875rem;
         }
-
-        .custom-modal-content button:hover {
-            background-color: var(--primary-700);
+        .btn-pdf i {
+            margin-right: 0.5rem;
         }
     </style>
 </head>
-<body class="min-h-screen bg-gray-50">
-    <!-- Admin Layout -->
-    <div class="flex">
-        <!-- Admin Sidebar -->
-        <aside class="admin-sidebar bg-white shadow-md fixed lg:relative h-screen" aria-label="Admin navigation sidebar">
-            <div class="p-6 border-b border-gray-200">
-                <a href="post.html" class="flex items-center space-x-2">
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-white shadow-sm py-4">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                <a href="/" class="flex items-center space-x-2">
                     <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center text-white">
-                        <i class="fas fa-lock"></i>
+                        <i class="fas fa-building"></i>
                     </div>
                     <span class="text-xl font-bold">
                         <span class="text-primary-600">SEDEN</span>
-                        <span class="text-secondary-500">ADMIN</span>
+                        <span class="text-secondary-500">ASSOCIATES</span>
                     </span>
                 </a>
+                <nav>
+                    <a href="index.html" class="text-gray-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="about.html" class="text-gray-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                    <a href="#" class="text-primary-600 bg-primary-50 px-3 py-2 rounded-md text-sm font-medium">Posts</a>
+                    <a href="login.html" class="text-gray-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium">Admin Login</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                </nav>
             </div>
-            
-            <nav class="p-4">
-                <div class="mb-8">
-                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Content Management</h3>
-                    <ul class="space-y-2">
-                        <li>
-                            <a href="post.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-primary-100 text-primary-700">
-                                <i class="fas fa-upload w-5"></i>
-                                <span>Upload Content</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
-                                <i class="fas fa-newspaper w-5"></i>
-                                <span>Manage Posts</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="media_library.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
-                                <i class="fas fa-photo-video w-5"></i>
-                                <span>Media Library</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="user.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
-                                <i class="fas fa-users w-5"></i>
-                                <span>User Management</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+        </header>
+
+        <main class="flex-1 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">Our Latest Insights & News</h1>
                 
-                <div class="mb-8">
-                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Settings</h3>
-                    <ul class="space-y-2">
-                        <li>
-                            <a href="settings.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
-                                <i class="fas fa-cog w-5"></i>
-                                <span>Site Settings</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="analytics.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
-                                <i class="fas fa-chart-line w-5"></i>
-                                <span>Analytics</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="pt-4 border-t border-gray-200">
-                    <a href="logout.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
-                        <i class="fas fa-sign-out-alt w-5"></i>
-                        <span>Logout</span>
-                    </a>
-                </div>
-            </nav>
-        </aside>
-
-        <!-- Mobile menu button -->
-        <button class="lg:hidden fixed bottom-6 right-6 bg-primary-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg z-30" id="mobile-menu-button" aria-label="Toggle admin sidebar" aria-expanded="false">
-            <i class="fas fa-bars text-xl"></i>
-        </button>
-
-        <!-- Main Content -->
-        <main class="admin-main flex-1 min-h-screen">
-            <!-- Admin Header -->
-            <header class="bg-white shadow-sm">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-2xl font-bold text-gray-900">Content Upload</h1>
-                    <div class="flex items-center space-x-4">
-                        <div class="relative">
-                            <button class="p-1 rounded-full text-gray-500 hover:text-gray-700 focus:outline-none" aria-label="View notifications">
-                                <i class="fas fa-bell text-xl"></i>
-                            </button>
-                            <span class="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full"></span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Admin profile" class="w-8 h-8 rounded-full">
-                            <span class="font-medium">Admin User</span>
-                        </div>
+                <div id="loading-message" class="text-center text-gray-600 text-lg">
+                    <div class="flex justify-center items-center">
+                        <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-primary-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Loading posts...
                     </div>
                 </div>
-            </header>
-
-            <!-- Content Area -->
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <!-- Content Type Tabs -->
-                <div class="border-b border-gray-200 mb-8">
-                    <nav class="-mb-px flex space-x-8" role="tablist">
-                        <button class="tab-button border-b-2 border-primary-500 text-primary-600 whitespace-nowrap py-4 px-1 font-medium text-sm" data-tab="post" role="tab" aria-selected="true" id="tab-post">
-                            <i class="fas fa-newspaper mr-2"></i> Article/Post
-                        </button>
-                        <button class="tab-button border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 font-medium text-sm" data-tab="video" role="tab" aria-selected="false" id="tab-video">
-                            <i class="fas fa-video mr-2"></i> Video
-                        </button>
-                        <button class="tab-button border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 font-medium text-sm" data-tab="image" role="tab" aria-selected="false" id="tab-image">
-                            <i class="fas fa-image mr-2"></i> Image Gallery
-                        </button>
-                        <button class="tab-button border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 font-medium text-sm" data-tab="document" role="tab" aria-selected="false" id="tab-document">
-                            <i class="fas fa-file-pdf mr-2"></i> Documents
-                        </button>
-                    </nav>
+                <div id="error-message" class="text-center text-red-600 text-lg hidden">
+                    <i class="fas fa-exclamation-triangle mr-2"></i> Failed to load posts. Please try again later.
                 </div>
 
-                <!-- Tab Contents -->
-                <div>
-                    <!-- Article/Post Tab -->
-                    <div id="post-tab" class="tab-content active" role="tabpanel" aria-labelledby="tab-post">
-                        <form id="post-form" class="space-y-6">
-                            <div class="bg-white shadow rounded-lg p-6">
-                                <div class="space-y-4">
-                                    <div>
-                                        <label for="post-title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                                        <input type="text" id="post-title" name="post-title" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                    </div>
-                                    
-                                    <div>
-                                        <label for="post-excerpt" class="block text-sm font-medium text-gray-700 mb-1">Excerpt</label>
-                                        <textarea id="post-excerpt" name="post-excerpt" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"></textarea>
-                                    </div>
-                                    
-                                    <div>
-                                        <label for="post-category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                                        <select id="post-category" name="post-category" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                            <option value="">Select a category</option>
-                                            <option value="news">News</option>
-                                            <option value="updates">Updates</option>
-                                            <option value="events">Events</option>
-                                            <option value="success-stories">Success Stories</option>
-                                            <option value="guides">Guides</option> <!-- Added guides category -->
-                                            <option value="forms">Forms</option>   <!-- Added forms category -->
-                                            <option value="videos">Videos</option> <!-- Added videos category -->
-                                            <option value="reports">Reports</option> <!-- Added reports category -->
-                                        </select>
-                                    </div>
-                                    
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Featured Image / Media</label>
-                                        <div class="dropzone dz-clickable" id="featured-image-dropzone">
-                                            <div class="dz-message" data-dz-message>
-                                                <div class="text-center py-8">
-                                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
-                                                    <p class="text-sm text-gray-600">Drag & drop your file here or click to browse</p>
-                                                    <p class="text-xs text-gray-500 mt-1">Supported: Images, PDFs, Videos, Documents (Doc, Xls, Ppt)</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p id="uploaded-file-url-display" class="text-sm text-gray-600 mt-2 hidden">
-                                            Uploaded: <a href="#" target="_blank" class="text-primary-600 hover:underline"></a>
-                                            <button type="button" id="clear-uploaded-file" class="ml-2 text-red-500 hover:text-red-700 text-xs">
-                                                <i class="fas fa-times-circle"></i> Clear
-                                            </button>
-                                        </p>
-                                    </div>
-                                    
-                                    <div>
-                                        <label for="post-content" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
-                                        <div class="editor-container" id="post-content-editor"></div>
-                                    </div>
-                                    
-                                    <div class="flex items-center space-x-4">
-                                        <div>
-                                            <label for="post-status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                                            <select id="post-status" name="post-status" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                                <option value="draft">Draft</option>
-                                                <option value="published">Publish Now</option>
-                                                <option value="scheduled">Schedule</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <div id="schedule-date-container" class="hidden">
-                                            <label for="post-schedule-date" class="block text-sm font-medium text-gray-700 mb-1">Publish Date</label>
-                                            <input type="datetime-local" id="post-schedule-date" name="post-schedule-date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="mt-6 flex justify-end space-x-3">
-                                    <button type="button" id="save-draft-button" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                                        Save Draft
-                                    </button>
-                                    <button type="submit" id="publish-post-button" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 inline-flex items-center">
-                                        <span id="post-submit-text">Publish Post</span>
-                                        <svg id="post-submit-spinner" class="hidden w-5 h-5 ml-2 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <!-- Video Tab (simplified for brevity, similar structure to Post tab) -->
-                    <div id="video-tab" class="tab-content" role="tabpanel" aria-labelledby="tab-video">
-                        <form id="video-form" class="space-y-6">
-                            <div class="bg-white shadow rounded-lg p-6">
-                                <div class="space-y-4">
-                                    <div>
-                                        <label for="video-title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                                        <input type="text" id="video-title" name="video-title" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                    </div>
-                                    
-                                    <div>
-                                        <label for="video-description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                                        <textarea id="video-description" name="video-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"></textarea>
-                                    </div>
-                                    
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Video File</label>
-                                        <div class="dropzone dz-clickable" id="video-dropzone">
-                                            <div class="dz-message" data-dz-message>
-                                                <div class="text-center py-8">
-                                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
-                                                    <p class="text-sm text-gray-600">Drag & drop your video file here or click to browse</p>
-                                                    <p class="text-xs text-gray-500 mt-1">Supported formats: MP4, WebM, Ogg</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p id="uploaded-video-url-display" class="text-sm text-gray-600 mt-2 hidden">
-                                            Uploaded: <a href="#" target="_blank" class="text-primary-600 hover:underline"></a>
-                                            <button type="button" id="clear-uploaded-video" class="ml-2 text-red-500 hover:text-red-700 text-xs">
-                                                <i class="fas fa-times-circle"></i> Clear
-                                            </button>
-                                        </p>
-                                    </div>
-                                    
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Thumbnail Image</label>
-                                        <div class="dropzone dz-clickable" id="video-thumbnail-dropzone">
-                                            <div class="dz-message" data-dz-message>
-                                                <div class="text-center py-8">
-                                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
-                                                    <p class="text-sm text-gray-600">Drag & drop your thumbnail image here or click to browse</p>
-                                                    <p class="text-xs text-gray-500 mt-1">Recommended size: 1280x720px</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p id="uploaded-thumbnail-url-display" class="text-sm text-gray-600 mt-2 hidden">
-                                            Uploaded: <a href="#" target="_blank" class="text-primary-600 hover:underline"></a>
-                                            <button type="button" id="clear-uploaded-thumbnail" class="ml-2 text-red-500 hover:text-red-700 text-xs">
-                                                <i class="fas fa-times-circle"></i> Clear
-                                            </button>
-                                        </p>
-                                    </div>
-                                    
-                                    <div class="flex items-center space-x-4">
-                                        <div>
-                                            <label for="video-category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                                            <select id="video-category" name="video-category" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                                <option value="">Select a category</option>
-                                                <option value="tutorials">Tutorials</option>
-                                                <option value="interviews">Interviews</option>
-                                                <option value="events">Events</option>
-                                                <option value="testimonials">Testimonials</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <div>
-                                            <label for="video-status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                                            <select id="video-status" name="video-status" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                                <option value="draft">Draft</option>
-                                                <option value="published">Publish Now</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="mt-6 flex justify-end">
-                                    <button type="submit" id="upload-video-button" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 inline-flex items-center">
-                                        <span id="video-submit-text">Upload Video</span>
-                                        <svg id="video-submit-spinner" class="hidden w-5 h-5 ml-2 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                <div id="posts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     </div>
 
-                    <!-- Image Gallery Tab (simplified for brevity) -->
-                    <div id="image-tab" class="tab-content" role="tabpanel" aria-labelledby="tab-image">
-                        <form id="image-form" class="space-y-6">
-                            <div class="bg-white shadow rounded-lg p-6">
-                                <div class="space-y-4">
-                                    <div>
-                                        <label for="image-gallery-title" class="block text-sm font-medium text-gray-700 mb-1">Gallery Title</label>
-                                        <input type="text" id="image-gallery-title" name="image-gallery-title" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                    </div>
-                                    <div>
-                                        <label for="image-gallery-description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                                        <textarea id="image-gallery-description" name="image-gallery-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"></textarea>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Images</label>
-                                        <div class="dropzone dz-clickable" id="image-gallery-dropzone">
-                                            <div class="dz-message" data-dz-message>
-                                                <div class="text-center py-8">
-                                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
-                                                    <p class="text-sm text-gray-600">Drag & drop images here or click to browse</p>
-                                                    <p class="text-xs text-gray-500 mt-1">Multiple images allowed</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="uploaded-gallery-images-display" class="mt-2 grid grid-cols-4 gap-2">
-                                            <!-- Uploaded image previews will go here -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-6 flex justify-end">
-                                    <button type="submit" id="create-gallery-button" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 inline-flex items-center">
-                                        <span id="gallery-submit-text">Create Gallery</span>
-                                        <svg id="gallery-submit-spinner" class="hidden w-5 h-5 ml-2 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- Documents Tab (simplified for brevity) -->
-                    <div id="document-tab" class="tab-content" role="tabpanel" aria-labelledby="tab-document">
-                        <form id="document-form" class="space-y-6">
-                            <div class="bg-white shadow rounded-lg p-6">
-                                <div class="space-y-4">
-                                    <div>
-                                        <label for="document-title" class="block text-sm font-medium text-gray-700 mb-1">Document Title</label>
-                                        <input type="text" id="document-title" name="document-title" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                    </div>
-                                    <div>
-                                        <label for="document-description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                                        <textarea id="document-description" name="document-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"></textarea>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Document File</label>
-                                        <div class="dropzone dz-clickable" id="document-dropzone">
-                                            <div class="dz-message" data-dz-message>
-                                                <div class="text-center py-8">
-                                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
-                                                    <p class="text-sm text-gray-600">Drag & drop your document file here or click to browse</p>
-                                                    <p class="text-xs text-gray-500 mt-1">Supported formats: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p id="uploaded-document-url-display" class="text-sm text-gray-600 mt-2 hidden">
-                                            Uploaded: <a href="#" target="_blank" class="text-primary-600 hover:underline"></a>
-                                            <button type="button" id="clear-uploaded-document" class="ml-2 text-red-500 hover:text-red-700 text-xs">
-                                                <i class="fas fa-times-circle"></i> Clear
-                                            </button>
-                                        </p>
-                                    </div>
-                                    <div class="flex items-center space-x-4">
-                                        <div>
-                                            <label for="document-category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                                            <select id="document-category" name="document-category" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                                <option value="">Select a category</option>
-                                                <option value="reports">Reports</option>
-                                                <option value="forms">Forms</option>
-                                                <option value="guides">Guides</option>
-                                                <option value="policies">Policies</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label for="document-status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                                            <select id="document-status" name="document-status" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                                <option value="draft">Draft</option>
-                                                <option value="published">Publish Now</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-6 flex justify-end">
-                                    <button type="submit" id="upload-document-button" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 inline-flex items-center">
-                                        <span id="document-submit-text">Upload Document</span>
-                                        <svg id="document-submit-spinner" class="hidden w-5 h-5 ml-2 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                <div id="no-posts-message" class="text-center text-gray-600 text-lg mt-12 hidden">
+                    No posts available yet. Check back soon!
                 </div>
             </div>
         </main>
-    </div>
 
-    <!-- Custom Modal Structure -->
-    <div id="custom-modal" class="custom-modal">
-        <div class="custom-modal-content">
-            <button class="close-button" onclick="hideCustomModal()">&times;</button>
-            <div id="modal-icon" class="icon"></div>
-            <h3 id="modal-title"></h3>
-            <p id="modal-message"></p>
-            <button onclick="hideCustomModal()">OK</button>
-        </div>
+        <footer class="bg-dark-900 text-white py-8 mt-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <p>&copy; 2025 SEDEN ASSOCIATES. All rights reserved.</p>
+            </div>
+        </footer>
     </div>
-
-    <!-- Dropzone JS -->
-    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-    <!-- Quill Rich Text Editor JS -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
     <script>
-        // Disable autoDiscover for Dropzone
-        Dropzone.autoDiscover = false;
+        document.addEventListener('DOMContentLoaded', async () => {
+            const postsContainer = document.getElementById('posts-container');
+            const loadingMessage = document.getElementById('loading-message');
+            const errorMessage = document.getElementById('error-message');
+            const noPostsMessage = document.getElementById('no-posts-message');
 
-        // Global variable to store the URL of the uploaded file for the current post/media being created/edited
-        let uploadedFileUrl = ''; // For Article/Post tab
-        let uploadedVideoUrl = ''; // For Video tab
-        let uploadedThumbnailUrl = ''; // For Video tab
-        let uploadedGalleryImageUrls = []; // For Image Gallery tab
-        let uploadedDocumentUrl = ''; // For Documents tab
-
-        let quillEditor = null; // Variable to hold the Quill editor instance
-
-        // --- Custom Modal Functions ---
-        function showCustomModal(type, title, message) {
-            const modal = document.getElementById('custom-modal');
-            const icon = document.getElementById('modal-icon');
-            const modalTitle = document.getElementById('modal-title');
-            const modalMessage = document.getElementById('modal-message');
-
-            // Reset classes
-            icon.classList.remove('success', 'error');
-
-            if (type === 'success') {
-                icon.classList.add('success');
-                icon.innerHTML = '<i class="fas fa-check-circle"></i>';
-            } else if (type === 'error') {
-                icon.classList.add('error');
-                icon.innerHTML = '<i class="fas fa-times-circle"></i>';
+            // --- Authentication check on page load ---
+            const adminToken = localStorage.getItem('adminToken');
+            if (!adminToken) {
+                // If no token, redirect to login page
+                window.location.href = 'login.html'; // Adjust to your login page path
+                return; // Stop execution
             }
-
-            modalTitle.textContent = title;
-            modalMessage.textContent = message;
-            modal.classList.add('show');
-        }
-
-        function hideCustomModal() {
-            const modal = document.getElementById('custom-modal');
-            modal.classList.remove('show');
-        }
-
-        // --- File Upload Success Handler ---
-        // This function is now more generic to handle different uploaded URL variables
-        function handleFileUploadSuccess(response, urlVariableRef, displayElementId, clearButtonId) {
-            // Update the correct global URL variable based on the reference passed
-            if (urlVariableRef === 'uploadedFileUrl') {
-                uploadedFileUrl = response.file_url;
-            } else if (urlVariableRef === 'uploadedVideoUrl') {
-                uploadedVideoUrl = response.file_url;
-            } else if (urlVariableRef === 'uploadedThumbnailUrl') {
-                uploadedThumbnailUrl = response.file_url;
-            } else if (urlVariableRef === 'uploadedDocumentUrl') {
-                uploadedDocumentUrl = response.file_url;
-            }
-            
-            console.log(`File uploaded successfully for ${urlVariableRef}. URL:`, response.file_url);
-
-            const displayElement = document.getElementById(displayElementId);
-            const displayLink = displayElement.querySelector('a');
-            const clearButton = document.getElementById(clearButtonId);
-
-            displayLink.href = response.file_url;
-            displayLink.textContent = response.file_url.split('/').pop(); // Show just the filename
-            displayElement.classList.remove('hidden');
-
-            clearButton.onclick = () => {
-                if (urlVariableRef === 'uploadedFileUrl') uploadedFileUrl = '';
-                else if (urlVariableRef === 'uploadedVideoUrl') uploadedVideoUrl = '';
-                else if (urlVariableRef === 'uploadedThumbnailUrl') uploadedThumbnailUrl = '';
-                else if (urlVariableRef === 'uploadedDocumentUrl') uploadedDocumentUrl = '';
-
-                displayElement.classList.add('hidden');
-                console.log(`${urlVariableRef} cleared.`);
-            };
-        }
-
-        // --- Form Submission Handlers ---
-
-        // Helper function to toggle loading state on buttons
-        function toggleLoading(buttonId, spinnerId, textId, isLoading) {
-            const button = document.getElementById(buttonId);
-            const spinner = document.getElementById(spinnerId);
-            const text = document.getElementById(textId);
-
-            if (isLoading) {
-                button.disabled = true;
-                spinner.classList.remove('hidden');
-                text.classList.add('hidden');
-            } else {
-                button.disabled = false;
-                spinner.classList.add('hidden');
-                text.classList.remove('hidden');
-            }
-        }
-
-        // Save Post function (for Article/Post tab)
-        async function savePost(event) {
-            event.preventDefault(); // Prevent default form submission
-
-            toggleLoading('publish-post-button', 'post-submit-spinner', 'post-submit-text', true);
-
-            const postTitle = document.getElementById('post-title').value;
-            const postExcerpt = document.getElementById('post-excerpt').value;
-            const postCategory = document.getElementById('post-category').value;
-            const postStatus = document.getElementById('post-status').value;
-            const postScheduleDate = document.getElementById('post-schedule-date').value;
-
-            // Get content from Quill editor
-            const postContent = quillEditor ? quillEditor.root.innerHTML : '';
-
-            let publishDate = new Date().toISOString().slice(0, 10); // Default to current date
-
-            if (postStatus === 'scheduled' && postScheduleDate) {
-                publishDate = new Date(postScheduleDate).toISOString().slice(0, 10);
-            }
-
-            const postData = {
-                title: postTitle,
-                excerpt: postExcerpt,
-                content: postContent,
-                category: postCategory,
-                imageUrl: uploadedFileUrl, // THIS IS THE CRUCIAL PART: Send the uploaded file's URL
-                status: postStatus,
-                publishDate: publishDate
-            };
-            console.log('Sending Post Data:', postData); // Log the data being sent
 
             try {
-                const response = await fetch('https://Mwanga.pythonanywhere.com/api/posts', {
-                    method: 'POST',
+                // Fetch posts from Flask backend
+                // Add Authorization header to your fetch requests for protected routes
+                const response = await fetch('https://Mwanga.pythonanywhere.com/api/posts', { // Updated URL
                     headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(postData)
+                        'Authorization': `Bearer ${adminToken}` // Include the token
+                    }
                 });
-                const result = await response.json();
-                console.log('Post Save Response:', result); // Log the backend response
                 
-                if (response.ok) {
-                    showCustomModal('success', 'Success!', result.message);
-                    // Clear form after successful submission
-                    document.getElementById('post-form').reset();
-                    if (quillEditor) quillEditor.setContents([]); // Clear Quill editor
-                    uploadedFileUrl = ''; // Clear uploaded file URL
-                    document.getElementById('uploaded-file-url-display').classList.add('hidden');
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        // Token is invalid or expired, redirect to login
+                        alert('Your session has expired or you are not authorized. Please log in again.');
+                        localStorage.removeItem('adminToken'); // Clear invalid token
+                        window.location.href = 'login.html';
+                        return; // Stop execution
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const posts = await response.json();
+                loadingMessage.classList.add('hidden');
+
+                if (posts.length === 0) {
+                    noPostsMessage.classList.remove('hidden');
                 } else {
-                    showCustomModal('error', 'Error!', result.message || 'Failed to save post.');
+                    posts.forEach(post => {
+                        let mediaHtml = '';
+                        
+                        if (post.image_url) {
+                            const fileExtension = post.image_url.split('.').pop().toLowerCase();
+                            
+                            if (fileExtension === 'pdf') {
+                                // Enhanced PDF handling with viewer and download options
+                                mediaHtml = `
+                                    <div class="pdf-container rounded-t-lg">
+                                        <iframe src="https://docs.google.com/viewer?url=${encodeURIComponent(post.image_url)}&embedded=true" 
+                                                class="pdf-viewer" 
+                                                title="PDF Viewer">
+                                        </iframe>
+                                        <div class="pdf-actions">
+                                            <a href="${post.image_url}" 
+                                               target="_blank" 
+                                               class="btn-pdf bg-primary-600 hover:bg-primary-700 text-white">
+                                                <i class="fas fa-expand"></i> Fullscreen
+                                            </a>
+                                            <a href="${post.download_url || post.image_url}" 
+                                               download="${post.file_name || 'document.pdf'}" 
+                                               class="btn-pdf bg-secondary-600 hover:bg-secondary-700 text-white">
+                                                <i class="fas fa-download"></i> Download
+                                            </a>
+                                        </div>
+                                    </div>
+                                `;
+                            } else if (['mp4', 'webm', 'ogg'].includes(fileExtension)) {
+                                // Video handling
+                                mediaHtml = `
+                                    <video controls class="w-full h-full object-cover">
+                                        <source src="${post.image_url}" type="video/${fileExtension}">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                `;
+                            } else {
+                                // Image handling
+                                mediaHtml = `
+                                    <img src="${post.image_url}" 
+                                         alt="${post.title}" 
+                                         class="w-full h-full object-cover"
+                                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0F2FE/0C4A6E?text=Image+Not+Found'">
+                                `;
+                            }
+                        } else {
+                            // Placeholder for no media
+                            mediaHtml = `
+                                <div class="w-full h-full flex items-center justify-center">
+                                    <i class="fas fa-image text-6xl text-primary-300"></i>
+                                </div>
+                            `;
+                        }
+
+                        const postCard = `
+                            <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-[1.02] hover:shadow-xl">
+                                <div class="post-media-container">
+                                    ${mediaHtml}
+                                </div>
+                                <div class="p-6">
+                                    <span class="inline-block bg-primary-100 text-primary-700 text-xs font-semibold px-3 py-1 rounded-full mb-2">
+                                        ${post.category || 'General'}
+                                    </span>
+                                    <h2 class="text-xl font-bold text-gray-900 mb-2">${post.title || 'No Title'}</h2>
+                                    <p class="text-gray-600 text-sm mb-4">${post.excerpt || 'No excerpt available.'}</p>
+                                    <div class="flex justify-between items-center text-gray-500 text-xs">
+                                        <span>Published: ${new Date(post.publish_date).toLocaleDateString() || 'N/A'}</span>
+                                        <a href="#" class="text-primary-600 hover:underline font-medium">Read More <i class="fas fa-arrow-right ml-1 text-xs"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        postsContainer.insertAdjacentHTML('beforeend', postCard);
+                    });
                 }
             } catch (error) {
-                console.error('Error saving post:', error);
-                showCustomModal('error', 'Error!', 'An unexpected error occurred. Please try again.');
-            } finally {
-                toggleLoading('publish-post-button', 'post-submit-spinner', 'post-submit-text', false);
+                console.error('Error fetching posts:', error);
+                loadingMessage.classList.add('hidden');
+                errorMessage.classList.remove('hidden');
             }
-        }
-
-        // --- Document Ready / Initialization ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize Quill editor
-            quillEditor = new Quill('#post-content-editor', {
-                theme: 'snow',
-                placeholder: 'Write your post content here...',
-                modules: {
-                    toolbar: [
-                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                        [{ 'script': 'sub'}, { 'script': 'super' }],
-                        [{ 'indent': '-1'}, { 'indent': '+1' }],
-                        [{ 'direction': 'rtl' }],
-                        [{ 'color': [] }, { 'background': [] }],
-                        [{ 'font': [] }],
-                        [{ 'align': [] }],
-                        ['link', 'image', 'video'],
-                        ['clean']
-                    ]
-                }
-            });
-
-            // Initialize Dropzone for featured image/media
-            const featuredImageDropzone = new Dropzone("#featured-image-dropzone", {
-                url: "https://Mwanga.pythonanywhere.com/upload", // Your Flask upload endpoint
-                maxFiles: 1, // Only one featured media per post
-                acceptedFiles: "image/*,application/pdf,video/*,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation", // Allow images, PDFs, videos, and common document types
-                addRemoveLinks: true,
-                dictDefaultMessage: '<div class="text-center py-8"><i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i><p class="text-sm text-gray-600">Drag & drop your file here or click to browse</p><p class="text-xs text-gray-500 mt-1">Supported: Images, PDFs, Videos, Documents (Doc, Xls, Ppt)</p></div>',
-            });
-
-            featuredImageDropzone.on("success", function(file, response) {
-                if (response.file_url) {
-                    handleFileUploadSuccess(response, 'uploadedFileUrl', 'uploaded-file-url-display', 'clear-uploaded-file');
-                    this.removeAllFiles(); // Remove previous previews if any
-                }
-            });
-
-            featuredImageDropzone.on("removedfile", function(file) {
-                // Clear the URL if the file is removed
-                uploadedFileUrl = '';
-                document.getElementById('uploaded-file-url-display').classList.add('hidden');
-                console.log('File removed. uploadedFileUrl cleared.');
-            });
-
-            // --- Event Listeners ---
-
-            // Tab switching logic
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetTab = button.dataset.tab;
-
-                    tabButtons.forEach(btn => {
-                        btn.classList.remove('border-primary-500', 'text-primary-600');
-                        btn.classList.add('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
-                        btn.setAttribute('aria-selected', 'false');
-                    });
-
-                    button.classList.add('border-primary-500', 'text-primary-600');
-                    button.classList.remove('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
-                    button.setAttribute('aria-selected', 'true');
-
-                    tabContents.forEach(content => {
-                        content.classList.remove('active');
-                    });
-                    document.getElementById(`${targetTab}-tab`).classList.add('active');
-                });
-            });
-
-            // Post Status / Schedule Date logic
-            const postStatusSelect = document.getElementById('post-status');
-            const scheduleDateContainer = document.getElementById('schedule-date-container');
-
-            postStatusSelect.addEventListener('change', () => {
-                if (postStatusSelect.value === 'scheduled') {
-                    scheduleDateContainer.classList.remove('hidden');
-                } else {
-                    scheduleDateContainer.classList.add('hidden');
-                }
-            });
-
-            // Attach savePost to the post form submission
-            document.getElementById('post-form').addEventListener('submit', savePost);
-
-            // Save Draft button (optional, could make an API call to save as draft)
-            document.getElementById('save-draft-button').addEventListener('click', async () => {
-                // This is a placeholder. In a real app, you'd send a request
-                // to your backend to save the post with status 'draft'.
-                showCustomModal('success', 'Draft Saved!', 'Your post has been saved as a draft locally (for this demo).');
-                // For a real implementation, you'd call an API like:
-                // await savePost({ preventDefault: () => {} }, 'draft');
-            });
-
-
-            // --- Dropzone and Form Submission for Video Tab ---
-            // These variables are now declared globally at the top
-            // let uploadedVideoUrl = '';
-            // let uploadedThumbnailUrl = '';
-
-            const videoDropzone = new Dropzone("#video-dropzone", {
-                url: "https://Mwanga.pythonanywhere.com/upload",
-                maxFiles: 1,
-                acceptedFiles: "video/*",
-                addRemoveLinks: true,
-                dictDefaultMessage: '<div class="text-center py-8"><i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i><p class="text-sm text-gray-600">Drag & drop your video file here or click to browse</p><p class="text-xs text-gray-500 mt-1">Supported formats: MP4, WebM, Ogg</p></div>',
-            });
-            videoDropzone.on("success", function(file, response) {
-                if (response.file_url) {
-                    handleFileUploadSuccess(response, 'uploadedVideoUrl', 'uploaded-video-url-display', 'clear-uploaded-video');
-                    this.removeAllFiles();
-                }
-            });
-            videoDropzone.on("removedfile", function(file) {
-                uploadedVideoUrl = '';
-                document.getElementById('uploaded-video-url-display').classList.add('hidden');
-            });
-            document.getElementById('clear-uploaded-video').addEventListener('click', () => {
-                uploadedVideoUrl = '';
-                document.getElementById('uploaded-video-url-display').classList.add('hidden');
-            });
-
-
-            const videoThumbnailDropzone = new Dropzone("#video-thumbnail-dropzone", {
-                url: "https://Mwanga.pythonanywhere.com/upload",
-                maxFiles: 1,
-                acceptedFiles: "image/*",
-                addRemoveLinks: true,
-                dictDefaultMessage: '<div class="text-center py-8"><i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i><p class="text-sm text-gray-600">Drag & drop your thumbnail image here or click to browse</p><p class="text-xs text-gray-500 mt-1">Recommended size: 1280x720px</p></div>',
-            });
-            videoThumbnailDropzone.on("success", function(file, response) {
-                if (response.file_url) {
-                    handleFileUploadSuccess(response, 'uploadedThumbnailUrl', 'uploaded-thumbnail-url-display', 'clear-uploaded-thumbnail');
-                    this.removeAllFiles();
-                }
-            });
-            videoThumbnailDropzone.on("removedfile", function(file) {
-                uploadedThumbnailUrl = '';
-                document.getElementById('uploaded-thumbnail-url-display').classList.add('hidden');
-            });
-            document.getElementById('clear-uploaded-thumbnail').addEventListener('click', () => {
-                uploadedThumbnailUrl = '';
-                document.getElementById('uploaded-thumbnail-url-display').classList.add('hidden');
-            });
-
-
-            document.getElementById('video-form').addEventListener('submit', async (event) => {
-                event.preventDefault();
-                toggleLoading('upload-video-button', 'video-submit-spinner', 'video-submit-text', true);
-
-                const videoTitle = document.getElementById('video-title').value;
-                const videoDescription = document.getElementById('video-description').value;
-                const videoCategory = document.getElementById('video-category').value;
-                const videoStatus = document.getElementById('video-status').value;
-
-                const videoData = {
-                    title: videoTitle,
-                    excerpt: videoDescription, // Using description as excerpt for simplicity
-                    content: videoDescription, // Using description as content for simplicity
-                    category: videoCategory,
-                    imageUrl: uploadedVideoUrl, // Video URL goes here
-                    thumbnailUrl: uploadedThumbnailUrl, // Thumbnail URL goes here
-                    status: videoStatus,
-                    publishDate: new Date().toISOString().slice(0, 10)
-                };
-                console.log('Sending Video Data:', videoData); // Log the data being sent
-
-                try {
-                    const response = await fetch('https://Mwanga.pythonanywhere.com/api/posts', { // Assuming videos are also stored as posts
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(videoData)
-                    });
-                    const result = await response.json();
-                    console.log('Video Upload Response:', result); // Log the backend response
-                    if (response.ok) {
-                        showCustomModal('success', 'Video Uploaded!', result.message);
-                        document.getElementById('video-form').reset();
-                        uploadedVideoUrl = '';
-                        uploadedThumbnailUrl = '';
-                        document.getElementById('uploaded-video-url-display').classList.add('hidden');
-                        document.getElementById('uploaded-thumbnail-url-display').classList.add('hidden');
-                    } else {
-                        showCustomModal('error', 'Error!', result.message || 'Failed to upload video.');
-                    }
-                } catch (error) {
-                    console.error('Error uploading video:', error);
-                    showCustomModal('error', 'Error!', 'An unexpected error occurred. Please try again.');
-                } finally {
-                    toggleLoading('upload-video-button', 'video-submit-spinner', 'video-submit-text', false);
-                }
-            });
-
-
-            // --- Dropzone and Form Submission for Image Gallery Tab ---
-            // This variable is now declared globally at the top
-            // let uploadedGalleryImageUrls = []; // Array to hold multiple image URLs
-
-            const imageGalleryDropzone = new Dropzone("#image-gallery-dropzone", {
-                url: "https://Mwanga.pythonanywhere.com/upload",
-                acceptedFiles: "image/*",
-                addRemoveLinks: true,
-                dictDefaultMessage: '<div class="text-center py-8"><i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i><p class="text-sm text-gray-600">Drag & drop images here or click to browse</p><p class="text-xs text-gray-500 mt-1">Multiple images allowed</p></div>',
-            });
-
-            imageGalleryDropzone.on("success", function(file, response) {
-                if (response.file_url) {
-                    uploadedGalleryImageUrls.push(response.file_url);
-                    // Add a preview to the display area
-                    const displayArea = document.getElementById('uploaded-gallery-images-display');
-                    const imgContainer = document.createElement('div');
-                    imgContainer.className = 'relative group';
-                    imgContainer.innerHTML = `
-                        <img src="${response.file_url}" class="w-full h-24 object-cover rounded-md">
-                        <button type="button" class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity remove-gallery-image" data-url="${response.file_url}">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    `;
-                    displayArea.appendChild(imgContainer);
-
-                    // Attach event listener to the new remove button
-                    imgContainer.querySelector('.remove-gallery-image').addEventListener('click', (e) => {
-                        const urlToRemove = e.currentTarget.dataset.url;
-                        uploadedGalleryImageUrls = uploadedGalleryImageUrls.filter(url => url !== urlToRemove);
-                        e.currentTarget.closest('.group').remove(); // Remove the image preview
-                        console.log('Removed gallery image:', urlToRemove);
-                    });
-                }
-            });
-
-            imageGalleryDropzone.on("removedfile", function(file) {
-                // This event fires when Dropzone's internal remove link is clicked
-                // We need to ensure our uploadedGalleryImageUrls array is also updated
-                // For simplicity, if Dropzone removes a file, we'll just clear the array
-                // In a more complex setup, you'd match by filename or URL
-                uploadedGalleryImageUrls = []; // Clear all for simplicity in this demo
-                document.getElementById('uploaded-gallery-images-display').innerHTML = '';
-            });
-
-            document.getElementById('image-form').addEventListener('submit', async (event) => {
-                event.preventDefault();
-                toggleLoading('create-gallery-button', 'gallery-submit-spinner', 'gallery-submit-text', true);
-
-                const galleryTitle = document.getElementById('image-gallery-title').value;
-                const galleryDescription = document.getElementById('image-gallery-description').value;
-
-                // For simplicity, we'll store gallery images as a JSON string in the content field
-                // and the first image as the imageUrl for the main post card.
-                const galleryData = {
-                    title: galleryTitle,
-                    excerpt: galleryDescription,
-                    content: JSON.stringify(uploadedGalleryImageUrls), // Store all image URLs as JSON string
-                    category: 'gallery', // New category for galleries
-                    imageUrl: uploadedGalleryImageUrls.length > 0 ? uploadedGalleryImageUrls[0] : '', // First image as featured
-                    status: 'published',
-                    publishDate: new Date().toISOString().slice(0, 10)
-                };
-                console.log('Sending Gallery Data:', galleryData); // Log the data being sent
-
-                try {
-                    const response = await fetch('https://Mwanga.pythonanywhere.com/api/posts', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(galleryData)
-                    });
-                    const result = await response.json();
-                    console.log('Gallery Save Response:', result); // Log the backend response
-                    if (response.ok) {
-                        showCustomModal('success', 'Gallery Created!', result.message);
-                        document.getElementById('image-form').reset();
-                        uploadedGalleryImageUrls = [];
-                        document.getElementById('uploaded-gallery-images-display').innerHTML = '';
-                        imageGalleryDropzone.removeAllFiles(); // Clear Dropzone previews
-                    } else {
-                        showCustomModal('error', 'Error!', result.message || 'Failed to create gallery.');
-                    }
-                } catch (error) {
-                    console.error('Error creating gallery:', error);
-                    showCustomModal('error', 'Error!', 'An unexpected error occurred. Please try again.');
-                } finally {
-                    toggleLoading('create-gallery-button', 'gallery-submit-spinner', 'gallery-submit-text', false);
-                }
-            });
-
-
-            // --- Dropzone and Form Submission for Documents Tab ---
-            // This variable is now declared globally at the top
-            // let uploadedDocumentUrl = '';
-
-            const documentDropzone = new Dropzone("#document-dropzone", {
-                url: "https://Mwanga.pythonanywhere.com/upload",
-                maxFiles: 1,
-                acceptedFiles: "application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation", // Only document types
-                addRemoveLinks: true,
-                dictDefaultMessage: '<div class="text-center py-8"><i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i><p class="text-sm text-gray-600">Drag & drop your document file here or click to browse</p><p class="text-xs text-gray-500 mt-1">Supported formats: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX</p></div>',
-            });
-
-            documentDropzone.on("success", function(file, response) {
-                if (response.file_url) {
-                    handleFileUploadSuccess(response, 'uploadedDocumentUrl', 'uploaded-document-url-display', 'clear-uploaded-document');
-                    this.removeAllFiles();
-                }
-            });
-
-            documentDropzone.on("removedfile", function(file) {
-                uploadedDocumentUrl = '';
-                document.getElementById('uploaded-document-url-display').classList.add('hidden');
-            });
-            document.getElementById('clear-uploaded-document').addEventListener('click', () => {
-                uploadedDocumentUrl = '';
-                document.getElementById('uploaded-document-url-display').classList.add('hidden');
-            });
-
-
-            document.getElementById('document-form').addEventListener('submit', async (event) => {
-                event.preventDefault();
-                toggleLoading('upload-document-button', 'document-submit-spinner', 'document-submit-text', true);
-
-                const documentTitle = document.getElementById('document-title').value;
-                const documentDescription = document.getElementById('document-description').value;
-                const documentCategory = document.getElementById('document-category').value;
-                const documentStatus = document.getElementById('document-status').value;
-
-                const documentData = {
-                    title: documentTitle,
-                    excerpt: documentDescription,
-                    content: documentDescription, // Using description as content for simplicity
-                    category: documentCategory,
-                    imageUrl: uploadedDocumentUrl, // Document URL goes here
-                    status: documentStatus,
-                    publishDate: new Date().toISOString().slice(0, 10)
-                };
-                console.log('Sending Document Data:', documentData); // Log the data being sent
-
-                try {
-                    const response = await fetch('https://Mwanga.pythonanywhere.com/api/posts', { // Assuming documents are also stored as posts
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(documentData)
-                    });
-                    const result = await response.json();
-                    console.log('Document Upload Response:', result); // Log the backend response
-                    if (response.ok) {
-                        showCustomModal('success', 'Document Uploaded!', result.message);
-                        document.getElementById('document-form').reset();
-                        uploadedDocumentUrl = '';
-                        document.getElementById('uploaded-document-url-display').classList.add('hidden');
-                    } else {
-                        showCustomModal('error', 'Error!', result.message || 'Failed to upload document.');
-                    }
-                } catch (error) {
-                    console.error('Error uploading document:', error);
-                    showCustomModal('error', 'Error!', 'An unexpected error occurred. Please try again.');
-                } finally {
-                    toggleLoading('upload-document-button', 'document-submit-spinner', 'document-submit-text', false);
-                }
-            });
-
-
-            // Mobile menu toggle
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const adminSidebar = document.querySelector('.admin-sidebar');
-            mobileMenuButton.addEventListener('click', () => {
-                adminSidebar.classList.toggle('open');
-                mobileMenuButton.setAttribute('aria-expanded', adminSidebar.classList.contains('open'));
-            });
-
         });
     </script>
 </body>
