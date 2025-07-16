@@ -64,20 +64,24 @@
 
         /* Admin Sidebar */
         .admin-sidebar {
-            width: 250px;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease-in-out;
-            z-index: 50;
+            width: 280px; /* Adjusted width for consistency */
+            transition: transform 0.3s ease;
         }
-        .admin-sidebar.open {
-            transform: translateX(0);
+        .admin-main {
+            margin-left: 280px;
+            transition: margin 0.3s ease;
         }
-        @media (min-width: 768px) {
+        @media (max-width: 1024px) {
             .admin-sidebar {
-                transform: translateX(0);
-                position: static;
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 40;
+                height: 100vh;
             }
-            .content-area {
+            .admin-sidebar.open {
+                transform: translateX(0);
+            }
+            .admin-main {
                 margin-left: 0;
             }
         }
@@ -163,37 +167,75 @@
     </div>
 
     <!-- Admin Sidebar -->
-    <aside class="admin-sidebar fixed md:static top-0 left-0 h-full bg-dark-900 text-white flex flex-col p-6 shadow-lg md:shadow-none">
-        <div class="mb-8 flex items-center space-x-3">
-            <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center text-white">
-                <i class="fas fa-tools"></i>
+    <aside class="admin-sidebar bg-white shadow-md fixed lg:relative h-screen" aria-label="Admin navigation sidebar">
+        <div class="p-6 border-b border-gray-200">
+            <a href="post.html" class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center text-white">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <span class="text-xl font-bold">
+                    <span class="text-primary-600">SEDEN</span>
+                    <span class="text-secondary-500">ADMIN</span>
+                </span>
+            </a>
+        </div>
+        
+        <nav class="p-4">
+            <div class="mb-8">
+                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Content Management</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="post.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-primary-100 text-primary-700 font-medium">
+                            <i class="fas fa-upload w-5"></i>
+                            <span>Upload Content</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                            <i class="fas fa-newspaper w-5"></i>
+                            <span>Manage Posts</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                            <i class="fas fa-photo-video w-5"></i>
+                            <span>Media Library</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="user.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                            <i class="fas fa-users w-5"></i>
+                            <span>User Management</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <span class="text-2xl font-bold">Admin Panel</span>
-        </div>
-        <nav class="flex-1 space-y-2">
-            <a href="#" class="flex items-center space-x-3 p-3 rounded-lg text-primary-500 bg-dark-700 font-medium">
-                <i class="fas fa-file-alt"></i>
-                <span>Manage Posts</span>
-            </a>
-            <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-dark-700 hover:text-primary-500 font-medium">
-                <i class="fas fa-chart-line"></i>
-                <span>Analytics</span>
-            </a>
-            <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-dark-700 hover:text-primary-500 font-medium">
-                <i class="fas fa-users"></i>
-                <span>Users</span>
-            </a>
-            <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-dark-700 hover:text-primary-500 font-medium">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </a>
+            
+            <div class="mb-8">
+                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Settings</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="settings.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                            <i class="fas fa-cog w-5"></i>
+                            <span>Site Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="analytics.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                            <i class="fas fa-chart-line w-5"></i>
+                            <span>Analytics</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="pt-4 border-t border-gray-200">
+                <button id="logout-button" class="w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-sign-out-alt w-5"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
         </nav>
-        <div class="mt-auto">
-            <button id="logout-button" class="w-full flex items-center justify-center space-x-3 p-3 rounded-lg bg-secondary-600 hover:bg-secondary-700 text-white font-medium">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </button>
-        </div>
     </aside>
 
     <!-- Main Content Area -->
@@ -354,7 +396,7 @@
                     this.on("success", function(file, response) {
                         if (response.file_url) {
                             uploadedFileUrl = response.file_url;
-                            uploadedFileName = file.name; // Store the original file name
+                            uploadedFileName = response.file_name; // Use file_name from backend response
                             
                             // For PDFs, create a Google Docs viewer link for display and a direct download link
                             if (file.type === "application/pdf") {
@@ -377,9 +419,17 @@
                     });
                     this.on("error", function(file, message) {
                         console.error('Dropzone Error:', message);
-                        showCustomModal('error', 'Upload Error!', message.error || 'Failed to upload file.');
+                        let errorMessageText = 'Failed to upload file.';
+                        if (typeof message === 'object' && message.error) {
+                            errorMessageText = message.error;
+                        } else if (typeof message === 'string') {
+                            errorMessageText = message;
+                        }
+
+                        showCustomModal('error', 'Upload Error!', errorMessageText);
+                        
                         // If 401, token might be invalid
-                        if (message.status === 401 || (message.error && message.error.includes('Unauthorized'))) {
+                        if (message.status === 401 || (errorMessageText && errorMessageText.includes('Unauthorized'))) {
                              showCustomModal('info', 'Session Expired', 'Your session has expired. Please log in again.');
                              localStorage.removeItem('adminToken');
                              setTimeout(() => {
@@ -445,14 +495,14 @@
                         uploadedDownloadUrl = '';
                         uploadedFileUrlDisplay.classList.add('hidden'); // Hide URL display
                     } else {
-                        showCustomModal('error', 'Submission Error!', result.message || 'Failed to submit content.');
-                        // If 401, token might be invalid
                         if (response.status === 401) {
                              showCustomModal('info', 'Session Expired', 'Your session has expired. Please log in again.');
                              localStorage.removeItem('adminToken');
                              setTimeout(() => {
                                  window.location.href = 'login.html';
                              }, 2000);
+                        } else {
+                            showCustomModal('error', 'Submission Error!', result.message || 'Failed to submit content.');
                         }
                     }
                 } catch (error) {
