@@ -162,8 +162,8 @@
             const noPostsMessage = document.getElementById('no-posts-message');
 
             try {
-                // Fetch posts from Flask backend
-                const response = await fetch('http://localhost:5000/api/posts');
+                // Fetch posts from Flask backend (NO AUTHENTICATION NEEDED for public view)
+                const response = await fetch('https://Mwanga.pythonanywhere.com/api/posts'); 
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -185,7 +185,7 @@
                                 // Enhanced PDF handling with viewer and download options
                                 mediaHtml = `
                                     <div class="pdf-container rounded-t-lg">
-                                        <iframe src="https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + post.image_url)}&embedded=true" 
+                                        <iframe src="https://docs.google.com/viewer?url=${encodeURIComponent(post.image_url)}&embedded=true" 
                                                 class="pdf-viewer" 
                                                 title="PDF Viewer">
                                         </iframe>
