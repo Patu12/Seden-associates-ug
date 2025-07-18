@@ -266,14 +266,15 @@
 
                 // Filter for published posts
                 const publishedPosts = posts.filter(post => post.status === 'publish');
-                console.log("Filtered published posts:", publishedPosts); // DEBUG LOG
+                console.log("Filtered published posts (should be visible):", publishedPosts); // DEBUG LOG
 
                 if (publishedPosts.length === 0) {
                     noPostsMessage.classList.remove('hidden');
                 } else {
                     publishedPosts.forEach(post => {
                         let mediaHtml = '';
-                        let readMoreLink = `public/post/${post.id}`; // Dynamic link to single post page
+                        // CORRECTED: Link directly to single_post.html with postId as query parameter
+                        let readMoreLink = `public/single_post.html?postId=${post.id}`; 
 
                         if (post.image_url) {
                             if (post.file_type && post.file_type.startsWith('video')) {
@@ -291,8 +292,6 @@
                                         <i class="fas fa-file-pdf"></i>
                                     </div>
                                 `;
-                                // For PDFs, the "Read More" link could be a direct download or a viewer link
-                                // For simplicity, we'll still link to the single_post page, which can then offer download/view
                             } else if (post.file_type && post.file_type.startsWith('document')) {
                                 mediaHtml = `
                                     <div class="w-full h-48 bg-blue-100 flex items-center justify-center rounded-t-lg text-blue-600 text-6xl">
