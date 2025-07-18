@@ -235,7 +235,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                        <a href="posts_manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
                             <i class="fas fa-newspaper w-5"></i>
                             <span>Manage Posts</span>
                         </a>
@@ -684,14 +684,16 @@
                     postData[key] = value;
                 });
 
+                // Ensure image_url, file_name, download_url, file_type are included if a file was uploaded or pre-filled
                 if (uploadedFileUrl) {
                     postData.image_url = uploadedFileUrl;
                     postData.file_name = uploadedFileName;
                     if (uploadedDownloadUrl) {
                         postData.download_url = uploadedDownloadUrl;
                     }
-                    postData.file_type = uploadedFileType;
+                    postData.file_type = uploadedFileType; // Add file type to post data
                 } else {
+                    // If no file was uploaded, ensure these fields are not sent or are empty
                     delete postData.image_url;
                     delete postData.file_name;
                     delete postData.download_url;
@@ -735,6 +737,8 @@
                             updatePrefilledMediaDisplay();
                         }
                     } else {
+                        // Check for specific error messages from backend
+                        let backendErrorMessage = result.message || `HTTP Error: ${response.status}`;
                         if (response.status === 401) {
                              showCustomModal('info', 'Session Expired', 'Your session has expired. Please log in again.');
                              localStorage.removeItem('adminToken');
@@ -742,12 +746,18 @@
                                  window.location.href = 'login.html';
                              }, 2000);
                         } else {
-                            showCustomModal('error', 'Submission Error!', result.message || 'Failed to submit content.');
+                            showCustomModal('error', 'Submission Error!', backendErrorMessage);
                         }
                     }
                 } catch (error) {
-                    console.error('Error submitting content:', error);
-                    showCustomModal('error', 'Error!', 'An unexpected error occurred. Please try again.');
+                    console.error('Error submitting content:', error); // Log the full error object
+                    let userFriendlyMessage = 'An unexpected error occurred. Please try again.';
+                    if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+                        userFriendlyMessage = 'Network error: Could not connect to the server. Please check your internet connection and ensure the backend is running.';
+                    } else if (error.message) {
+                        userFriendlyMessage = `An error occurred: ${error.message}. Please try again.`;
+                    }
+                    showCustomModal('error', 'Error!', userFriendlyMessage);
                 } finally {
                     toggleLoading('submit-content-button', 'submit-content-spinner', 'submit-content-text', false);
                 }
