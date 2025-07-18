@@ -225,7 +225,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                            <a href="posts_manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
                                 <i class="fas fa-newspaper w-5"></i>
                                 <span>Manage Posts</span>
                             </a>
@@ -475,6 +475,15 @@
             return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
         }
 
+        // --- Function to create a new post with selected media ---
+        function createPostWithMedia(fileUrl, fileName, fileType) {
+            // Encode parameters to handle special characters in URLs
+            const encodedUrl = encodeURIComponent(fileUrl);
+            const encodedName = encodeURIComponent(fileName);
+            const encodedType = encodeURIComponent(fileType);
+            window.location.href = `post.html?mediaUrl=${encodedUrl}&mediaName=${encodedName}&mediaType=${encodedType}`;
+        }
+
         // --- Fetch and Display Media ---
         async function fetchAndDisplayMedia() {
             const mediaGrid = document.getElementById('media-grid');
@@ -575,6 +584,9 @@
                                         </a>
                                         <button onclick="copyToClipboard('${file.url}')" class="text-gray-500 hover:text-gray-700 text-sm" title="Copy URL">
                                             <i class="fas fa-copy"></i>
+                                        </button>
+                                        <button onclick="createPostWithMedia('${file.url}', '${file.name.replace(/'/g, "\\'")}', '${file.type}')" class="text-blue-600 hover:text-blue-800 text-sm" title="Create Post with This Media">
+                                            <i class="fas fa-plus-circle"></i> <!-- Plus icon for 'Create Post' -->
                                         </button>
                                         <button onclick="deleteMedia('${file.name}')" class="text-red-600 hover:text-red-800 text-sm" title="Delete File">
                                             <i class="fas fa-trash-alt"></i>
