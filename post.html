@@ -12,7 +12,6 @@
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     
     <!-- Favicon -->
     <link rel="icon" href="/favicon.ico" sizes="any">
@@ -55,15 +54,9 @@
     <script>
         // Ensure Dropzone doesn't auto-discover elements, as we'll initialize it manually.
         // This must be set BEFORE the Dropzone.js script is loaded.
-        if (typeof Dropzone !== 'undefined') {
-            Dropzone.autoDiscover = false;
-        } else {
-            // Define a placeholder Dropzone object if it's not loaded yet,
-            // so autoDiscover can be set on it when it eventually loads.
-            window.Dropzone = window.Dropzone || {};
-            window.Dropzone.autoDiscover = false;
-        }
-        console.log("Dropzone.autoDiscover set to false.");
+        window.Dropzone = window.Dropzone || {}; // Ensure window.Dropzone exists
+        window.Dropzone.autoDiscover = false;
+        console.log("Dropzone.autoDiscover set to false globally.");
     </script>
     
     <!-- Dropzone.js for file uploads -->
@@ -407,85 +400,86 @@
             const fileLink = document.getElementById('file-link');
             const contentForm = document.getElementById('content-form');
             const submitContentButton = document.getElementById('submit-content-button');
+            const fileUploadDropzoneElement = document.getElementById("file-upload-dropzone"); // Get element once
 
             // Dropzone.js Configuration for File Uploads
             // Check if Dropzone is already initialized on this element
-            if (Dropzone.forElement(document.getElementById("file-upload-dropzone"))) {
-                console.warn("Dropzone already attached to #file-upload-dropzone. Skipping re-initialization.");
-                // You might want to reset it or handle this case if it's expected behavior
-                // For now, we'll just skip re-initialization to avoid the error.
-            } else {
-                try {
-                    const fileUploadDropzone = new Dropzone("#file-upload-dropzone", {
-                        url: "https://Mwanga.pythonanywhere.com/api/upload", // Flask upload endpoint
-                        maxFiles: 1, // Only allow one file at a time
-                        acceptedFiles: "image/*,video/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation",
-                        addRemoveLinks: true,
-                        headers: {
-                            'Authorization': `Bearer ${adminToken}` // Include the token for upload
-                        },
-                        init: function() {
-                            console.log("Dropzone initialized on #file-upload-dropzone.");
-                            this.on("success", function(file, response) {
-                                console.log("Dropzone success:", response);
-                                if (response.file_url) {
-                                    uploadedFileUrl = response.file_url;
-                                    uploadedFileName = response.file_name; // Use file_name from backend response
-                                    
-                                    // For PDFs, create a Google Docs viewer link for display and a direct download link
-                                    if (file.type === "application/pdf") {
-                                        uploadedDownloadUrl = response.file_url; // Direct download
-                                    } else {
-                                        uploadedDownloadUrl = ''; // Clear for non-PDFs
-                                    }
-
-                                    document.getElementById('uploaded-file-url').value = uploadedFileUrl;
-                                    document.getElementById('uploaded-file-name').value = uploadedFileName;
-                                    document.getElementById('uploaded-download-url').value = uploadedDownloadUrl;
-
-                                    fileLink.href = uploadedFileUrl;
-                                    fileLink.textContent = `View ${uploadedFileName}`;
-                                    uploadedFileUrlDisplay.classList.remove('hidden');
-                                    showCustomModal('success', 'Upload Successful!', `File uploaded: ${uploadedFileName}`);
-                                } else {
-                                    showCustomModal('error', 'Upload Failed!', 'File URL not received from server.');
-                                }
-                            });
-                            this.on("error", function(file, message) {
-                                console.error('Dropzone Error:', message);
-                                let errorMessageText = 'Failed to upload file.';
-                                if (typeof message === 'object' && message.error) {
-                                    errorMessageText = message.error;
-                                } else if (typeof message === 'string') {
-                                    errorMessageText = message;
-                                }
-
-                                showCustomModal('error', 'Upload Error!', errorMessageText);
+            let currentDropzoneInstance = Dropzone.forElement(fileUploadDropzoneElement);
+            if (currentDropzoneInstance) {
+                console.warn("Dropzone already attached to #file-upload-dropzone. Destroying and re-initializing.");
+                currentDropzoneInstance.destroy(); // Destroy existing instance
+            } 
+            
+            try {
+                const fileUploadDropzone = new Dropzone(fileUploadDropzoneElement, { // Use the direct element reference
+                    url: "https://Mwanga.pythonanywhere.com/api/upload", // Flask upload endpoint
+                    maxFiles: 1, // Only allow one file at a time
+                    acceptedFiles: "image/*,video/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                    addRemoveLinks: true,
+                    headers: {
+                        'Authorization': `Bearer ${adminToken}` // Include the token for upload
+                    },
+                    init: function() {
+                        console.log("Dropzone initialized on #file-upload-dropzone.");
+                        this.on("success", function(file, response) {
+                            console.log("Dropzone success:", response);
+                            if (response.file_url) {
+                                uploadedFileUrl = response.file_url;
+                                uploadedFileName = response.file_name; // Use file_name from backend response
                                 
-                                // If 401, token might be invalid
-                                if (message.status === 401 || (errorMessageText && errorMessageText.includes('Unauthorized'))) {
-                                     showCustomModal('info', 'Session Expired', 'Your session has expired. Please log in again.');
-                                     localStorage.removeItem('adminToken');
-                                     setTimeout(() => {
-                                         window.location.href = 'login.html';
-                                     }, 2000);
+                                // For PDFs, create a Google Docs viewer link for display and a direct download link
+                                if (file.type === "application/pdf") {
+                                    uploadedDownloadUrl = response.file_url; // Direct download
+                                } else {
+                                    uploadedDownloadUrl = ''; // Clear for non-PDFs
                                 }
-                            });
-                            this.on("removedfile", function() {
-                                uploadedFileUrl = '';
-                                uploadedFileName = '';
-                                uploadedDownloadUrl = '';
-                                document.getElementById('uploaded-file-url').value = '';
-                                document.getElementById('uploaded-file-name').value = '';
-                                document.getElementById('uploaded-download-url').value = '';
-                                uploadedFileUrlDisplay.classList.add('hidden');
-                            });
-                        }
-                    });
-                } catch (e) {
-                    console.error("Error initializing Dropzone:", e);
-                    showCustomModal('error', 'Initialization Error', 'Failed to set up file upload. Please check the console for details.');
-                }
+
+                                document.getElementById('uploaded-file-url').value = uploadedFileUrl;
+                                document.getElementById('uploaded-file-name').value = uploadedFileName;
+                                document.getElementById('uploaded-download-url').value = uploadedDownloadUrl;
+
+                                fileLink.href = uploadedFileUrl;
+                                fileLink.textContent = `View ${uploadedFileName}`;
+                                uploadedFileUrlDisplay.classList.remove('hidden');
+                                showCustomModal('success', 'Upload Successful!', `File uploaded: ${uploadedFileName}`);
+                            } else {
+                                showCustomModal('error', 'Upload Failed!', 'File URL not received from server.');
+                            }
+                        });
+                        this.on("error", function(file, message) {
+                            console.error('Dropzone Error:', message);
+                            let errorMessageText = 'Failed to upload file.';
+                            if (typeof message === 'object' && message.error) {
+                                errorMessageText = message.error;
+                            } else if (typeof message === 'string') {
+                                errorMessageText = message;
+                            }
+
+                            showCustomModal('error', 'Upload Error!', errorMessageText);
+                            
+                            // If 401, token might be invalid
+                            if (message.status === 401 || (errorMessageText && errorMessageText.includes('Unauthorized'))) {
+                                 showCustomModal('info', 'Session Expired', 'Your session has expired. Please log in again.');
+                                 localStorage.removeItem('adminToken');
+                                 setTimeout(() => {
+                                     window.location.href = 'login.html';
+                                 }, 2000);
+                            }
+                        });
+                        this.on("removedfile", function() {
+                            uploadedFileUrl = '';
+                            uploadedFileName = '';
+                            uploadedDownloadUrl = '';
+                            document.getElementById('uploaded-file-url').value = '';
+                            document.getElementById('uploaded-file-name').value = '';
+                            document.getElementById('uploaded-download-url').value = '';
+                            uploadedFileUrlDisplay.classList.add('hidden');
+                        });
+                    }
+                });
+            } catch (e) {
+                console.error("Error initializing Dropzone:", e);
+                showCustomModal('error', 'Initialization Error', 'Failed to set up file upload. Please check the console for details.');
             }
 
 
@@ -531,9 +525,9 @@
                         contentForm.reset(); // Clear the form
                         // Only remove files if Dropzone was successfully initialized
                         // Check if Dropzone.forElement returns an instance before calling removeAllFiles
-                        const currentDropzoneInstance = Dropzone.forElement(document.getElementById("file-upload-dropzone"));
-                        if (currentDropzoneInstance) {
-                            currentDropzoneInstance.removeAllFiles(); // Clear uploaded files in Dropzone
+                        const currentDropzoneInstanceAfterSubmit = Dropzone.forElement(fileUploadDropzoneElement);
+                        if (currentDropzoneInstanceAfterSubmit) {
+                            currentDropzoneInstanceAfterSubmit.removeAllFiles(); // Clear uploaded files in Dropzone
                         }
                         uploadedFileUrl = ''; // Reset stored URL
                         uploadedFileName = '';
