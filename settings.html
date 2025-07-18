@@ -150,6 +150,10 @@
             color: #ef4444; /* Red-500 */
         }
 
+        .custom-modal-content .icon.info { /* Added for info messages */
+            color: #3B82F6; /* Blue-500 */
+        }
+
         .custom-modal-content h3 {
             font-size: 1.5rem;
             font-weight: bold;
@@ -200,7 +204,7 @@
         <!-- Admin Sidebar -->
         <aside class="admin-sidebar bg-white shadow-md fixed lg:relative h-screen" aria-label="Admin navigation sidebar">
             <div class="p-6 border-b border-gray-200">
-                <a href="/admin" class="flex items-center space-x-2">
+                <a href="post.html" class="flex items-center space-x-2">
                     <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center text-white">
                         <i class="fas fa-lock"></i>
                     </div>
@@ -228,7 +232,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="media.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                            <a href="manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
                                 <i class="fas fa-photo-video w-5"></i>
                                 <span>Media Library</span>
                             </a>
@@ -261,10 +265,10 @@
                 </div>
                 
                 <div class="pt-4 border-t border-gray-200">
-                    <a href="logout.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                    <button id="logout-button" class="w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
                         <i class="fas fa-sign-out-alt w-5"></i>
                         <span>Logout</span>
-                    </a>
+                    </button>
                 </div>
             </nav>
         </aside>
@@ -413,7 +417,7 @@
 
         function showMessageModal(type, title, message) {
             modalIcon.className = `icon ${type}`;
-            modalIcon.innerHTML = type === 'success' ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>';
+            modalIcon.innerHTML = type === 'success' ? '<i class="fas fa-check-circle"></i>' : (type === 'info' ? '<i class="fas fa-info-circle"></i>' : '<i class="fas fa-times-circle"></i>'); // Added info icon
             modalTitle.textContent = title;
             modalDescription.textContent = message;
             customMessageModal.classList.add('show');
@@ -443,15 +447,37 @@
             const settingsForm = document.getElementById('settings-form');
             const loadingMessage = document.getElementById('loading-message');
             const errorMessage = document.getElementById('error-message');
+            const adminToken = localStorage.getItem('adminToken'); // Get token
+
+            // Authentication check
+            if (!adminToken) {
+                showMessageModal('info', 'Session Expired', 'Please log in to access site settings.');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+                return;
+            }
 
             loadingMessage.classList.remove('hidden');
             errorMessage.classList.add('hidden');
 
             try {
                 // Update API endpoint to your PythonAnywhere domain
-                const response = await fetch('https://Mwanga.pythonanywhere.com/api/settings');
+                const response = await fetch('https://Mwanga.pythonanywhere.com/api/settings', {
+                    headers: {
+                        'Authorization': `Bearer ${adminToken}` // Include the token
+                    }
+                });
                 
                 if (!response.ok) {
+                    if (response.status === 401) {
+                        showMessageModal('info', 'Session Expired', 'Your session has expired. Please log in again.');
+                        localStorage.removeItem('adminToken');
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 2000);
+                        return;
+                    }
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
@@ -485,6 +511,7 @@
             const submitButton = this.querySelector('button[type="submit"]');
             const submitText = document.getElementById('save-settings-text');
             const spinner = document.getElementById('save-settings-spinner');
+            const adminToken = localStorage.getItem('adminToken'); // Get token
 
             // Show loading state
             submitText.textContent = 'Saving...';
@@ -505,6 +532,7 @@
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${adminToken}` // Include the token
                     },
                     body: JSON.stringify(settingsData),
                 });
@@ -514,6 +542,14 @@
                 if (response.ok) {
                     showMessageModal('success', 'Success!', result.message);
                 } else {
+                    if (response.status === 401) {
+                        showMessageModal('info', 'Session Expired', 'Your session has expired. Please log in again.');
+                        localStorage.removeItem('adminToken');
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 2000);
+                        return;
+                    }
                     throw new Error(result.message || 'Failed to save settings.');
                 }
             } catch (error) {
@@ -527,7 +563,17 @@
         });
 
         // --- Initial Load ---
-        document.addEventListener('DOMContentLoaded', fetchAndPopulateSettings);
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchAndPopulateSettings(); // Initial fetch
+            // Add event listener for logout button
+            document.getElementById('logout-button').addEventListener('click', () => {
+                localStorage.removeItem('adminToken'); // Clear the token
+                showMessageModal('info', 'Logged Out', 'You have been successfully logged out.');
+                setTimeout(() => {
+                    window.location.href = 'login.html'; // Redirect to login page
+                }, 1500);
+            });
+        });
     </script>
 </body>
 </html>
