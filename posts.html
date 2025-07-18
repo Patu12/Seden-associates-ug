@@ -196,6 +196,8 @@
                         <li><a href="services.html" class="hover:text-primary-400">Services</a></li>
                         <li><a href="about.html" class="hover:text-primary-400">About Us</a></li>
                         <li><a href="posts.html" class="hover:text-primary-400">Posts</a></li>
+                        <li><a href="classes.html" class="hover:text-primary-400">CPA Classes</a></li>
+                        <li><a href="team.html" class="hover:text-primary-400">Team</a></li>
                         <li><a href="contact.html" class="hover:text-primary-400">Contact</a></li>
                     </ul>
                 </div>
@@ -259,10 +261,12 @@
                 }
 
                 const posts = await response.json();
+                console.log("All posts received from backend:", posts); // DEBUG LOG
                 loadingMessage.classList.add('hidden'); // Hide loading message
 
                 // Filter for published posts
                 const publishedPosts = posts.filter(post => post.status === 'publish');
+                console.log("Filtered published posts:", publishedPosts); // DEBUG LOG
 
                 if (publishedPosts.length === 0) {
                     noPostsMessage.classList.remove('hidden');
