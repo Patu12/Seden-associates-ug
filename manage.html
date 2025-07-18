@@ -225,7 +225,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="posts_manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-primary-100 text-primary-700">
+                            <a href="manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-primary-100 text-primary-700">
                                 <i class="fas fa-newspaper w-5"></i>
                                 <span>Manage Posts</span>
                             </a>
@@ -549,11 +549,9 @@
             }
         }
 
-        // Function to handle edit button click (placeholder)
+        // Function to handle edit button click (redirects to post.html with postId)
         function editPost(postId) {
-            showMessageModal('info', 'Edit Post', `Editing post with ID: ${postId}. (Functionality to be implemented)`);
-            // In a real application, you would redirect to an edit page:
-            // window.location.href = `edit_post.html?id=${postId}`;
+            window.location.href = `post.html?postId=${postId}`;
         }
 
         // Function to confirm and delete a post
