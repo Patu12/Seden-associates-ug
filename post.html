@@ -154,6 +154,41 @@
         .modal-close-button:hover {
             background-color: #0284c7;
         }
+
+        /* Style for pre-filled media display */
+        .prefilled-media-display {
+            padding: 1rem;
+            background-color: #e0f2fe; /* primary-100 */
+            border: 1px solid #bae6fd; /* primary-200 */
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #0c4a6e; /* primary-900 */
+        }
+        .prefilled-media-display .media-icon {
+            font-size: 2rem;
+            color: #0ea5e9; /* primary-500 */
+        }
+        .prefilled-media-display .media-info {
+            flex-grow: 1;
+        }
+        .prefilled-media-display .media-info a {
+            font-weight: 600;
+            text-decoration: underline;
+            color: #0369a1; /* primary-700 */
+        }
+        .prefilled-media-display .clear-button {
+            background: none;
+            border: none;
+            color: #ef4444; /* red-500 */
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .prefilled-media-display .clear-button:hover {
+            color: #dc2626; /* red-600 */
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans flex min-h-screen">
@@ -200,13 +235,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                        <a href="posts_manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
                             <i class="fas fa-newspaper w-5"></i>
                             <span>Manage Posts</span>
                         </a>
                     </li>
                     <li>
-                        <a href="manage.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                        <a href="media.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
                             <i class="fas fa-photo-video w-5"></i>
                             <span>Media Library</span>
                         </a>
@@ -284,9 +319,14 @@
                 <input type="hidden" id="uploaded-file-name" name="file_name">
                 <input type="hidden" id="uploaded-download-url" name="download_url">
 
-                <!-- Display for uploaded URL -->
-                <div id="uploaded-file-url-display" class="hidden mt-2 p-3 bg-primary-50 border border-primary-200 text-primary-800 rounded-md">
-                    Uploaded File: <a id="file-link" href="#" target="_blank" class="underline font-medium"></a>
+                <!-- Display for pre-filled/uploaded URL -->
+                <div id="uploaded-file-url-display" class="hidden prefilled-media-display">
+                    <span class="media-icon"></span>
+                    <div class="media-info">
+                        Pre-selected File: <a id="file-link" href="#" target="_blank" class="underline font-medium"></a>
+                        <p class="text-xs text-gray-600" id="file-type-display"></p>
+                    </div>
+                    <button type="button" id="clear-prefilled-media" class="clear-button" title="Clear pre-selected media">&times;</button>
                 </div>
 
                 <!-- File Upload Section (Dropzone) -->
@@ -395,12 +435,85 @@
             let uploadedFileUrl = ''; // To store the URL of the uploaded file
             let uploadedFileName = ''; // To store the name of the uploaded file
             let uploadedDownloadUrl = ''; // To store the download URL for PDFs if different
+            let uploadedFileType = ''; // To store the type of the uploaded file
 
             const uploadedFileUrlDisplay = document.getElementById('uploaded-file-url-display');
             const fileLink = document.getElementById('file-link');
+            const fileTypeDisplay = document.getElementById('file-type-display');
+            const clearPrefilledMediaButton = document.getElementById('clear-prefilled-media');
             const contentForm = document.getElementById('content-form');
             const submitContentButton = document.getElementById('submit-content-button');
             const fileUploadDropzoneElement = document.getElementById("file-upload-dropzone"); // Get element once
+            const fileUploadDropzoneContainer = document.querySelector('.dropzone'); // Get the dropzone container
+
+
+            // --- Function to update the pre-filled media display ---
+            function updatePrefilledMediaDisplay() {
+                if (uploadedFileUrl) {
+                    fileLink.href = uploadedFileUrl;
+                    fileLink.textContent = `View ${uploadedFileName}`;
+                    uploadedFileUrlDisplay.classList.remove('hidden');
+                    fileUploadDropzoneContainer.classList.add('hidden'); // Hide Dropzone when pre-filled
+
+                    let iconClass = '';
+                    if (uploadedFileType.startsWith('image')) {
+                        iconClass = 'fas fa-image';
+                    } else if (uploadedFileType.startsWith('video')) {
+                        iconClass = 'fas fa-video';
+                    } else if (uploadedFileType.includes('pdf')) {
+                        iconClass = 'fas fa-file-pdf';
+                    } else if (uploadedFileType.includes('document') || uploadedFileType.includes('word') || uploadedFileType.includes('excel') || uploadedFileType.includes('powerpoint')) {
+                        iconClass = 'fas fa-file-alt';
+                    } else {
+                        iconClass = 'fas fa-file';
+                    }
+                    uploadedFileUrlDisplay.querySelector('.media-icon').innerHTML = `<i class="${iconClass}"></i>`;
+                    fileTypeDisplay.textContent = `Type: ${uploadedFileType.split('/')[1] || uploadedFileType}`; // Display simplified type
+
+                } else {
+                    uploadedFileUrlDisplay.classList.add('hidden');
+                    fileUploadDropzoneContainer.classList.remove('hidden'); // Show Dropzone when not pre-filled
+                }
+            }
+
+            // --- Check for URL parameters for pre-filling media ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const mediaUrlParam = urlParams.get('mediaUrl');
+            const mediaNameParam = urlParams.get('mediaName');
+            const mediaTypeParam = urlParams.get('mediaType');
+
+            if (mediaUrlParam && mediaNameParam && mediaTypeParam) {
+                uploadedFileUrl = decodeURIComponent(mediaUrlParam);
+                uploadedFileName = decodeURIComponent(mediaNameParam);
+                uploadedFileType = decodeURIComponent(mediaTypeParam);
+                
+                // For PDFs, create a Google Docs viewer link for display and a direct download link
+                if (uploadedFileType.includes("pdf")) {
+                    uploadedDownloadUrl = uploadedFileUrl; // Direct download
+                } else {
+                    uploadedDownloadUrl = ''; // Clear for non-PDFs
+                }
+
+                document.getElementById('uploaded-file-url').value = uploadedFileUrl;
+                document.getElementById('uploaded-file-name').value = uploadedFileName;
+                document.getElementById('uploaded-download-url').value = uploadedDownloadUrl; // Set download URL
+                updatePrefilledMediaDisplay(); // Update display immediately
+            }
+
+            // --- Clear pre-filled media button ---
+            clearPrefilledMediaButton.addEventListener('click', () => {
+                uploadedFileUrl = '';
+                uploadedFileName = '';
+                uploadedDownloadUrl = '';
+                uploadedFileType = '';
+                document.getElementById('uploaded-file-url').value = '';
+                document.getElementById('uploaded-file-name').value = '';
+                document.getElementById('uploaded-download-url').value = '';
+                document.getElementById('post-title').value = ''; // Clear title as well
+                document.getElementById('post-excerpt').value = ''; // Clear excerpt
+                updatePrefilledMediaDisplay(); // Hide pre-filled display and show Dropzone
+            });
+
 
             // Dropzone.js Configuration for File Uploads
             // Check if Dropzone is already initialized on this element
@@ -421,14 +534,20 @@
                     },
                     init: function() {
                         console.log("Dropzone initialized on #file-upload-dropzone.");
+                        // Hide Dropzone if media is pre-filled from URL params
+                        if (uploadedFileUrl) {
+                            fileUploadDropzoneContainer.classList.add('hidden');
+                        }
+
                         this.on("success", function(file, response) {
                             console.log("Dropzone success:", response);
                             if (response.file_url) {
                                 uploadedFileUrl = response.file_url;
                                 uploadedFileName = response.file_name; // Use file_name from backend response
-                                
+                                uploadedFileType = file.type; // Store the actual MIME type from Dropzone
+
                                 // For PDFs, create a Google Docs viewer link for display and a direct download link
-                                if (file.type === "application/pdf") {
+                                if (file.type.includes("pdf")) {
                                     uploadedDownloadUrl = response.file_url; // Direct download
                                 } else {
                                     uploadedDownloadUrl = ''; // Clear for non-PDFs
@@ -437,10 +556,8 @@
                                 document.getElementById('uploaded-file-url').value = uploadedFileUrl;
                                 document.getElementById('uploaded-file-name').value = uploadedFileName;
                                 document.getElementById('uploaded-download-url').value = uploadedDownloadUrl;
-
-                                fileLink.href = uploadedFileUrl;
-                                fileLink.textContent = `View ${uploadedFileName}`;
-                                uploadedFileUrlDisplay.classList.remove('hidden');
+                                
+                                updatePrefilledMediaDisplay(); // Update display for newly uploaded file
                                 showCustomModal('success', 'Upload Successful!', `File uploaded: ${uploadedFileName}`);
                             } else {
                                 showCustomModal('error', 'Upload Failed!', 'File URL not received from server.');
@@ -470,10 +587,11 @@
                             uploadedFileUrl = '';
                             uploadedFileName = '';
                             uploadedDownloadUrl = '';
+                            uploadedFileType = '';
                             document.getElementById('uploaded-file-url').value = '';
                             document.getElementById('uploaded-file-name').value = '';
                             document.getElementById('uploaded-download-url').value = '';
-                            uploadedFileUrlDisplay.classList.add('hidden');
+                            updatePrefilledMediaDisplay(); // Show Dropzone again
                         });
                     }
                 });
@@ -495,18 +613,20 @@
                     postData[key] = value;
                 });
 
-                // Ensure image_url is included if a file was uploaded
+                // Ensure image_url is included if a file was uploaded or pre-filled
                 if (uploadedFileUrl) {
                     postData.image_url = uploadedFileUrl;
                     postData.file_name = uploadedFileName;
                     if (uploadedDownloadUrl) {
                         postData.download_url = uploadedDownloadUrl;
                     }
+                    postData.file_type = uploadedFileType; // Add file type to post data
                 } else {
                     // If no file was uploaded, ensure these fields are not sent or are empty
                     delete postData.image_url;
                     delete postData.file_name;
                     delete postData.download_url;
+                    delete postData.file_type;
                 }
 
                 try {
@@ -532,7 +652,8 @@
                         uploadedFileUrl = ''; // Reset stored URL
                         uploadedFileName = '';
                         uploadedDownloadUrl = '';
-                        uploadedFileUrlDisplay.classList.add('hidden'); // Hide URL display
+                        uploadedFileType = '';
+                        updatePrefilledMediaDisplay(); // Hide URL display and show Dropzone
                     } else {
                         if (response.status === 401) {
                              showCustomModal('info', 'Session Expired', 'Your session has expired. Please log in again.');
