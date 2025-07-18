@@ -285,13 +285,13 @@
     <!-- Main Content Area -->
     <div class="flex-1 flex flex-col md:ml-0 p-6 bg-gray-50">
         <header class="mb-8">
-            <h1 class="text-4xl font-extrabold text-gray-900">Manage Content</h1>
-            <p class="text-gray-600">Upload new posts, videos, images, or documents.</p>
+            <h1 class="text-4xl font-extrabold text-gray-900" id="main-content-title">Manage Content</h1>
+            <p class="text-gray-600" id="main-content-subtitle">Upload new posts, videos, images, or documents.</p>
         </header>
 
         <!-- Post/Content Submission Form -->
         <section class="bg-white p-8 rounded-lg shadow-md mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Create New Post/Media</h2>
+            <h2 class="text-2xl font-bold text-gray-900 mb-6" id="form-title">Create New Post/Media</h2>
             <form id="content-form" class="space-y-6">
                 <div>
                     <label for="post-title" class="block text-sm font-medium text-gray-700">Title</label>
@@ -318,6 +318,7 @@
                 <input type="hidden" id="uploaded-file-url" name="image_url">
                 <input type="hidden" id="uploaded-file-name" name="file_name">
                 <input type="hidden" id="uploaded-download-url" name="download_url">
+                <input type="hidden" id="uploaded-file-type" name="file_type"> <!-- Added for file type -->
 
                 <!-- Display for pre-filled/uploaded URL -->
                 <div id="uploaded-file-url-display" class="hidden prefilled-media-display">
@@ -410,7 +411,7 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => { // Made async to await fetches
             // --- Authentication Check on Page Load ---
             const adminToken = localStorage.getItem('adminToken');
             if (!adminToken) {
@@ -436,6 +437,7 @@
             let uploadedFileName = ''; // To store the name of the uploaded file
             let uploadedDownloadUrl = ''; // To store the download URL for PDFs if different
             let uploadedFileType = ''; // To store the type of the uploaded file
+            let currentPostId = null; // To store the ID of the post being edited
 
             const uploadedFileUrlDisplay = document.getElementById('uploaded-file-url-display');
             const fileLink = document.getElementById('file-link');
@@ -443,8 +445,13 @@
             const clearPrefilledMediaButton = document.getElementById('clear-prefilled-media');
             const contentForm = document.getElementById('content-form');
             const submitContentButton = document.getElementById('submit-content-button');
+            const submitContentText = document.getElementById('submit-content-text');
             const fileUploadDropzoneElement = document.getElementById("file-upload-dropzone"); // Get element once
             const fileUploadDropzoneContainer = document.querySelector('.dropzone'); // Get the dropzone container
+
+            const mainContentTitle = document.getElementById('main-content-title');
+            const mainContentSubtitle = document.getElementById('main-content-subtitle');
+            const formTitle = document.getElementById('form-title');
 
 
             // --- Function to update the pre-filled media display ---
@@ -476,28 +483,90 @@
                 }
             }
 
-            // --- Check for URL parameters for pre-filling media ---
+            // --- Check for URL parameters for pre-filling media (for Repost) ---
             const urlParams = new URLSearchParams(window.location.search);
             const mediaUrlParam = urlParams.get('mediaUrl');
             const mediaNameParam = urlParams.get('mediaName');
             const mediaTypeParam = urlParams.get('mediaType');
+            const postIdParam = urlParams.get('postId'); // New: Check for postId parameter
 
-            if (mediaUrlParam && mediaNameParam && mediaTypeParam) {
+            if (postIdParam) {
+                currentPostId = postIdParam;
+                mainContentTitle.textContent = 'Edit Post';
+                mainContentSubtitle.textContent = 'Modify an existing blog post or content item.';
+                formTitle.textContent = 'Edit Post Details';
+                submitContentText.textContent = 'Update Content';
+
+                // Fetch existing post data
+                try {
+                    const response = await fetch(`https://Mwanga.pythonanywhere.com/api/posts/${currentPostId}`, {
+                        headers: {
+                            'Authorization': `Bearer ${adminToken}`
+                        }
+                    });
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            showCustomModal('info', 'Session Expired', 'Your session has expired. Please log in again.');
+                            localStorage.removeItem('adminToken');
+                            setTimeout(() => { window.location.href = 'login.html'; }, 2000);
+                            return;
+                        }
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const postData = await response.json();
+
+                    document.getElementById('post-title').value = postData.title || '';
+                    document.getElementById('post-excerpt').value = postData.excerpt || '';
+                    document.getElementById('post-category').value = postData.category || 'General';
+                    // Format date for input type="date"
+                    if (postData.publish_date) {
+                        const date = new Date(postData.publish_date);
+                        document.getElementById('publish-date').value = date.toISOString().split('T')[0];
+                    } else {
+                        document.getElementById('publish-date').valueAsDate = new Date();
+                    }
+
+                    // Pre-fill media section if post has an associated image/file
+                    if (postData.image_url) {
+                        uploadedFileUrl = postData.image_url;
+                        uploadedFileName = postData.file_name || postData.image_url.split('/').pop(); // Fallback to URL part
+                        uploadedFileType = postData.file_type || ''; // Use stored type or guess
+                        if (postData.download_url) {
+                            uploadedDownloadUrl = postData.download_url;
+                        } else if (uploadedFileType.includes("pdf")) {
+                            uploadedDownloadUrl = uploadedFileUrl; // Assume direct download for PDF if not specified
+                        }
+                        document.getElementById('uploaded-file-url').value = uploadedFileUrl;
+                        document.getElementById('uploaded-file-name').value = uploadedFileName;
+                        document.getElementById('uploaded-download-url').value = uploadedDownloadUrl;
+                        document.getElementById('uploaded-file-type').value = uploadedFileType;
+                        updatePrefilledMediaDisplay();
+                    }
+
+                } catch (error) {
+                    console.error('Error fetching post for editing:', error);
+                    showCustomModal('error', 'Error Loading Post', error.message || 'Failed to load post details for editing.');
+                }
+
+            } else if (mediaUrlParam && mediaNameParam && mediaTypeParam) { // Existing logic for Repost
                 uploadedFileUrl = decodeURIComponent(mediaUrlParam);
                 uploadedFileName = decodeURIComponent(mediaNameParam);
                 uploadedFileType = decodeURIComponent(mediaTypeParam);
                 
-                // For PDFs, create a Google Docs viewer link for display and a direct download link
                 if (uploadedFileType.includes("pdf")) {
-                    uploadedDownloadUrl = uploadedFileUrl; // Direct download
+                    uploadedDownloadUrl = uploadedFileUrl;
                 } else {
-                    uploadedDownloadUrl = ''; // Clear for non-PDFs
+                    uploadedDownloadUrl = '';
                 }
 
                 document.getElementById('uploaded-file-url').value = uploadedFileUrl;
                 document.getElementById('uploaded-file-name').value = uploadedFileName;
-                document.getElementById('uploaded-download-url').value = uploadedDownloadUrl; // Set download URL
-                updatePrefilledMediaDisplay(); // Update display immediately
+                document.getElementById('uploaded-download-url').value = uploadedDownloadUrl;
+                document.getElementById('uploaded-file-type').value = uploadedFileType;
+                updatePrefilledMediaDisplay();
+            } else {
+                // Default to current date for new posts
+                document.getElementById('publish-date').valueAsDate = new Date();
             }
 
             // --- Clear pre-filled media button ---
@@ -509,32 +578,34 @@
                 document.getElementById('uploaded-file-url').value = '';
                 document.getElementById('uploaded-file-name').value = '';
                 document.getElementById('uploaded-download-url').value = '';
-                document.getElementById('post-title').value = ''; // Clear title as well
-                document.getElementById('post-excerpt').value = ''; // Clear excerpt
+                document.getElementById('uploaded-file-type').value = '';
+                // Do NOT clear title/excerpt/category if in edit mode
+                if (!currentPostId) { 
+                    document.getElementById('post-title').value = '';
+                    document.getElementById('post-excerpt').value = '';
+                }
                 updatePrefilledMediaDisplay(); // Hide pre-filled display and show Dropzone
             });
 
 
             // Dropzone.js Configuration for File Uploads
-            // Check if Dropzone is already initialized on this element
             let currentDropzoneInstance = Dropzone.forElement(fileUploadDropzoneElement);
             if (currentDropzoneInstance) {
                 console.warn("Dropzone already attached to #file-upload-dropzone. Destroying and re-initializing.");
-                currentDropzoneInstance.destroy(); // Destroy existing instance
+                currentDropzoneInstance.destroy();
             } 
             
             try {
-                const fileUploadDropzone = new Dropzone(fileUploadDropzoneElement, { // Use the direct element reference
-                    url: "https://Mwanga.pythonanywhere.com/api/upload", // Flask upload endpoint
-                    maxFiles: 1, // Only allow one file at a time
+                const fileUploadDropzone = new Dropzone(fileUploadDropzoneElement, {
+                    url: "https://Mwanga.pythonanywhere.com/api/upload",
+                    maxFiles: 1,
                     acceptedFiles: "image/*,video/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation",
                     addRemoveLinks: true,
                     headers: {
-                        'Authorization': `Bearer ${adminToken}` // Include the token for upload
+                        'Authorization': `Bearer ${adminToken}`
                     },
                     init: function() {
                         console.log("Dropzone initialized on #file-upload-dropzone.");
-                        // Hide Dropzone if media is pre-filled from URL params
                         if (uploadedFileUrl) {
                             fileUploadDropzoneContainer.classList.add('hidden');
                         }
@@ -543,21 +614,21 @@
                             console.log("Dropzone success:", response);
                             if (response.file_url) {
                                 uploadedFileUrl = response.file_url;
-                                uploadedFileName = response.file_name; // Use file_name from backend response
-                                uploadedFileType = file.type; // Store the actual MIME type from Dropzone
+                                uploadedFileName = response.file_name;
+                                uploadedFileType = file.type;
 
-                                // For PDFs, create a Google Docs viewer link for display and a direct download link
                                 if (file.type.includes("pdf")) {
-                                    uploadedDownloadUrl = response.file_url; // Direct download
+                                    uploadedDownloadUrl = response.file_url;
                                 } else {
-                                    uploadedDownloadUrl = ''; // Clear for non-PDFs
+                                    uploadedDownloadUrl = '';
                                 }
 
                                 document.getElementById('uploaded-file-url').value = uploadedFileUrl;
                                 document.getElementById('uploaded-file-name').value = uploadedFileName;
                                 document.getElementById('uploaded-download-url').value = uploadedDownloadUrl;
+                                document.getElementById('uploaded-file-type').value = uploadedFileType;
                                 
-                                updatePrefilledMediaDisplay(); // Update display for newly uploaded file
+                                updatePrefilledMediaDisplay();
                                 showCustomModal('success', 'Upload Successful!', `File uploaded: ${uploadedFileName}`);
                             } else {
                                 showCustomModal('error', 'Upload Failed!', 'File URL not received from server.');
@@ -574,7 +645,6 @@
 
                             showCustomModal('error', 'Upload Error!', errorMessageText);
                             
-                            // If 401, token might be invalid
                             if (message.status === 401 || (errorMessageText && errorMessageText.includes('Unauthorized'))) {
                                  showCustomModal('info', 'Session Expired', 'Your session has expired. Please log in again.');
                                  localStorage.removeItem('adminToken');
@@ -591,7 +661,8 @@
                             document.getElementById('uploaded-file-url').value = '';
                             document.getElementById('uploaded-file-name').value = '';
                             document.getElementById('uploaded-download-url').value = '';
-                            updatePrefilledMediaDisplay(); // Show Dropzone again
+                            document.getElementById('uploaded-file-type').value = '';
+                            updatePrefilledMediaDisplay();
                         });
                     }
                 });
@@ -601,7 +672,7 @@
             }
 
 
-            // Handle content form submission
+            // Handle content form submission (for both create and update)
             contentForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
@@ -613,47 +684,56 @@
                     postData[key] = value;
                 });
 
-                // Ensure image_url is included if a file was uploaded or pre-filled
                 if (uploadedFileUrl) {
                     postData.image_url = uploadedFileUrl;
                     postData.file_name = uploadedFileName;
                     if (uploadedDownloadUrl) {
                         postData.download_url = uploadedDownloadUrl;
                     }
-                    postData.file_type = uploadedFileType; // Add file type to post data
+                    postData.file_type = uploadedFileType;
                 } else {
-                    // If no file was uploaded, ensure these fields are not sent or are empty
                     delete postData.image_url;
                     delete postData.file_name;
                     delete postData.download_url;
                     delete postData.file_type;
                 }
 
+                let apiUrl = 'https://Mwanga.pythonanywhere.com/api/posts';
+                let httpMethod = 'POST';
+                let successMessage = 'Content Submitted!';
+
+                if (currentPostId) { // If editing an existing post
+                    apiUrl = `https://Mwanga.pythonanywhere.com/api/posts/${currentPostId}`;
+                    httpMethod = 'PUT';
+                    successMessage = 'Content Updated!';
+                }
+
                 try {
-                    const response = await fetch('https://Mwanga.pythonanywhere.com/api/posts', {
-                        method: 'POST',
+                    const response = await fetch(apiUrl, {
+                        method: httpMethod,
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${adminToken}` // Include the token for post submission
+                            'Authorization': `Bearer ${adminToken}`
                         },
                         body: JSON.stringify(postData)
                     });
 
                     const result = await response.json();
                     if (response.ok) {
-                        showCustomModal('success', 'Content Submitted!', result.message);
-                        contentForm.reset(); // Clear the form
-                        // Only remove files if Dropzone was successfully initialized
-                        // Check if Dropzone.forElement returns an instance before calling removeAllFiles
-                        const currentDropzoneInstanceAfterSubmit = Dropzone.forElement(fileUploadDropzoneElement);
-                        if (currentDropzoneInstanceAfterSubmit) {
-                            currentDropzoneInstanceAfterSubmit.removeAllFiles(); // Clear uploaded files in Dropzone
+                        showCustomModal('success', successMessage, result.message);
+                        // Only clear form if creating new post
+                        if (!currentPostId) {
+                            contentForm.reset();
+                            const currentDropzoneInstanceAfterSubmit = Dropzone.forElement(fileUploadDropzoneElement);
+                            if (currentDropzoneInstanceAfterSubmit) {
+                                currentDropzoneInstanceAfterSubmit.removeAllFiles();
+                            }
+                            uploadedFileUrl = '';
+                            uploadedFileName = '';
+                            uploadedDownloadUrl = '';
+                            uploadedFileType = '';
+                            updatePrefilledMediaDisplay();
                         }
-                        uploadedFileUrl = ''; // Reset stored URL
-                        uploadedFileName = '';
-                        uploadedDownloadUrl = '';
-                        uploadedFileType = '';
-                        updatePrefilledMediaDisplay(); // Hide URL display and show Dropzone
                     } else {
                         if (response.status === 401) {
                              showCustomModal('info', 'Session Expired', 'Your session has expired. Please log in again.');
@@ -675,10 +755,10 @@
 
             // Logout button functionality
             document.getElementById('logout-button').addEventListener('click', () => {
-                localStorage.removeItem('adminToken'); // Clear the token
+                localStorage.removeItem('adminToken');
                 showCustomModal('info', 'Logged Out', 'You have been successfully logged out.');
                 setTimeout(() => {
-                    window.location.href = 'login.html'; // Redirect to login page
+                    window.location.href = 'login.html';
                 }, 1500);
             });
 
