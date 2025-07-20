@@ -503,11 +503,13 @@
             return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
         }
 
-        // NEW: Function to truncate text
+        // Function to truncate text
         function truncateText(text, maxLength) {
             if (!text) return '';
-            if (text.length <= maxLength) return text;
-            return text.substring(0, maxLength) + '...';
+            // Strip HTML tags before truncating to get a more accurate character count for the summary
+            const strippedText = text.replace(/<[^>]*>/g, ''); 
+            if (strippedText.length <= maxLength) return strippedText;
+            return strippedText.substring(0, maxLength) + '...';
         }
 
 
@@ -543,11 +545,14 @@
                 } else {
                     publishedPosts.forEach(post => {
                         let mediaHtml = '';
-                        let readMoreLink = `/public/post/${post.id}`; 
+                        // CORRECTED: Link to single_post.html with query parameter
+                        let readMoreLink = `/single_post.html?postId=${post.id}`; 
                         let viewMediaButton = ''; 
 
                         // Truncate the excerpt for display on the posts list page
-                        const truncatedExcerpt = truncateText(post.excerpt, 150); // Truncate to 150 characters
+                        // Use post.content for truncation if excerpt is empty, as post.content holds the full text
+                        const textToTruncate = post.excerpt || post.content || '';
+                        const truncatedExcerpt = truncateText(textToTruncate, 150); // Truncate to 150 characters
 
                         if (post.image_url) {
                             const mediaFileForModal = {
@@ -555,7 +560,7 @@
                                 file_name: post.file_name || post.image_url.split('/').pop(),
                                 file_type: post.file_type || (post.image_url.match(/\.(jpeg|jpg|gif|png|mp4|webm|ogg|pdf|doc|docx|xls|xlsx|ppt|pptx)$/i) ? post.image_url.match(/\.(jpeg|jpg|gif|png|mp4|webm|ogg|pdf|doc|docx|xls|xlsx|ppt|pptx)$/i)[0].substring(1) : 'unknown'),
                                 size: post.size || 0, 
-                                uploaded_at: post.uploaded_at || 0 
+                                uploaded_at: post.uploaded_at ? new Date(post.uploaded_at).getTime() / 1000 : 0 // Ensure timestamp is in seconds for formatTimestamp
                             };
                             
                             viewMediaButton = `
