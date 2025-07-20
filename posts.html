@@ -299,14 +299,12 @@
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-6">
             <!-- Loading and Error Messages -->
-            <div id="loading-message" class="text-center text-gray-600 text-lg hidden">
-                <div class="flex justify-center items-center">
-                    <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-primary-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Loading posts...
-                </div>
+            <div id="loading-message" class="text-center text-gray-600 text-lg flex justify-center items-center">
+                <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-primary-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Loading posts...
             </div>
             <div id="error-message" class="text-center text-red-600 text-lg hidden">
                 <i class="fas fa-exclamation-triangle mr-2"></i> Failed to load posts. Please try again later.
@@ -452,7 +450,7 @@
                         <p>Click "Open in New Tab" below to view or download.</p>
                     </div>
                 `;
-            } else {
+            } else { // Assume image if no specific type or image type
                 mediaPreviewContent.innerHTML = `
                     <div class="text-center text-gray-500 p-8">
                         <i class="fas fa-question-circle text-8xl text-gray-400 mb-4"></i>
@@ -538,14 +536,15 @@
                 } else {
                     publishedPosts.forEach(post => {
                         let mediaHtml = '';
-                        let readMoreLink = `public/single_post.html?postId=${post.id}`; 
+                        // Corrected link to single_post.html
+                        let readMoreLink = `/public/post/${post.id}`; 
                         let viewMediaButton = ''; // Initialize view media button HTML
 
                         // Check if the post has an associated image_url (meaning it has media)
                         if (post.image_url) {
                             // Create a simplified 'file' object for the modal, similar to media.html
                             const mediaFileForModal = {
-                                url: post.image_url,
+                                url: post.image_url, // Use image_url for the modal's internal URL
                                 file_name: post.file_name || post.image_url.split('/').pop(),
                                 file_type: post.file_type || (post.image_url.match(/\.(jpeg|jpg|gif|png|mp4|webm|ogg|pdf|doc|docx|xls|xlsx|ppt|pptx)$/i) ? post.image_url.match(/\.(jpeg|jpg|gif|png|mp4|webm|ogg|pdf|doc|docx|xls|xlsx|ppt|pptx)$/i)[0].substring(1) : 'unknown'),
                                 size: post.size || 0, // Size might not be available from post data
