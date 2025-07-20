@@ -503,6 +503,13 @@
             return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
         }
 
+        // NEW: Function to truncate text
+        function truncateText(text, maxLength) {
+            if (!text) return '';
+            if (text.length <= maxLength) return text;
+            return text.substring(0, maxLength) + '...';
+        }
+
 
         // Fetch and display posts
         document.addEventListener('DOMContentLoaded', async () => {
@@ -536,23 +543,21 @@
                 } else {
                     publishedPosts.forEach(post => {
                         let mediaHtml = '';
-                        // Corrected link to single_post.html
                         let readMoreLink = `/public/post/${post.id}`; 
-                        let viewMediaButton = ''; // Initialize view media button HTML
+                        let viewMediaButton = ''; 
 
-                        // Check if the post has an associated image_url (meaning it has media)
+                        // Truncate the excerpt for display on the posts list page
+                        const truncatedExcerpt = truncateText(post.excerpt, 150); // Truncate to 150 characters
+
                         if (post.image_url) {
-                            // Create a simplified 'file' object for the modal, similar to media.html
                             const mediaFileForModal = {
-                                url: post.image_url, // Use image_url for the modal's internal URL
+                                url: post.image_url, 
                                 file_name: post.file_name || post.image_url.split('/').pop(),
                                 file_type: post.file_type || (post.image_url.match(/\.(jpeg|jpg|gif|png|mp4|webm|ogg|pdf|doc|docx|xls|xlsx|ppt|pptx)$/i) ? post.image_url.match(/\.(jpeg|jpg|gif|png|mp4|webm|ogg|pdf|doc|docx|xls|xlsx|ppt|pptx)$/i)[0].substring(1) : 'unknown'),
-                                size: post.size || 0, // Size might not be available from post data
-                                uploaded_at: post.uploaded_at || 0 // Timestamp might not be available from post data
+                                size: post.size || 0, 
+                                uploaded_at: post.uploaded_at || 0 
                             };
                             
-                            // Add the "View Media" button, passing the mediaFileForModal object
-                            // JSON.stringify and replace for safe HTML attribute passing
                             viewMediaButton = `
                                 <button onclick='showMediaPreviewModal(${JSON.stringify(mediaFileForModal).replace(/"/g, '&quot;')})' 
                                         class="text-gray-500 hover:text-gray-700 text-sm ml-3" title="View Media">
@@ -581,7 +586,7 @@
                                         <i class="fas fa-file-alt"></i>
                                     </div>
                                 `;
-                            } else { // Assume image if no specific type or image type
+                            } else { 
                                 mediaHtml = `
                                     <img src="${post.image_url}" alt="${post.title}" 
                                          class="w-full h-48 object-cover rounded-t-lg"
@@ -602,7 +607,7 @@
                                         ${post.category || 'General'}
                                     </span>
                                     <h2 class="text-xl font-bold text-gray-900 mb-2">${post.title || 'No Title'}</h2>
-                                    <p class="text-gray-600 text-sm mb-4">${post.excerpt || 'No excerpt available.'}</p>
+                                    <p class="text-gray-600 text-sm mb-4">${truncatedExcerpt || 'No excerpt available.'}</p>
                                     <div class="flex justify-between items-center text-gray-500 text-xs">
                                         <span>Published: ${new Date(post.publish_date).toLocaleDateString() || 'N/A'}</span>
                                         <div>
