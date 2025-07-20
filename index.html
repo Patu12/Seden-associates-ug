@@ -56,7 +56,6 @@
                         'fade-in-up': 'fade-in-up 1s ease-out',
                         'slide-in-right': 'slide-in-right 0.7s ease-out forwards',
                         'scale-in': 'scale-in 0.5s ease-out forwards',
-                        // Removed 'typewriter' from here as it's applied dynamically
                     },
                     keyframes: {
                         float: {
@@ -368,29 +367,25 @@
 
         /* Typewriter effect specific styles for general text */
         .text-type-on-scroll {
-            overflow: hidden; /* Ensures the text is hidden until typed */
             white-space: nowrap; /* Keeps the content on a single line */
+            overflow: hidden; /* Ensures the text is hidden until typed */
             display: inline-block; /* Required for width animation */
             vertical-align: bottom; /* Align with bottom of line */
             max-width: 100%; /* Important for responsiveness */
-            animation: none; /* Reset any default animations */
             opacity: 0; /* Hidden initially */
+            /* Animation properties set dynamically by JS */
         }
 
         /* This class is added dynamically by JS */
         .typing-active {
-            animation: typing var(--type-duration) steps(var(--type-steps), end) forwards,
-                       blink-caret .75s step-end infinite;
-            opacity: 1;
+            border-right: .15em solid white; /* The blinking caret */
         }
 
         /* For multi-line typing, remove white-space: nowrap and adjust overflow */
         .text-type-on-scroll.multi-line {
-            white-space: normal;
-            overflow: hidden;
+            white-space: normal; /* Allow text to wrap */
             border-right: none; /* No blinking caret for multi-line */
-            animation: none; /* No direct typing animation on this element */
-            opacity: 1; /* Always visible, characters appear via JS */
+            overflow: hidden; /* Still hide initially for character reveal */
         }
     </style>
 </head>
@@ -546,22 +541,22 @@
                 <div class="bg-gray-50 p-8 rounded-xl shadow-md card-3d-hover" data-aos="fade-up" data-aos-delay="100">
                     <div class="card-3d-hover-inner">
                         <div class="text-5xl font-bold text-primary-600 mb-4 counter" data-target="15">0+</div>
-                        <h3 class="text-xl font-semibold text-dark-800 mb-2 text-type-on-scroll">Years of Experience</h3>
-                        <p class="text-gray-600 text-type-on-scroll multi-line">Serving Ugandan businesses with financial expertise</p>
+                        <h3 class="text-xl font-semibold text-dark-800 mb-2 text-type-on-scroll" data-original-text="Years of Experience"></h3>
+                        <p class="text-gray-600 text-type-on-scroll multi-line" data-original-text="Serving Ugandan businesses with financial expertise"></p>
                     </div>
                 </div>
                 <div class="bg-gray-50 p-8 rounded-xl shadow-md card-3d-hover" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-3d-hover-inner">
                         <div class="text-5xl font-bold text-primary-600 mb-4 counter" data-target="200">0+</div>
-                        <h3 class="text-xl font-semibold text-dark-800 mb-2 text-type-on-scroll">Satisfied Clients</h3>
-                        <p class="text-gray-600 text-type-on-scroll multi-line">Businesses and individuals trusting our services</p>
+                        <h3 class="text-xl font-semibold text-dark-800 mb-2 text-type-on-scroll" data-original-text="Satisfied Clients"></h3>
+                        <p class="text-gray-600 text-type-on-scroll multi-line" data-original-text="Businesses and individuals trusting our services"></p>
                     </div>
                 </div>
                 <div class="bg-gray-50 p-8 rounded-xl shadow-md card-3d-hover" data-aos="fade-up" data-aos-delay="300">
                     <div class="card-3d-hover-inner">
                         <div class="text-5xl font-bold text-primary-600 mb-4 counter" data-target="98">0%</div>
-                        <h3 class="text-xl font-semibold text-dark-800 mb-2 text-type-on-scroll">Success Rate</h3>
-                        <p class="text-gray-600 text-type-on-scroll multi-line">In achieving client financial objectives</p>
+                        <h3 class="text-xl font-semibold text-dark-800 mb-2 text-type-on-scroll" data-original-text="Success Rate"></h3>
+                        <p class="text-gray-600 text-type-on-scroll multi-line" data-original-text="In achieving client financial objectives"></p>
                     </div>
                 </div>
             </div>
@@ -576,14 +571,10 @@
         <div class="container mx-auto px-6 relative z-20">
             <div class="flex flex-col lg:flex-row items-center gap-12">
                 <div class="lg:w-1/2" data-aos="fade-right">
-                    <span class="text-primary-600 font-semibold text-type-on-scroll">ABOUT US</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-6 text-type-on-scroll">Your Trusted Financial Partner in Uganda</h2>
-                    <p class="text-lg text-gray-600 mb-6 leading-relaxed text-type-on-scroll multi-line">
-                        Founded in 2019, SEDEN ASSOCIATES has grown to become one of Uganda's leading financial services firms, combining global expertise with deep local knowledge. We provide comprehensive accounting, tax, and advisory services tailored to Uganda's dynamic business environment.
-                    </p>
-                    <p class="text-lg text-gray-600 mb-8 leading-relaxed text-type-on-scroll multi-line">
-                        Our mission is to empower businesses and professionals with innovative financial solutions that drive sustainable growth and create long-term value.
-                    </p>
+                    <span class="text-primary-600 font-semibold text-type-on-scroll" data-original-text="ABOUT US"></span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-6 text-type-on-scroll" data-original-text="Your Trusted Financial Partner in Uganda"></h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed text-type-on-scroll multi-line" data-original-text="Founded in 2019, SEDEN ASSOCIATES has grown to become one of Uganda's leading financial services firms, combining global expertise with deep local knowledge. We provide comprehensive accounting, tax, and advisory services tailored to Uganda's dynamic business environment."></p>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed text-type-on-scroll multi-line" data-original-text="Our mission is to empower businesses and professionals with innovative financial solutions that drive sustainable growth and create long-term value."></p>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="about.html" class="bg-primary-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-primary-700 transition duration-300 shadow-md glow-button">
                             Learn More About Us
@@ -608,9 +599,9 @@
     <section class="py-20 bg-white content-section">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <span class="text-primary-600 font-semibold text-type-on-scroll">OUR SERVICES</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4 text-type-on-scroll">Comprehensive Financial Solutions</h2>
-                <p class="max-w-2xl mx-auto text-gray-600 text-type-on-scroll multi-line">Tailored services to meet all your accounting, tax, and financial education needs</p>
+                <span class="text-primary-600 font-semibold text-type-on-scroll" data-original-text="OUR SERVICES"></span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4 text-type-on-scroll" data-original-text="Comprehensive Financial Solutions"></h2>
+                <p class="max-w-2xl mx-auto text-gray-600 text-type-on-scroll multi-line" data-original-text="Tailored services to meet all your accounting, tax, and financial education needs"></p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -624,8 +615,8 @@
                             <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                         </div>
                         <div class="p-8">
-                            <h3 class="text-2xl font-bold text-dark-800 mb-3 text-type-on-scroll">Accounting & Bookkeeping</h3>
-                            <p class="text-gray-600 mb-6 text-type-on-scroll multi-line">Accurate financial records are the backbone of any successful business. We handle your bookkeeping, financial statements, and reporting.</p>
+                            <h3 class="text-2xl font-bold text-dark-800 mb-3 text-type-on-scroll" data-original-text="Accounting & Bookkeeping"></h3>
+                            <p class="text-gray-600 mb-6 text-type-on-scroll multi-line" data-original-text="Accurate financial records are the backbone of any successful business. We handle your bookkeeping, financial statements, and reporting."></p>
                             <a href="services.html#accounting" class="text-primary-600 font-medium hover:text-primary-800 transition-colors duration-300 inline-flex items-center">
                                 Learn More
                                 <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -646,8 +637,8 @@
                             <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                         </div>
                         <div class="p-8">
-                            <h3 class="text-2xl font-bold text-dark-800 mb-3 text-type-on-scroll">Tax Planning & Compliance</h3>
-                            <p class="text-gray-600 mb-6 text-type-on-scroll multi-line">Navigate the complexities of Ugandan tax laws with ease. We offer expert tax preparation, planning, and advisory services.</p>
+                            <h3 class="text-2xl font-bold text-dark-800 mb-3 text-type-on-scroll" data-original-text="Tax Planning & Compliance"></h3>
+                            <p class="text-gray-600 mb-6 text-type-on-scroll multi-line" data-original-text="Navigate the complexities of Ugandan tax laws with ease. We offer expert tax preparation, planning, and advisory services."></p>
                             <a href="services.html#tax" class="text-secondary-600 font-medium hover:text-secondary-800 transition-colors duration-300 inline-flex items-center">
                                 Learn More
                                 <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -668,8 +659,8 @@
                             <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                         </div>
                         <div class="p-8">
-                            <h3 class="text-2xl font-bold text-dark-800 mb-3 text-type-on-scroll">CPA Education & Training</h3>
-                            <p class="text-gray-600 mb-6 text-type-on-scroll multi-line">Invest in your career with our specialized CPA classes and financial training programs designed for professional success.</p>
+                            <h3 class="text-2xl font-bold text-dark-800 mb-3 text-type-on-scroll" data-original-text="CPA Education & Training"></h3>
+                            <p class="text-gray-600 mb-6 text-type-on-scroll multi-line" data-original-text="Invest in your career with our specialized CPA classes and financial training programs designed for professional success."></p>
                             <a href="classes.html" class="text-primary-600 font-medium hover:text-primary-800 transition-colors duration-300 inline-flex items-center">
                                 Learn More
                                 <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -692,9 +683,9 @@
     <section class="py-20 bg-gray-50 content-section">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <span class="text-primary-600 font-semibold text-type-on-scroll">WHY CHOOSE US</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4 text-type-on-scroll">What Sets SEDEN ASSOCIATES Apart</h2>
-                <p class="max-w-2xl mx-auto text-gray-600 text-type-on-scroll multi-line">We go beyond traditional accounting to deliver exceptional value</p>
+                <span class="text-primary-600 font-semibold text-type-on-scroll" data-original-text="WHY CHOOSE US"></span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4 text-type-on-scroll" data-original-text="What Sets SEDEN ASSOCIATES Apart"></h2>
+                <p class="max-w-2xl mx-auto text-gray-600 text-type-on-scroll multi-line" data-original-text="We go beyond traditional accounting to deliver exceptional value"></p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -705,8 +696,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.944 12c0 2.872 1.15 5.498 3.04 7.425M12 21c2.872 0 5.498-1.15 7.425-3.04M12 21c-2.872 0-5.498-1.15-7.425-3.04"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-dark-800 mb-2 text-type-on-scroll">Local Expertise</h3>
-                        <p class="text-gray-600 text-type-on-scroll multi-line">Deep understanding of Ugandan regulations and market dynamics for tailored, effective solutions.</p>
+                        <h3 class="text-xl font-semibold text-dark-800 mb-2 text-type-on-scroll" data-original-text="Local Expertise"></h3>
+                        <p class="text-gray-600 text-type-on-scroll multi-line" data-original-text="Deep understanding of Ugandan regulations and market dynamics for tailored, effective solutions."></p>
                     </div>
                 </div>
                 <div class="bg-white p-8 rounded-xl shadow-md card-3d-hover" data-aos="fade-up" data-aos-delay="200">
@@ -717,8 +708,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-dark-800 mb-2 text-type-on-scroll">Personalized Approach</h3>
-                        <p class="text-gray-600 text-type-on-scroll multi-line">We take the time to understand your unique needs and goals, offering customized strategies for success.</p>
+                        <h3 class="text-xl font-semibold text-dark-800 mb-2 text-type-on-scroll" data-original-text="Personalized Approach"></h3>
+                        <p class="text-gray-600 text-type-on-scroll multi-line" data-original-text="We take the time to understand your unique needs and goals, offering customized strategies for success."></p>
                     </div>
                 </div>
                 <div class="bg-white p-8 rounded-xl shadow-md card-3d-hover" data-aos="fade-up" data-aos-delay="300">
@@ -728,8 +719,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-dark-800 mb-2 text-type-on-scroll">Proven Results</h3>
-                        <p class="text-gray-600 text-type-on-scroll multi-line">A track record of helping businesses and individuals achieve their financial objectives and growth.</p>
+                        <h3 class="text-xl font-semibold text-dark-800 mb-2 text-type-on-scroll" data-original-text="Proven Results"></h3>
+                        <p class="text-gray-600 text-type-on-scroll multi-line" data-original-text="A track record of helping businesses and individuals achieve their financial objectives and growth."></p>
                     </div>
                 </div>
             </div>
@@ -740,9 +731,9 @@
     <section class="py-20 bg-white content-section">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <span class="text-primary-600 font-semibold text-type-on-scroll">CLIENT TESTIMONIALS</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4 text-type-on-scroll">What Our Clients Say</h2>
-                <p class="max-w-2xl mx-auto text-gray-600 text-type-on-scroll multi-line">Don't just take our word for it - hear from our satisfied clients</p>
+                <span class="text-primary-600 font-semibold text-type-on-scroll" data-original-text="CLIENT TESTIMONIALS"></span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mt-2 mb-4 text-type-on-scroll" data-original-text="What Our Clients Say"></h2>
+                <p class="max-w-2xl mx-auto text-gray-600 text-type-on-scroll multi-line" data-original-text="Don't just take our word for it - hear from our satisfied clients"></p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -753,12 +744,12 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                             </svg>
                         </div>
-                        <p class="text-lg text-gray-600 italic mb-6 text-type-on-scroll multi-line">"SEDEN ASSOCIATES transformed our financial operations. Their tax planning saved us 30% in liabilities last year. Truly exceptional service!"</p>
+                        <p class="text-lg text-gray-600 italic mb-6 text-type-on-scroll multi-line" data-original-text="&quot;SEDEN ASSOCIATES transformed our financial operations. Their tax planning saved us 30% in liabilities last year. Truly exceptional service!&quot;"></p>
                         <div class="flex items-center">
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-primary-600 group-hover:border-secondary-500 transition-colors duration-300">
                             <div>
-                                <h4 class="font-bold text-dark-800 text-type-on-scroll">Robert Kato</h4>
-                                <p class="text-gray-500 text-type-on-scroll">CEO, Kampala Enterprises</p>
+                                <h4 class="font-bold text-dark-800 text-type-on-scroll" data-original-text="Robert Kato"></h4>
+                                <p class="text-gray-500 text-type-on-scroll" data-original-text="CEO, Kampala Enterprises"></p>
                             </div>
                         </div>
                     </div>
@@ -771,12 +762,12 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                             </svg>
                         </div>
-                        <p class="text-lg text-gray-600 italic mb-6 text-type-on-scroll multi-line">"The CPA classes were comprehensive and practical. I passed my exams on the first attempt thanks to their excellent instructors and materials."</p>
+                        <p class="text-lg text-gray-600 italic mb-6 text-type-on-scroll multi-line" data-original-text="&quot;The CPA classes were comprehensive and practical. I passed my exams on the first attempt thanks to their excellent instructors and materials.&quot;"></p>
                         <div class="flex items-center">
                             <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-primary-600 group-hover:border-secondary-500 transition-colors duration-300">
                             <div>
-                                <h4 class="font-bold text-dark-800 text-type-on-scroll">Sarah Nalwoga</h4>
-                                <p class="text-gray-500 text-type-on-scroll">CPA Student</p>
+                                <h4 class="font-bold text-dark-800 text-type-on-scroll" data-original-text="Sarah Nalwoga"></h4>
+                                <p class="text-gray-500 text-type-on-scroll" data-original-text="CPA Student"></p>
                             </div>
                         </div>
                     </div>
@@ -792,8 +783,8 @@
 
         <div class="container mx-auto px-6 text-center relative z-20">
             <div class="max-w-3xl mx-auto" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 text-type-on-scroll">Ready to Transform Your Financial Future?</h2>
-                <p class="text-xl text-white opacity-90 mb-10 text-type-on-scroll multi-line">Whether you're a business seeking expert accounting services or a professional looking to advance your career, we're here to help you succeed.</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 text-type-on-scroll" data-original-text="Ready to Transform Your Financial Future?"></h2>
+                <p class="text-xl text-white opacity-90 mb-10 text-type-on-scroll multi-line" data-original-text="Whether you're a business seeking expert accounting services or a professional looking to advance your career, we're here to help you succeed."></p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <a href="contact.html" class="bg-white text-primary-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg glow-button">
                         Get Started Today
@@ -909,8 +900,9 @@
         <div class="recent-posts-modal-content">
             <button class="close-button" id="recent-posts-close-button" aria-label="Close recent posts pop-up">&times;</button>
             <h3 id="recent-posts-title">Recent Posts</h3>
-            <div id="recent-posts-loading" class="text-center text-gray-600 text-lg flex justify-center items-center">
-                <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-primary-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <div id="recent-posts-loading" class="text-center text-gray-600 text-lg hidden">
+                <div class="flex justify-center items-center">
+                    <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-primary-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
@@ -1259,11 +1251,15 @@
                 return; // Already typed, do nothing
             }
 
-            const originalText = element.dataset.originalText || element.textContent;
+            const originalText = element.dataset.originalText; // Get original text from data attribute
+            if (!originalText) {
+                console.warn('Element has no data-original-text attribute:', element);
+                return;
+            }
+
             element.textContent = ''; // Clear content
-            element.classList.add('typing-active'); // Add class for animation
-            
-            // For multi-line text, we need to handle character by character for each line
+            element.style.opacity = '1'; // Make element visible immediately
+
             const isMultiLine = element.classList.contains('multi-line');
             let charIndex = 0;
 
@@ -1271,8 +1267,13 @@
                 if (charIndex < originalText.length) {
                     element.textContent += originalText.charAt(charIndex);
                     charIndex++;
+                    // Add blinking caret only for single-line elements
+                    if (!isMultiLine) {
+                        element.classList.add('typing-active'); 
+                    }
                     setTimeout(animateTyping, speed);
                 } else {
+                    // Typing finished
                     element.classList.remove('typing-active'); // Remove blinking caret
                     typedElements.add(element); // Mark as typed
                 }
@@ -1297,10 +1298,6 @@
                     const textElements = entry.target.querySelectorAll('.text-type-on-scroll');
                     let delay = 0;
                     textElements.forEach(textEl => {
-                        // Store original text if not already stored
-                        if (!textEl.dataset.originalText) {
-                            textEl.dataset.originalText = textEl.textContent;
-                        }
                         // Remove AOS attribute to avoid conflict
                         textEl.removeAttribute('data-aos');
                         
@@ -1344,7 +1341,8 @@
             // Initial typing for the hero headline
             const heroTypewriterTextElement = document.getElementById('hero-typewriter-text');
             if (heroTypewriterTextElement) {
-                heroTypewriterTextElement.dataset.originalText = heroTypewriterTextElement.textContent; // Store original text
+                // Ensure data-original-text is set in HTML for hero text too
+                heroTypewriterTextElement.dataset.originalText = heroTypewriterTextElement.textContent; 
                 typeText(heroTypewriterTextElement, 1500); // Start typing after 1.5 seconds
             }
 
