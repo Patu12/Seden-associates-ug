@@ -78,11 +78,6 @@
                             '0%': { transform: 'scale(0.8)', opacity: '0' },
                             '100%': { transform: 'scale(1)', opacity: '1' },
                         },
-                        // Typewriter effect (kept here for dynamic application)
-                        typing: {
-                            from: { width: '0' },
-                            to: { width: '100%' }
-                        },
                         'blink-caret': {
                             'from, to': { 'border-color': 'transparent' },
                             '50%': { 'border-color': 'white' }
@@ -194,7 +189,7 @@
             line-height: 0;
             transform: rotate(180deg);
         }
-        .custom-shape-divider-bottom-1689338506 svg {
+        .custom-shape-divider-bottom-1689333506 svg {
             position: relative;
             display: block;
             width: calc(100% + 1.3px);
@@ -367,25 +362,21 @@
 
         /* Typewriter effect specific styles for general text */
         .text-type-on-scroll {
-            white-space: nowrap; /* Keeps the content on a single line */
-            overflow: hidden; /* Ensures the text is hidden until typed */
-            display: inline-block; /* Required for width animation */
-            vertical-align: bottom; /* Align with bottom of line */
-            max-width: 100%; /* Important for responsiveness */
-            opacity: 0; /* Hidden initially */
-            /* Animation properties set dynamically by JS */
+            /* Initially hidden, will be made visible by JS */
+            opacity: 0; 
+            /* No overflow: hidden or white-space: nowrap here, handled by JS */
         }
 
-        /* This class is added dynamically by JS */
+        /* This class is added dynamically by JS for the blinking caret */
         .typing-active {
             border-right: .15em solid white; /* The blinking caret */
+            animation: blink-caret .75s step-end infinite; /* Only blink animation */
         }
 
-        /* For multi-line typing, remove white-space: nowrap and adjust overflow */
+        /* For multi-line typing, no specific CSS animation, just JS character append */
         .text-type-on-scroll.multi-line {
-            white-space: normal; /* Allow text to wrap */
-            border-right: none; /* No blinking caret for multi-line */
-            overflow: hidden; /* Still hide initially for character reveal */
+            /* No specific CSS needed here for typing effect, handled by JS */
+            white-space: normal; /* Allow text to wrap for paragraphs */
         }
     </style>
 </head>
@@ -500,7 +491,7 @@
         <div class="container mx-auto px-6 relative z-20 text-center" data-aos="fade-up" data-aos-duration="1000">
             <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
                 <span class="text-gradient">Financial Excellence</span><br>
-                <span id="hero-typewriter-text" class="text-type-on-scroll">For Uganda's Future</span>
+                <span id="hero-typewriter-text" class="text-type-on-scroll" data-original-text="For Uganda's Future"></span>
             </h1>
             <p class="text-xl md:text-2xl text-white opacity-90 max-w-3xl mx-auto mb-10 animate-fade-in-up" style="animation-delay: 0.3s;">
                 Empowering businesses and professionals with cutting-edge accounting, tax solutions, and financial education.
@@ -606,7 +597,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Service 1 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-3d-hover border border-gray-100" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-3d-hover" data-aos="fade-up" data-aos-delay="100">
                     <div class="card-3d-hover-inner">
                         <div class="h-48 bg-gradient-to-r from-primary-500 to-primary-700 flex items-center justify-center relative service-card-icon-container">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-white transition-transform duration-300 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -628,7 +619,7 @@
                 </div>
                 
                 <!-- Service 2 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-3d-hover border border-gray-100" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-3d-hover" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-3d-hover-inner">
                         <div class="h-48 bg-gradient-to-r from-secondary-500 to-secondary-700 flex items-center justify-center relative service-card-icon-container">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-white transition-transform duration-300 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -650,7 +641,7 @@
                 </div>
                 
                 <!-- Service 3 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-3d-hover border border-gray-100" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-3d-hover" data-aos="fade-up" data-aos-delay="300">
                     <div class="card-3d-hover-inner">
                         <div class="h-48 bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center relative service-card-icon-container">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-white transition-transform duration-300 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -805,7 +796,7 @@
                     <a href="index.html" class="flex items-center space-x-2 mb-6">
                         <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2 1.343-2 3-2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895-3-2 1.343-2 3-2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
                         <span class="text-xl font-bold">
@@ -1207,6 +1198,12 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const target = parseInt(entry.target.dataset.target);
+                    // Check if the text content already has a non-zero value, to prevent re-animating
+                    if (parseInt(entry.target.textContent) === target) {
+                        observer.unobserve(entry.target); // Already animated, stop observing
+                        return;
+                    }
+
                     const isPercentage = entry.target.textContent.includes('%');
                     const isPlus = entry.target.textContent.includes('+');
                     let current = 0;
@@ -1248,12 +1245,21 @@
 
         function typeText(element, delay = 0, speed = 50) {
             if (typedElements.has(element)) {
+                console.log(`[TypeWriter] Element already typed, skipping:`, element);
                 return; // Already typed, do nothing
             }
 
             const originalText = element.dataset.originalText; // Get original text from data attribute
+            console.log(`[TypeWriter] Attempting to type element:`, element, `with original text: "${originalText}"`);
+
             if (!originalText) {
-                console.warn('Element has no data-original-text attribute:', element);
+                console.warn('[TypeWriter] Element has no data-original-text attribute or it is empty. Ensuring visibility:', element);
+                element.style.opacity = '1'; // Ensure it's visible even if no text to type
+                // Fallback: If originalText is empty, ensure the element is visible and stop.
+                if (element.textContent === '') { // Only set if truly empty
+                    element.textContent = 'ERROR: Text missing'; // Placeholder for debugging
+                }
+                typedElements.add(element); // Mark as typed to prevent future attempts
                 return;
             }
 
@@ -1263,23 +1269,24 @@
             const isMultiLine = element.classList.contains('multi-line');
             let charIndex = 0;
 
+            // Apply caret for single line elements immediately
+            if (!isMultiLine) {
+                element.classList.add('typing-active'); // This adds the blinking caret
+            }
+
             function animateTyping() {
                 if (charIndex < originalText.length) {
                     element.textContent += originalText.charAt(charIndex);
                     charIndex++;
-                    // Add blinking caret only for single-line elements
-                    if (!isMultiLine) {
-                        element.classList.add('typing-active'); 
-                    }
                     setTimeout(animateTyping, speed);
                 } else {
                     // Typing finished
                     element.classList.remove('typing-active'); // Remove blinking caret
                     typedElements.add(element); // Mark as typed
+                    console.log(`[TypeWriter] Typing finished for:`, element);
                 }
             }
 
-            // Start typing after the initial delay
             setTimeout(animateTyping, delay);
         }
 
@@ -1295,9 +1302,16 @@
         const textTypeObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+                    console.log(`[TypeWriter Observer] Section intersecting:`, entry.target.id || entry.target.tagName);
                     const textElements = entry.target.querySelectorAll('.text-type-on-scroll');
                     let delay = 0;
                     textElements.forEach(textEl => {
+                        // Ensure data-original-text is set. If not, get from textContent and set.
+                        // This fallback is less critical now that HTML should be pre-populated
+                        if (!textEl.dataset.originalText) {
+                            textEl.dataset.originalText = textEl.textContent; 
+                            console.warn(`[TypeWriter Observer] data-original-text not set for:`, textEl, `Using current textContent.`);
+                        }
                         // Remove AOS attribute to avoid conflict
                         textEl.removeAttribute('data-aos');
                         
@@ -1318,18 +1332,21 @@
 
         // --- Initial Load Logic ---
         document.addEventListener('DOMContentLoaded', () => {
+            console.log("[DOMContentLoaded] Page loaded.");
             // Ensure video autoplays and is visible
             const video = document.getElementById('hero-video');
             const placeholder = document.getElementById('video-placeholder');
             
             video.play().then(() => {
                 placeholder.style.display = 'none';
+                console.log("[Video] Autoplay successful, placeholder hidden.");
             }).catch(error => {
-                console.log('Autoplay prevented:', error);
+                console.log('[Video] Autoplay prevented:', error);
                 placeholder.innerHTML = '<button class="bg-white text-primary-600 px-6 py-3 rounded-full">Play Video</button>';
                 placeholder.querySelector('button').addEventListener('click', function() {
                     video.play();
                     placeholder.style.display = 'none';
+                    console.log("[Video] Play button clicked, video playing, placeholder hidden.");
                 });
             });
             
@@ -1342,7 +1359,10 @@
             const heroTypewriterTextElement = document.getElementById('hero-typewriter-text');
             if (heroTypewriterTextElement) {
                 // Ensure data-original-text is set in HTML for hero text too
-                heroTypewriterTextElement.dataset.originalText = heroTypewriterTextElement.textContent; 
+                if (!heroTypewriterTextElement.dataset.originalText) {
+                    heroTypewriterTextElement.dataset.originalText = heroTypewriterTextElement.textContent; 
+                    console.warn(`[Hero TypeWriter] data-original-text not set for hero text. Using current textContent.`);
+                }
                 typeText(heroTypewriterTextElement, 1500); // Start typing after 1.5 seconds
             }
 
@@ -1351,6 +1371,7 @@
                 setTimeout(() => {
                     showRecentPostsModal();
                 }, 4000); // Show after 4 seconds (after hero typing effect)
+                console.log("[Recent Posts] Fetch complete, modal scheduled to show.");
             });
         });
     </script>
