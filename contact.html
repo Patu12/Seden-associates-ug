@@ -632,7 +632,7 @@
             chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
             
             // Send message to backend
-            fetch('/api/chatbot', {
+            fetch('https://Mwanga.pythonanywhere.com/api/chatbot', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
