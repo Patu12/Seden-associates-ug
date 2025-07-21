@@ -94,6 +94,29 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
+
+        /* Chatbot styles */
+        .chat-message {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .typing-indicator {
+            width: 40px;
+        }
+        
+        .chatbot-container {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        #chatbot-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+        }
     </style>
 </head>
 <body class="font-sans antialiased text-dark-700 bg-gray-50 overflow-x-hidden">
@@ -102,16 +125,14 @@
     <header class="fixed w-full z-40 bg-white shadow-md">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-<!-- Logo -->
-<a href="index.html" class="flex items-center space-x-4"> <!-- Increased space-x from 2 to 4 for better spacing -->
-    <!-- Your logo image - now larger -->
-    <img src="images/logo 1.jpg" alt="Seden Associates Logo" class="w-16 h-16 object-contain"> <!-- Increased size -->
-    
-    <span class="text-2xl font-bold">
-        <span class="text-primary-600">SEDEN</span>
-        <span class="text-secondary-500">ASSOCIATES</span>
-    </span>
-</a>
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center space-x-4">
+                    <img src="images/logo 1.jpg" alt="Seden Associates Logo" class="w-16 h-16 object-contain">
+                    <span class="text-2xl font-bold">
+                        <span class="text-primary-600">SEDEN</span>
+                        <span class="text-secondary-500">ASSOCIATES</span>
+                    </span>
+                </a>
                 
                 <!-- Desktop Navigation -->
                 <nav class="hidden lg:flex items-center space-x-8">
@@ -127,8 +148,8 @@
                         About
                         <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="classes.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
-                        CPA Classes
+                    <a href="trainings.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
+                        Trainings
                         <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
                     </a>
                     <a href="team.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
@@ -159,7 +180,7 @@
         <div class="container mx-auto px-6 text-center">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" data-aos="fade-up">Get In Touch</h1>
             <p class="text-xl md:text-2xl max-w-3xl mx-auto opacity-90" data-aos="fade-up" data-aos-delay="100">
-                We're here to help with all your financial needs. Reach out for expert advice and services.
+                We're here to help with all your accounting, audit, and advisory needs. Reach out for expert services.
             </p>
         </div>
     </section>
@@ -250,11 +271,12 @@
                             <label for="service" class="block text-sm font-medium text-gray-700 mb-1">Service Needed</label>
                             <select id="service" name="service" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent form-input">
                                 <option value="">Select a service</option>
-                                <option value="accounting">Accounting & Bookkeeping</option>
-                                <option value="tax">Tax Services</option>
                                 <option value="audit">Audit & Assurance</option>
+                                <option value="accounting">Accounting & Bookkeeping</option>
+                                <option value="bookkeeping">Bookkeeping</option>
                                 <option value="advisory">Business Advisory</option>
-                                <option value="training">CPA Training</option>
+                                <option value="tax">Tax Services</option>
+                                <option value="training">Professional Training</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
@@ -272,16 +294,20 @@
                     </form>
                 </div>
                 
-                <!-- Map -->
+                <!-- Map and FAQs -->
                 <div class="flex flex-col" data-aos="fade-left">
-                    <div id="map" class="h-96 rounded-xl overflow-hidden shadow-md map-container transition-all duration-300">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7536223157963!2d32.580514514753894!3d0.3132209997999945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177dbb93c5695ab7%3A0x8e21e07b2f1c0d8a!2sKampala%20Road%2C%20Kampala%2C%20Uganda!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" 
-                                width="100%" 
-                                height="100%" 
-                                style="border:0;" 
-                                allowfullscreen="" 
-                                loading="lazy"></iframe>
+                    <div class="aspect-w-16 aspect-h-9 w-full overflow-hidden rounded-xl shadow-lg map-container transition-all duration-300">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.65868297746!2d32.61746237494191!3d0.320491999692484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177dbb46328a9b7f%3A0xc319d6514f0e21a2!2sKisakye%20Complex!5e0!3m2!1sen!2sug!4v1719502127101!5m2!1sen!2sug"
+                            width="100%"
+                            height="100%"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
                     </div>
+                    <p class="text-gray-600 mt-6 text-lg text-center">Visit us at Kisakye Complex, Bugolobi during business hours.</p>
                     
                     <div class="mt-8 bg-white rounded-xl shadow-md p-8">
                         <h3 class="text-xl font-bold text-dark-800 mb-4">Frequently Asked Questions</h3>
@@ -327,8 +353,8 @@
     <section class="py-20 bg-gradient-to-r from-primary-700 to-secondary-600 text-white">
         <div class="container mx-auto px-6 text-center">
             <div class="max-w-3xl mx-auto" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Grow Your Business?</h2>
-                <p class="text-xl opacity-90 mb-10">Our financial experts are ready to help you achieve your business goals. Schedule a consultation today.</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Optimize Your Business Finances?</h2>
+                <p class="text-xl opacity-90 mb-10">Our experts in audit, accounting, bookkeeping, and business advisory are ready to help you achieve your financial goals. Schedule a consultation today.</p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <a href="tel:+256 704301130" class="inline-block bg-white text-primary-600 hover:bg-gray-100 px-8 py-4 rounded-full text-lg font-semibold shadow-md transition duration-300 transform hover:scale-105">
                         <i class="fas fa-phone-alt mr-2"></i> Call Now
@@ -349,7 +375,7 @@
                     <a href="index.html" class="flex items-center space-x-2 mb-6">
                         <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895-3-2 1.343-2 3-2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
                         <span class="text-xl font-bold">
@@ -380,8 +406,8 @@
                         <li><a href="index.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Home</a></li>
                         <li><a href="services.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Services</a></li>
                         <li><a href="about.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">About Us</a></li>
+                        <li><a href="trainings.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Trainings</a></li>
                         <li><a href="team.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Our Team</a></li>
-                        <li><a href="classes.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">CPA Classes</a></li>
                         <li><a href="contact.html" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Contact</a></li>
                     </ul>
                 </div>
@@ -393,7 +419,7 @@
                         <li><a href="services.html#tax" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Tax Planning & Compliance</a></li>
                         <li><a href="services.html#audit" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Audit & Assurance</a></li>
                         <li><a href="services.html#advisory" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Business Advisory</a></li>
-                        <li><a href="services.html#training" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Financial Training</a></li>
+                        <li><a href="services.html#training" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Professional Training</a></li>
                         <li><a href="services.html#payroll" class="text-gray-400 hover:text-primary-400 transition-colors duration-300">Payroll Management</a></li>
                     </ul>
                 </div>
@@ -496,5 +522,168 @@
             contactForm.reset();
         });
     </script>
-</body>
-</html>
+    <!-- Add this right before the closing </body> tag in contact.html -->
+<!-- Chatbot Widget -->
+<div id="chatbot-container" class="fixed bottom-8 right-8 z-50 w-80 bg-white rounded-t-xl shadow-xl transition-all duration-300 transform translate-y-0" style="display: none; height: 500px;">
+    <div class="bg-gradient-to-r from-primary-600 to-secondary-500 text-white p-4 rounded-t-xl flex justify-between items-center">
+        <h3 class="font-bold">SEDEN Assistant</h3>
+        <button id="chatbot-close" class="text-white hover:text-gray-200 focus:outline-none">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <div id="chatbot-messages" class="p-4 h-80 overflow-y-auto bg-gray-50" style="height: 380px;">
+        <div class="chat-message bot-message mb-4">
+            <div class="flex items-start">
+                <div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center mr-3">
+                    <i class="fas fa-robot text-primary-600"></i>
+                </div>
+                <div class="bg-white p-3 rounded-lg shadow-sm max-w-xs">
+                    <p class="text-sm">Hello! I'm SEDEN's virtual assistant. How can I help you with our financial services today?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="p-3 border-t border-gray-200 bg-white">
+        <div class="flex items-center">
+            <input id="chatbot-input" type="text" placeholder="Type your message..." class="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+            <button id="chatbot-send" class="ml-2 bg-gradient-to-r from-primary-600 to-secondary-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:shadow-md transition-all">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Chatbot Toggle Button -->
+<button id="chatbot-toggle" class="fixed bottom-8 right-8 bg-gradient-to-r from-primary-600 to-secondary-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all z-40">
+    <i class="fas fa-comment-dots text-xl"></i>
+</button>
+
+<!-- Add this to your existing script section -->
+<script>
+    // Chatbot functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const chatbotContainer = document.getElementById('chatbot-container');
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotSend = document.getElementById('chatbot-send');
+        
+        // Toggle chatbot visibility
+        chatbotToggle.addEventListener('click', function() {
+            if (chatbotContainer.style.display === 'none') {
+                chatbotContainer.style.display = 'block';
+                chatbotContainer.classList.remove('translate-y-10', 'opacity-0');
+                chatbotContainer.classList.add('translate-y-0', 'opacity-100');
+            } else {
+                chatbotContainer.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => {
+                    chatbotContainer.style.display = 'none';
+                }, 300);
+            }
+        });
+        
+        // Close chatbot
+        chatbotClose.addEventListener('click', function() {
+            chatbotContainer.classList.add('translate-y-10', 'opacity-0');
+            setTimeout(() => {
+                chatbotContainer.style.display = 'none';
+            }, 300);
+        });
+        
+        // Send message when button is clicked
+        chatbotSend.addEventListener('click', sendMessage);
+        
+        // Send message when Enter key is pressed
+        chatbotInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        function sendMessage() {
+            const message = chatbotInput.value.trim();
+            if (message === '') return;
+            
+            // Add user message to chat
+            addMessage(message, 'user');
+            chatbotInput.value = '';
+            
+            // Show typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'chat-message bot-message mb-4';
+            typingIndicator.innerHTML = `
+                <div class="flex items-start">
+                    <div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center mr-3">
+                        <i class="fas fa-robot text-primary-600"></i>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow-sm max-w-xs">
+                        <div class="typing-indicator flex space-x-1">
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            chatbotMessages.appendChild(typingIndicator);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            
+            // Send message to backend
+            fetch('/api/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Remove typing indicator
+                chatbotMessages.removeChild(typingIndicator);
+                
+                // Add bot response
+                addMessage(data.aiResponse, 'bot');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                chatbotMessages.removeChild(typingIndicator);
+                addMessage("Sorry, I'm having trouble connecting. Please try again later.", 'bot');
+            });
+        }
+        
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}-message mb-4`;
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="flex items-start justify-end">
+                        <div class="bg-primary-600 text-white p-3 rounded-lg shadow-sm max-w-xs">
+                            <p class="text-sm">${text}</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center ml-3">
+                            <i class="fas fa-user text-primary-600"></i>
+                        </div>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-robot text-primary-600"></i>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg shadow-sm max-w-xs">
+                            <p class="text-sm">${text}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+    });
+</script>
