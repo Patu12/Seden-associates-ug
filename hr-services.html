@@ -78,11 +78,9 @@
 </head>
 <body class="font-sans antialiased text-dark-700 bg-gray-50 overflow-x-hidden">
 
-    <!-- Navigation (Copied from index.html for consistency) -->
     <header class="fixed w-full z-40 bg-white shadow-md">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <!-- Logo -->
                 <a href="index.html" class="flex items-center space-x-4">
                     <img src="images/logo 1.jpg" alt="Seden Associates Logo" class="w-16 h-16 object-contain">
                     <span class="text-2xl font-bold">
@@ -91,7 +89,6 @@
                     </span>
                 </a>
                 
-                <!-- Desktop Navigation -->
                 <nav class="hidden lg:flex items-center space-x-8">
                     <a href="index.html" class="text-dark-800 font-medium hover:text-primary-600 transition-colors duration-300 relative group">
                         Home
@@ -130,7 +127,6 @@
                     </a>
                 </nav>
                 
-                <!-- Mobile menu button -->
                 <button class="lg:hidden focus:outline-none" id="mobile-menu-button" aria-label="Toggle menu">
                     <svg class="w-8 h-8 text-dark-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -139,7 +135,6 @@
             </div>
         </div>
         
-        <!-- Mobile Navigation -->
         <div class="lg:hidden fixed inset-0 bg-white z-40 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-300" id="mobile-menu">
             <button class="absolute top-6 right-6 focus:outline-none" id="close-menu-button">
                 <svg class="w-8 h-8 text-dark-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -163,7 +158,6 @@
         </div>
     </header>
 
-    <!-- Hero Section for HR Services -->
     <section class="pt-32 pb-20 bg-gradient-to-r from-primary-700 to-secondary-600 text-white">
         <div class="container mx-auto px-6 text-center">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" data-aos="fade-up">Human Resource Services</h1>
@@ -173,12 +167,11 @@
         </div>
     </section>
 
-    <!-- Recruitment Services Section -->
     <section class="py-16 bg-white">
         <div class="container mx-auto px-6">
             <div class="flex flex-col lg:flex-row items-center gap-12">
                 <div class="lg:w-1/2" data-aos="fade-right">
-                    <img src="images/rec1.jpg=format&fit=crop&w=1000&q=80" alt="Recruitment Services" class="rounded-xl shadow-lg w-full h-auto object-cover">
+                    <img src="images/rec1.jpg" alt="Recruitment Services" class="rounded-xl shadow-lg w-full h-auto object-cover">
                 </div>
                 <div class="lg:w-1/2" data-aos="fade-left">
                     <span class="text-sm font-semibold text-primary-600 uppercase mb-2 block">Our Expertise</span>
@@ -203,14 +196,12 @@
         </div>
     </section>
 
-    <!-- Benefits of Our HR Services Section -->
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-6 text-center">
             <span class="text-sm font-semibold text-primary-600 uppercase mb-2 block" data-aos="fade-up">Benefits</span>
             <h2 class="text-3xl md:text-4xl font-bold text-dark-800 mb-12" data-aos="fade-up" data-aos-delay="100">Why Choose SEDEN for Your Recruitment</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Benefit Card 1 -->
                 <div class="bg-white rounded-xl shadow-md p-8 text-center hover:shadow-xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="200">
                     <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fas fa-handshake text-primary-600 text-3xl"></i>
@@ -221,7 +212,6 @@
                     </p>
                 </div>
                 
-                <!-- Benefit Card 2 -->
                 <div class="bg-white rounded-xl shadow-md p-8 text-center hover:shadow-xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="300">
                     <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fas fa-clock text-primary-600 text-3xl"></i>
@@ -232,7 +222,6 @@
                     </p>
                 </div>
 
-                <!-- Benefit Card 3 -->
                 <div class="bg-white rounded-xl shadow-md p-8 text-center hover:shadow-xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="400">
                     <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fas fa-shield-alt text-primary-600 text-3xl"></i>
@@ -246,7 +235,6 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="py-20 bg-gradient-to-r from-primary-700 to-secondary-600 text-white">
         <div class="container mx-auto px-6 text-center">
             <div class="max-w-3xl mx-auto" data-aos="zoom-in">
@@ -261,7 +249,6 @@
         </div>
     </section>
 
-    <!-- Footer (Copied from index.html for consistency) -->
     <footer class="bg-dark-900 text-white pt-20 pb-10">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-16">
@@ -354,12 +341,10 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
     <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-primary-700 transition-all duration-300 opacity-0 invisible">
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Initialize AOS animation library
